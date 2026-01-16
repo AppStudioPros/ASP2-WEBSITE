@@ -13,11 +13,11 @@
   },
   {
     "content": "Phase 1 POC: Run test_core.py and fix until all tests PASS",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Build minimal backend (SSE endpoints for Claude, Battle Arena)",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "content": "Phase 1 POC: Build minimal React UI (AI Avatar chat, Battle Arena panel, Neural background)",
