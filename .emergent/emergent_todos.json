@@ -1,19 +1,19 @@
 [
   {
     "content": "Phase 1 POC: Set up environment and install dependencies (emergentintegrations, sse-starlette)",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Add EMERGENT_LLM_KEY to backend .env file",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Create comprehensive test_core.py with all integration tests (Claude SSE, Multi-model battle, SSE contract validation)",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Run test_core.py and fix until all tests PASS",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "content": "Phase 1 POC: Build minimal backend (SSE endpoints for Claude, Battle Arena)",
