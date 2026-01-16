@@ -17,15 +17,15 @@
   },
   {
     "content": "Phase 1 POC: Build minimal backend (SSE endpoints for Claude, Battle Arena)",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Build minimal React UI (AI Avatar chat, Battle Arena panel, Neural background)",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Test voice features (STT/TTS with Web Speech API) and fix issues",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "content": "Phase 1 POC: Test 3D neural background performance (60fps target) and optimize",
