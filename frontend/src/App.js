@@ -1,52 +1,73 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import React, { useState, useEffect, useRef } from 'react';
+import './App.css';
+import NeuralBackground from './components/NeuralBackground';
+import AIAvatar from './components/AIAvatar';
+import BattleArena from './components/BattleArena';
 
 function App() {
+  const [activeSection, setActiveSection] = useState('hero');
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <NeuralBackground />
+      
+      <div className="content-wrapper">
+        {/* Navigation */}
+        <nav className="nav-bar">
+          <div className="nav-logo">APP STUDIO PRO</div>
+          <div className="nav-links">
+            <button 
+              className={activeSection === 'hero' ? 'active' : ''}
+              onClick={() => setActiveSection('hero')}
+              data-testid="nav-hero"
+            >
+              AI Avatar
+            </button>
+            <button 
+              className={activeSection === 'battle' ? 'active' : ''}
+              onClick={() => setActiveSection('battle')}
+              data-testid="nav-battle"
+            >
+              Battle Arena
+            </button>
+          </div>
+        </nav>
+
+        {/* Hero Section - AI Avatar */}
+        {activeSection === 'hero' && (
+          <section className="hero-section" data-testid="hero-section">
+            <div className="hero-content">
+              <h1 className="hero-title">
+                <span className="gradient-text">THE FUTURE OF AI</span>
+                <br />
+                <span className="sub-title">IS HERE</span>
+              </h1>
+              <p className="hero-description">
+                Experience cutting-edge AI interactions with voice, streaming, and real-time generation
+              </p>
+            </div>
+            <AIAvatar />
+          </section>
+        )}
+
+        {/* Battle Arena Section */}
+        {activeSection === 'battle' && (
+          <section className="battle-section" data-testid="battle-section">
+            <h2 className="section-title">
+              <span className="gradient-text">AI BATTLE ARENA</span>
+            </h2>
+            <p className="section-description">
+              Watch Claude, GPT, and Gemini compete in real-time
+            </p>
+            <BattleArena />
+          </section>
+        )}
+
+        {/* Footer */}
+        <footer className="footer">
+          <p>App Studio Pro - Kings of AI | POC Phase 1</p>
+        </footer>
+      </div>
     </div>
   );
 }
