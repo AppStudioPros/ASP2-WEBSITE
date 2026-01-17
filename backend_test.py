@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Use public endpoint
-BASE_URL = "https://visible-check-1.preview.emergentagent.com"
+BASE_URL = "https://truthbomb.preview.emergentagent.com"
 
 class APITester:
     def __init__(self, base_url):
