@@ -1,27 +1,27 @@
 [
   {
     "content": "Phase 1 POC: Install additional dependencies (beautifulsoup4, pillow)",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Create web scraper module for URL analysis",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Integrate Claude for business detection and scoring",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Integrate OpenAI image generation for mockups",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1 POC: Create test_core_analyzer.py and verify all integrations",
-    "status": "pending"
+    "status": "completed"
   },
   {
-    "content": "Phase 1 POC: Fix until all tests pass",
-    "status": "pending"
+    "content": "Phase 1 POC: Run tests and verify PASS",
+    "status": "in_progress"
   },
   {
     "content": "Phase 2: Get professional design guidelines (70% more corporate)",
