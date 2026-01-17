@@ -16,7 +16,7 @@ class BackendAPITester:
         self.tests_passed = 0
         self.failed_tests = []
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, is_sse=False):
+    def run_test(self, name, method, endpoint, expected_status, data=None, is_sse=False, timeout=10):
         """Run a single API test"""
         url = f"{self.base_url}/{endpoint}"
         headers = {'Content-Type': 'application/json'}
@@ -27,13 +27,13 @@ class BackendAPITester:
         
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=10)
+                response = requests.get(url, headers=headers, timeout=timeout)
             elif method == 'POST':
                 if is_sse:
                     # For SSE endpoints, we just check if connection is established
-                    response = requests.post(url, json=data, headers=headers, stream=True, timeout=15)
+                    response = requests.post(url, json=data, headers=headers, stream=True, timeout=timeout)
                 else:
-                    response = requests.post(url, json=data, headers=headers, timeout=10)
+                    response = requests.post(url, json=data, headers=headers, timeout=timeout)
 
             success = response.status_code == expected_status
             
