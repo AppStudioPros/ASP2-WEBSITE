@@ -78,10 +78,10 @@ function App() {
             >
               We Don't Do <span className="text-[hsl(var(--muted-foreground))] line-through">Templates</span>
               <br />
-              <span className="inline-flex items-center gap-2">
+              <span className="inline-flex items-center gap-1">
                 <span className="gradient-text-brand">We Build</span>
                 <span className="text-[#FF6A00]">Fire</span>
-                <FireAnimation className="-ml-1" />
+                <FireAnimation size="md" className="-ml-1 -mb-1" />
               </span>
             </motion.h1>
 
