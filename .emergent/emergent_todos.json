@@ -1,46 +1,42 @@
 [
   {
-    "content": "Phase 2: Get design guidelines from design_agent for full app build",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2: Install additional dependencies (framer-motion, react-syntax-highlighter)",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2: Build complete main App with all sections and routing",
+    "content": "Phase 2 EPIC: Upgrade overall visual to 30% more futuristic (holographic effects, enhanced neon, professional tech feel)",
     "status": "in_progress"
   },
   {
-    "content": "Phase 2: Build Services section with AI demos",
+    "content": "Phase 2 EPIC: Replace avatar orb with realistic talking humanoid robot/person",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Build Portfolio Generator component",
+    "content": "Phase 2 EPIC: Build Street Fighter-style pixel battle arena with 3 fighters",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Build Holographic Project Showcase",
+    "content": "Phase 2 EPIC: Add collapsible answer boxes with real-time progress bars",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Build Team and Roadmap sections",
+    "content": "Phase 2 EPIC: Implement scoring system (speed vs detail vs accuracy)",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Build Contact form with AI assistance",
+    "content": "Phase 2 EPIC: Add fighting animations (idle, attack, hit, KO)",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Build Content Generation Demo",
+    "content": "Phase 2 EPIC: Add sound effects (punches, KO, victory) and background music",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Testing all features end-to-end",
+    "content": "Phase 2 EPIC: Implement health bars and knockout logic",
     "status": "pending"
   },
   {
-    "content": "Phase 2: Fix any bugs found in testing",
+    "content": "Phase 2 EPIC: Show winner with explanation of why they won",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Test the entire epic battle system",
     "status": "pending"
   }
 ]
