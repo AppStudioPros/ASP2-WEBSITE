@@ -1028,13 +1028,13 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                 {detectedTech.map((tech) => (
                   <div
                     key={tech.name}
-                    className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
+                    className={`px-2 py-1 rounded text-xs flex items-center gap-1.5 ${
                       tech.status === 'good' ? 'bg-[#4CAF50]/20 text-[#4CAF50]' :
                       'bg-[#FF6A00]/20 text-[#FF6A00]'
                     }`}
                   >
-                    <span>{tech.icon}</span>
                     {tech.name}
+                    {tech.status === 'good' ? <CheckCircle2 className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
                   </div>
                 ))}
               </div>
