@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Code2, Rocket, Zap } from 'lucide-react';
+import { ArrowRight, Code2, Rocket, Zap, Terminal, Activity, Cpu } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { HeroParticles } from './components/HeroParticles';
 import { TruthBomb } from './components/TruthBomb';
 import { FireAnimation } from './components/FireAnimation';
+import { LiveBuildCounter } from './components/AnimatedCounter';
+import { ActivityHeatmap } from './components/ActivityHeatmap';
+import { CodePoetry } from './components/CodePoetry';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
 
@@ -172,13 +175,87 @@ function App() {
       {/* Truth Bomb Section */}
       <TruthBomb />
 
-      {/* Placeholder for more sections */}
-      <section className="py-16 sm:py-24 lg:py-32 border-t border-[hsl(var(--border))]">
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-            <Rocket className="w-4 h-4 text-[#2196F3]" />
-            <span className="text-sm text-[hsl(var(--muted-foreground))]">More Tech Theater coming soon...</span>
+      {/* Tech Theater Section */}
+      <section 
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
+        data-testid="tech-theater-section"
+      >
+        {/* Background accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(33,150,243,0.08),transparent_60%)] pointer-events-none" />
+        
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+          {/* Section Header */}
+          <motion.div 
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
+              <Terminal className="w-4 h-4 text-[#00E5FF]" />
+              <span className="text-sm text-[hsl(var(--muted-foreground))]">Live Dashboard</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <span className="gradient-text-brand">Tech Theater</span>
+            </h2>
+            <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
+              Real engineering happening in real-time. No smoke, no mirrors.
+            </p>
+          </motion.div>
+
+          {/* Widgets Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Live Build Counter */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <LiveBuildCounter baseValue={247} />
+            </motion.div>
+
+            {/* Activity Heatmap */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <ActivityHeatmap weeks={12} />
+            </motion.div>
+
+            {/* Code Poetry - Full Width */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              <CodePoetry />
+            </motion.div>
           </div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">
+              This isn't a demo. This is how we actually work.
+            </p>
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold"
+            >
+              <Cpu className="w-5 h-5 mr-2" /> See How We Build
+            </Button>
+          </motion.div>
         </div>
       </section>
 
