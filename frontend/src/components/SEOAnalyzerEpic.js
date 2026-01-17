@@ -220,28 +220,31 @@ const opportunities = [
   },
 ];
 
-// AI Generated Vision Samples
+// AI Generated Vision Samples - More realistic redesign concepts
 const visionSamples = [
   {
     id: 1,
-    title: "Modern Dark Theme",
-    description: "Sleek, professional dark mode with your brand colors",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop&q=80",
-    improvements: ["40% better readability", "Reduced eye strain", "Premium feel"]
+    title: "Dark Professional Theme",
+    description: "Modern dark mode with high contrast CTAs and trust indicators",
+    beforeImage: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop&q=80",
+    afterImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop&q=80",
+    improvements: ["40% better readability", "3x larger CTAs", "Trust badges added"]
   },
   {
     id: 2,
-    title: "Conversion-Optimized Hero",
-    description: "Clear value prop with strong CTA placement",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&q=80",
-    improvements: ["3x larger CTA button", "Social proof badges", "Trust indicators"]
+    title: "Conversion-Focused Layout",
+    description: "Reorganized hierarchy with clear value proposition above the fold",
+    beforeImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&q=80",
+    afterImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&q=80",
+    improvements: ["Social proof section", "Benefit-driven copy", "Reduced bounce rate"]
   },
   {
     id: 3,
-    title: "Mobile-First Redesign",
-    description: "Thumb-friendly navigation, fast-loading components",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop&q=80",
-    improvements: ["50% faster mobile load", "Touch-optimized UI", "Sticky CTAs"]
+    title: "Mobile-First Responsive",
+    description: "Optimized for thumb navigation with sticky CTAs",
+    beforeImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop&q=80",
+    afterImage: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=600&fit=crop&q=80",
+    improvements: ["50% faster mobile load", "Touch-optimized buttons", "Simplified navigation"]
   }
 ];
 
