@@ -141,7 +141,7 @@ async def claude_stream(request: ChatRequest):
             }
             
             # Save to database
-            if db:
+            if db is not None:
                 await db.chats.insert_one({
                     "session_id": request.session_id,
                     "messages": [m.dict() for m in request.messages] + [{"role": "assistant", "content": response}],
