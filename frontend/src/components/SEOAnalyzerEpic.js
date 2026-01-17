@@ -81,11 +81,18 @@ const scanPhases = [
   { id: 'complete', text: 'Analysis complete!', duration: 750 },
 ];
 
-// Mock screenshots with actual images
-const mockScreenshots = [
-  { id: 'hero', label: 'Homepage', position: 'desktop', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=280&fit=crop&q=80' },
-  { id: 'mobile', label: 'Mobile', position: 'mobile', image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=200&h=400&fit=crop&q=80' },
-  { id: 'scroll', label: 'Below Fold', position: 'desktop', image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=280&fit=crop&q=80' },
+// Generate REAL screenshot URLs using free screenshot API
+const getScreenshotUrl = (url, width = 600, height = 400) => {
+  // Using thum.io - free screenshot service, no API key needed
+  const encodedUrl = encodeURIComponent(url);
+  return `https://image.thum.io/get/width/${width}/crop/${height}/noanimate/${encodedUrl}`;
+};
+
+// Screenshot configurations for different views
+const screenshotConfigs = [
+  { id: 'hero', label: 'Homepage', position: 'desktop', width: 600, height: 400 },
+  { id: 'mobile', label: 'Mobile', position: 'mobile', width: 375, height: 667 },
+  { id: 'scroll', label: 'Full Page', position: 'desktop', width: 600, height: 400 },
 ];
 
 // Tech stack detection
