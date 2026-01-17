@@ -1151,7 +1151,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                 className="text-center p-3 rounded-lg bg-[#FF6A00]/10 border border-[#FF6A00]/30"
               >
                 <p className="text-xs text-[hsl(var(--foreground))]">
-                  <span className="text-[#FF6A00] font-bold">⚡ Limited:</span> We take only <strong>3 new clients</strong> per month
+                  <span className="text-[#FF6A00] font-bold">Limited Availability:</span> We take only <strong>3 new clients</strong> per month
                 </p>
               </motion.div>
             </motion.div>
