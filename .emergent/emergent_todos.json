@@ -1,42 +1,42 @@
 [
   {
     "content": "Phase 2 EPIC: Upgrade overall visual to 30% more futuristic (holographic effects, enhanced neon, professional tech feel)",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Replace avatar orb with realistic talking humanoid robot/person",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Build Street Fighter-style pixel battle arena with 3 fighters",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Add collapsible answer boxes with real-time progress bars",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Implement scoring system (speed vs detail vs accuracy)",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Add fighting animations (idle, attack, hit, KO)",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Add sound effects (punches, KO, victory) and background music",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Implement health bars and knockout logic",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Show winner with explanation of why they won",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2 EPIC: Test the entire epic battle system",
-    "status": "pending"
+    "status": "in_progress"
   }
 ]
