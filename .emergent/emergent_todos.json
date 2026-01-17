@@ -1,42 +1,34 @@
 [
   {
-    "content": "Phase 2 EPIC: Upgrade overall visual to 30% more futuristic (holographic effects, enhanced neon, professional tech feel)",
+    "content": "Phase 2 EPIC: Fix Unicode/emoji issues in components",
     "status": "completed"
   },
   {
-    "content": "Phase 2 EPIC: Replace avatar orb with realistic talking humanoid robot/person",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Build Street Fighter-style pixel battle arena with 3 fighters",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Add collapsible answer boxes with real-time progress bars",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Implement scoring system (speed vs detail vs accuracy)",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Add fighting animations (idle, attack, hit, KO)",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Add sound effects (punches, KO, victory) and background music",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Implement health bars and knockout logic",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Show winner with explanation of why they won",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2 EPIC: Test the entire epic battle system",
+    "content": "Phase 2 EPIC: Test hero section with realistic avatar",
     "status": "in_progress"
+  },
+  {
+    "content": "Phase 2 EPIC: Test epic battle arena with full fight sequence",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Verify sound effects working",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Verify health bars and scoring system",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Verify winner announcement",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Take comprehensive screenshots for report",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2 EPIC: Create final test report",
+    "status": "pending"
   }
 ]
