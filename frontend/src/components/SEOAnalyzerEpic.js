@@ -866,7 +866,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                       config={config}
                       url={url}
                       isLoaded={screenshotsLoaded}
-                      delay={i * 400}
+                      delay={i * 600}
                     />
                   ))}
                 </div>
