@@ -46,7 +46,7 @@ function App() {
                 Experience cutting-edge AI interactions with voice, streaming, and real-time generation
               </p>
             </div>
-            <AIAvatar />
+            <AIAvatarRealistic />
           </section>
         )}
 
@@ -59,7 +59,7 @@ function App() {
             <p className="section-description">
               Watch Claude, GPT, and Gemini compete in real-time
             </p>
-            <BattleArena />
+            <BattleArenaEpic />
           </section>
         )}
 
