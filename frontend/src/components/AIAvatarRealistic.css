@@ -1,1 +1,313 @@
-/* Realistic AI Avatar */\n\n.realistic-avatar-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  max-width: 900px;\n  margin: 0 auto;\n}\n\n/* Realistic Avatar Hologram */\n.realistic-avatar {\n  position: relative;\n  width: 300px;\n  height: 350px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.avatar-hologram {\n  position: relative;\n  width: 250px;\n  height: 300px;\n  perspective: 1000px;\n}\n\n/* Holographic Frame */\n.holo-frame {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  border: 3px solid #00FFFF;\n  border-radius: 12px;\n  box-shadow: \n    0 0 20px rgba(0, 255, 255, 0.5),\n    inset 0 0 30px rgba(0, 255, 255, 0.1);\n  animation: frameGlow 2s ease-in-out infinite;\n}\n\n@keyframes frameGlow {\n  0%, 100% { \n    box-shadow: \n      0 0 20px rgba(0, 255, 255, 0.5),\n      inset 0 0 30px rgba(0, 255, 255, 0.1);\n  }\n  50% { \n    box-shadow: \n      0 0 40px rgba(0, 255, 255, 0.8),\n      inset 0 0 50px rgba(0, 255, 255, 0.2);\n  }\n}\n\n/* Avatar Face */\n.avatar-face {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 180px;\n  height: 220px;\n  z-index: 1;\n}\n\n.face-outline {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(18, 168, 255, 0.15));\n  border: 2px solid rgba(0, 229, 255, 0.5);\n  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;\n  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);\n}\n\n/* Eyes */\n.eyes {\n  position: absolute;\n  top: 35%;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 40px;\n}\n\n.eye {\n  width: 30px;\n  height: 35px;\n  background: rgba(0, 229, 255, 0.3);\n  border: 2px solid #00FFFF;\n  border-radius: 50%;\n  position: relative;\n  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);\n}\n\n.pupil {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 12px;\n  height: 12px;\n  background: #00FFFF;\n  border-radius: 50%;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 1);\n  animation: pupilMove 4s ease-in-out infinite;\n}\n\n@keyframes pupilMove {\n  0%, 100% { transform: translate(-50%, -50%); }\n  25% { transform: translate(-40%, -50%); }\n  75% { transform: translate(-60%, -50%); }\n}\n\n/* Mouth */\n.mouth {\n  position: absolute;\n  bottom: 30%;\n  left: 50%;\n  transform: translateX(-50%);\n  width: 60px;\n  height: 20px;\n}\n\n.mouth-line {\n  width: 100%;\n  height: 3px;\n  background: #00FFFF;\n  border-radius: 2px;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);\n  transition: all 0.3s ease;\n}\n\n/* Mouth animation when speaking */\n.realistic-avatar.speaking .mouth-line {\n  animation: mouthSpeak 0.3s ease-in-out infinite;\n}\n\n@keyframes mouthSpeak {\n  0%, 100% { transform: scaleY(1); }\n  50% { transform: scaleY(2); }\n}\n\n/* Thinking animation */\n.realistic-avatar.thinking .eyes {\n  animation: eyesThink 1s ease-in-out infinite;\n}\n\n@keyframes eyesThink {\n  0%, 100% { transform: translateX(-50%) scale(1); }\n  50% { transform: translateX(-50%) scale(0.9); }\n}\n\n/* Listening animation */\n.realistic-avatar.listening .holo-frame {\n  border-color: #12A8FF;\n  animation: listenPulse 0.8s ease-in-out infinite;\n}\n\n@keyframes listenPulse {\n  0%, 100% { box-shadow: 0 0 30px rgba(18, 168, 255, 0.8); }\n  50% { box-shadow: 0 0 50px rgba(18, 168, 255, 1); }\n}\n\n/* Tech Details */\n.tech-details {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n}\n\n.scan-line {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 2px;\n  background: linear-gradient(90deg, transparent, #00FFFF, transparent);\n  animation: scanAnimation 3s ease-in-out infinite;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);\n}\n\n@keyframes scanAnimation {\n  0% { top: 0%; opacity: 0; }\n  50% { opacity: 1; }\n  100% { top: 100%; opacity: 0; }\n}\n\n.circuit-pattern {\n  position: absolute;\n  top: 10%;\n  right: 10%;\n  width: 30px;\n  height: 30px;\n  border: 1px solid rgba(0, 229, 255, 0.4);\n  border-radius: 4px;\n}\n\n.circuit-pattern::before,\n.circuit-pattern::after {\n  content: '';\n  position: absolute;\n  background: rgba(0, 229, 255, 0.4);\n}\n\n.circuit-pattern::before {\n  top: 50%;\n  left: 0;\n  width: 100%;\n  height: 1px;\n}\n\n.circuit-pattern::after {\n  left: 50%;\n  top: 0;\n  width: 1px;\n  height: 100%;\n}\n\n/* Status Indicator */\n.status-indicator {\n  position: absolute;\n  bottom: -40px;\n  left: 50%;\n  transform: translateX(-50%);\n  font-family: 'Space Grotesk', sans-serif;\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: #00FFFF;\n  background: rgba(0, 229, 255, 0.1);\n  padding: 0.5rem 1.5rem;\n  border-radius: 20px;\n  border: 1px solid rgba(0, 229, 255, 0.3);\n  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);\n  white-space: nowrap;\n}\n\n/* Voice Waves */\n.voice-waves {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n  align-items: flex-end;\n}\n\n.wave {\n  width: 4px;\n  height: 20px;\n  background: linear-gradient(180deg, #00FFFF, #12A8FF);\n  border-radius: 2px;\n  animation: waveAnimation 0.6s ease-in-out infinite;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);\n}\n\n.wave:nth-child(1) {\n  animation-delay: 0s;\n}\n\n.wave:nth-child(2) {\n  animation-delay: 0.2s;\n}\n\n.wave:nth-child(3) {\n  animation-delay: 0.4s;\n}\n\n@keyframes waveAnimation {\n  0%, 100% { height: 20px; }\n  50% { height: 40px; }\n}\n\n/* Chat Container */\n.realistic-chat-container {\n  width: 100%;\n  height: 550px;\n  display: flex;\n  flex-direction: column;\n}\n\n.chat-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-bottom: 1rem;\n  border-bottom: 1px solid rgba(0, 229, 255, 0.3);\n  margin-bottom: 1rem;\n}\n\n.header-title {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n\n.header-title h3 {\n  font-size: 1.5rem;\n  font-family: 'Space Grotesk', sans-serif;\n  font-weight: 800;\n  background: linear-gradient(135deg, #00FFFF, #12A8FF);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  letter-spacing: 2px;\n}\n\n.status-badge {\n  font-size: 0.75rem;\n  font-weight: 700;\n  color: #1DE9B6;\n  background: rgba(29, 233, 182, 0.1);\n  padding: 0.25rem 0.75rem;\n  border-radius: 12px;\n  border: 1px solid rgba(29, 233, 182, 0.3);\n}\n\n.mic-button {\n  background: rgba(18, 168, 255, 0.15);\n  border: 2px solid rgba(18, 168, 255, 0.4);\n  color: #fff;\n  padding: 0.75rem 1.5rem;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 1rem;\n  font-weight: 700;\n  font-family: 'Space Grotesk', sans-serif;\n  transition: all 0.3s ease;\n}\n\n.mic-button:hover:not(:disabled) {\n  background: rgba(18, 168, 255, 0.25);\n  border-color: #12A8FF;\n  box-shadow: 0 0 20px rgba(18, 168, 255, 0.5);\n  transform: translateY(-2px);\n}\n\n.mic-button.active {\n  background: linear-gradient(135deg, #12A8FF, #00FFFF);\n  border-color: #00FFFF;\n  color: #001a1f;\n  animation: pulse 1s ease-in-out infinite;\n}\n\n.mic-button:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n/* Chat Messages */\n.chat-messages {\n  flex: 1;\n  overflow-y: auto;\n  padding: 1rem 0;\n  display: flex;\n  flex-direction: column;\n  gap: 1.5rem;\n}\n\n.welcome-message {\n  text-align: center;\n  padding: 2rem;\n}\n\n.welcome-title {\n  font-size: 1.8rem;\n  font-weight: 800;\n  font-family: 'Space Grotesk', sans-serif;\n  color: #00FFFF;\n  text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);\n  margin-bottom: 1rem;\n}\n\n.command-examples {\n  margin-top: 2rem;\n}\n\n.command-chip {\n  display: inline-block;\n  background: rgba(0, 229, 255, 0.1);\n  border: 1px solid rgba(0, 229, 255, 0.3);\n  padding: 0.5rem 1rem;\n  border-radius: 20px;\n  margin: 0.5rem;\n  color: #00FFFF;\n  font-size: 0.9rem;\n}\n\n.message {\n  display: flex;\n  gap: 1rem;\n  align-items: flex-start;\n}\n\n.message.user {\n  flex-direction: row-reverse;\n}\n\n.message-avatar {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.5rem;\n  background: rgba(0, 229, 255, 0.1);\n  border: 2px solid rgba(0, 229, 255, 0.3);\n  flex-shrink: 0;\n}\n\n.message-content {\n  flex: 1;\n  padding: 1rem 1.5rem;\n  border-radius: 12px;\n  line-height: 1.6;\n  max-width: 70%;\n}\n\n.message.user .message-content {\n  background: rgba(18, 168, 255, 0.2);\n  border: 1px solid rgba(18, 168, 255, 0.4);\n  border-radius: 12px 12px 0 12px;\n}\n\n.message.assistant .message-content {\n  background: rgba(10, 30, 40, 0.6);\n  border: 1px solid rgba(0, 229, 255, 0.3);\n  border-radius: 12px 12px 12px 0;\n}\n\n.streaming-indicator {\n  display: flex;\n  gap: 0.5rem;\n  padding: 1rem;\n  align-items: center;\n}\n\n.streaming-indicator span {\n  width: 8px;\n  height: 8px;\n  background: #00FFFF;\n  border-radius: 50%;\n  animation: bounce 1.4s ease-in-out infinite;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);\n}\n\n.streaming-indicator span:nth-child(2) {\n  animation-delay: 0.2s;\n}\n\n.streaming-indicator span:nth-child(3) {\n  animation-delay: 0.4s;\n}\n\n@keyframes bounce {\n  0%, 60%, 100% { transform: translateY(0); }\n  30% { transform: translateY(-10px); }\n}\n\n/* Chat Input */\n.chat-input {\n  display: flex;\n  gap: 1rem;\n  padding-top: 1rem;\n  border-top: 1px solid rgba(0, 229, 255, 0.3);\n}\n\n.chat-input input {\n  flex: 1;\n  background: rgba(10, 30, 40, 0.6);\n  border: 1px solid rgba(0, 229, 255, 0.3);\n  color: #fff;\n  padding: 1rem;\n  border-radius: 8px;\n  font-size: 1rem;\n  transition: all 0.3s ease;\n}\n\n.chat-input input:focus {\n  outline: none;\n  border-color: #00FFFF;\n  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);\n}\n\n.send-button {\n  background: linear-gradient(135deg, #00FFFF, #12A8FF);\n  border: none;\n  color: #001a1f;\n  padding: 1rem 2rem;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 1.5rem;\n  font-weight: 800;\n  transition: all 0.3s ease;\n  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);\n}\n\n.send-button:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 30px rgba(0, 229, 255, 0.6);\n}\n\n.send-button:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n/* Scrollbar */\n.chat-messages::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chat-messages::-webkit-scrollbar-thumb {\n  background: rgba(0, 229, 255, 0.5);\n  border-radius: 3px;\n}\n\n@keyframes pulse {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n
+.ai-avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Avatar Orb */
+.avatar-orb {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #667eea, #764ba2);
+  box-shadow: 
+    0 0 60px rgba(102, 126, 234, 0.6),
+    0 0 100px rgba(118, 75, 162, 0.4),
+    inset 0 0 50px rgba(255, 255, 255, 0.2);
+  animation: float 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb-core {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, transparent);
+  opacity: 0.5;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Speaking animation */
+.avatar-orb.speaking .orb-inner {
+  animation: float 3s ease-in-out infinite, speaking 0.5s ease-in-out infinite;
+}
+
+@keyframes speaking {
+  0%, 100% { box-shadow: 0 0 60px rgba(102, 126, 234, 0.6), 0 0 100px rgba(118, 75, 162, 0.4); }
+  50% { box-shadow: 0 0 80px rgba(102, 126, 234, 0.8), 0 0 120px rgba(118, 75, 162, 0.6); }
+}
+
+/* Listening animation */
+.avatar-orb.listening .orb-inner {
+  background: radial-gradient(circle at 30% 30%, #00ffff, #667eea);
+  animation: float 3s ease-in-out infinite, listening 1s ease-in-out infinite;
+}
+
+@keyframes listening {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.sound-wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  border: 3px solid rgba(102, 126, 234, 0.5);
+  border-radius: 50%;
+  animation: soundWave 1s ease-out infinite;
+}
+
+@keyframes soundWave {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Voice Status */
+.voice-status {
+  text-align: center;
+  padding: 1rem;
+}
+
+.listening-indicator {
+  width: 20px;
+  height: 20px;
+  background: #00ffff;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.voice-command {
+  color: #00ffff;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Chat Container */
+.chat-container {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+  margin-bottom: 1rem;
+}
+
+.chat-header h3 {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mic-button {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(102, 126, 234, 0.2));
+  border: 2px solid #00ffff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.mic-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(102, 126, 234, 0.3));
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.mic-button.active {
+  background: linear-gradient(135deg, #00ffff, #667eea);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.mic-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.welcome-message {
+  text-align: center;
+  color: #a8a8b3;
+}
+
+.welcome-message ul {
+  list-style: none;
+  margin-top: 1rem;
+  text-align: left;
+  display: inline-block;
+}
+
+.welcome-message li {
+  padding: 0.5rem;
+  color: #00ffff;
+  font-style: italic;
+}
+
+.message {
+  display: flex;
+  max-width: 80%;
+}
+
+.message.user {
+  align-self: flex-end;
+}
+
+.message.assistant {
+  align-self: flex-start;
+}
+
+.message-content {
+  padding: 1rem;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+.message.user .message-content {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+  border: 1px solid rgba(102, 126, 234, 0.5);
+}
+
+.message.assistant .message-content {
+  background: rgba(20, 20, 30, 0.5);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.streaming-indicator {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.streaming-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #667eea;
+  border-radius: 50%;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+
+.streaming-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.streaming-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-10px); }
+}
+
+/* Chat Input */
+.chat-input {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.chat-input input {
+  flex: 1;
+  background: rgba(20, 20, 30, 0.5);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: #8a2be2;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+.chat-input button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.chat-input button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.chat-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Scrollbar for messages */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(138, 43, 226, 0.5);
+  border-radius: 3px;
+}

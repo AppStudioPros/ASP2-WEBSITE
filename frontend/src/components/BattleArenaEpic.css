@@ -1,3 +1,234 @@
-/* Epic Battle Arena with Pixel Fighters */
+.battle-arena-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 
-.epic-battle-container {\n  width: 100%;\n  max-width: 1600px;\n  margin: 0 auto;\n  padding: 2rem;\n}\n\n/* Battle Controls */\n.epic-battle-controls {\n  margin-bottom: 2rem;\n  padding: 2rem;\n  position: relative;\n}\n\n.epic-battle-input {\n  width: 100%;\n  background: rgba(10, 30, 40, 0.6);\n  border: 2px solid rgba(0, 229, 255, 0.4);\n  color: #fff;\n  padding: 1.2rem;\n  border-radius: 12px;\n  font-size: 1.1rem;\n  font-family: 'Space Grotesk', sans-serif;\n  margin-bottom: 1rem;\n  transition: all 0.3s ease;\n  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);\n}\n\n.epic-battle-input:focus {\n  outline: none;\n  border-color: #00E5FF;\n  box-shadow: 0 0 30px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.1);\n}\n\n.epic-battle-buttons {\n  display: flex;\n  gap: 1rem;\n  justify-content: center;\n}\n\n.epic-start-button, .epic-reset-button {\n  padding: 1.2rem 2.5rem;\n  border: none;\n  border-radius: 12px;\n  font-size: 1.1rem;\n  font-weight: 800;\n  font-family: 'Space Grotesk', sans-serif;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  text-transform: uppercase;\n  letter-spacing: 2px;\n  position: relative;\n  overflow: hidden;\n}\n\n.epic-start-button {\n  background: linear-gradient(135deg, #00FFFF, #12A8FF);\n  color: #001a1f;\n  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.5);\n}\n\n.epic-start-button::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: -100%;\n  width: 100%;\n  height: 100%;\n  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);\n  transition: left 0.5s ease;\n}\n\n.epic-start-button:hover:not(:disabled)::before {\n  left: 100%;\n}\n\n.epic-start-button:hover:not(:disabled) {\n  transform: translateY(-3px);\n  box-shadow: 0 6px 25px rgba(0, 229, 255, 0.7);\n}\n\n.epic-start-button:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  animation: pulse 1.5s ease-in-out infinite;\n}\n\n.epic-reset-button {\n  background: rgba(20, 20, 30, 0.6);\n  border: 2px solid rgba(0, 229, 255, 0.3);\n  color: #fff;\n}\n\n.epic-reset-button:hover:not(:disabled) {\n  background: rgba(0, 229, 255, 0.2);\n  border-color: #00E5FF;\n  transform: translateY(-3px);\n  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);\n}\n\n/* Battle Phase Indicator */\n.battle-phase-indicator {\n  text-align: center;\n  font-size: 2rem;\n  font-weight: 900;\n  font-family: 'Space Grotesk', sans-serif;\n  color: #00FFFF;\n  text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);\n  padding: 1.5rem;\n  margin-bottom: 2rem;\n  background: rgba(0, 229, 255, 0.1);\n  border: 2px solid rgba(0, 229, 255, 0.3);\n  border-radius: 12px;\n  animation: phaseGlow 1s ease-in-out infinite;\n  letter-spacing: 3px;\n}\n\n@keyframes phaseGlow {\n  0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }\n  50% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.7); }\n}\n\n/* Fighter Arena */\n.fighter-arena {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 3rem;\n  margin: 3rem 0;\n  perspective: 1000px;\n}\n\n.fighter-column {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 1rem;\n  transition: all 0.5s ease;\n  position: relative;\n}\n\n.fighter-column.eliminated {\n  opacity: 0.3;\n  filter: grayscale(100%);\n  transform: scale(0.9) rotateX(-20deg);\n}\n\n.fighter-column.winner {\n  animation: victoryShake 0.5s ease-in-out;\n  transform: scale(1.1);\n}\n\n@keyframes victoryShake {\n  0%, 100% { transform: scale(1.1) rotate(0deg); }\n  25% { transform: scale(1.15) rotate(-5deg); }\n  75% { transform: scale(1.15) rotate(5deg); }\n}\n\n/* Pixel Fighter */\n.pixel-fighter {\n  width: 180px;\n  height: 220px;\n  background: rgba(15, 15, 25, 0.8);\n  border: 4px solid;\n  border-radius: 12px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  gap: 1rem;\n  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n  position: relative;\n  overflow: hidden;\n}\n\n.pixel-fighter::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: repeating-linear-gradient(\n    0deg,\n    transparent 0px,\n    rgba(0, 229, 255, 0.05) 2px,\n    transparent 4px\n  );\n  pointer-events: none;\n}\n\n.fighter-avatar {\n  font-size: 5rem;\n  animation: floatFighter 2s ease-in-out infinite;\n}\n\n@keyframes floatFighter {\n  0%, 100% { transform: translateY(0px); }\n  50% { transform: translateY(-10px); }\n}\n\n/* Fighter Animations */\n.fighter-column.attack .fighter-avatar {\n  animation: attackAnimation 0.5s ease-in-out infinite;\n}\n\n@keyframes attackAnimation {\n  0%, 100% { transform: translateX(0) scale(1); }\n  50% { transform: translateX(10px) scale(1.1); }\n}\n\n.fighter-column.hit .fighter-avatar {\n  animation: hitAnimation 0.3s ease-in-out;\n}\n\n@keyframes hitAnimation {\n  0%, 100% { transform: translateX(0); }\n  25% { transform: translateX(-15px); }\n  75% { transform: translateX(5px); }\n}\n\n.fighter-column.ko .fighter-avatar {\n  animation: koAnimation 1s ease-out forwards;\n}\n\n@keyframes koAnimation {\n  0% { transform: rotate(0deg) translateY(0); opacity: 1; }\n  100% { transform: rotate(720deg) translateY(100px); opacity: 0; }\n}\n\n.fighter-column.victory .fighter-avatar {\n  animation: victoryAnimation 1s ease-in-out infinite;\n}\n\n@keyframes victoryAnimation {\n  0%, 100% { transform: scale(1) rotate(0deg); }\n  25% { transform: scale(1.2) rotate(-10deg); }\n  75% { transform: scale(1.2) rotate(10deg); }\n}\n\n.fighter-name {\n  font-size: 1.5rem;\n  font-weight: 900;\n  font-family: 'Space Grotesk', sans-serif;\n  letter-spacing: 2px;\n  text-shadow: 0 0 10px currentColor;\n}\n\n.fighter-stance {\n  font-size: 0.9rem;\n  color: #A8A8B3;\n  text-transform: uppercase;\n  letter-spacing: 1px;\n}\n\n/* Health Bar */\n.health-bar-container {\n  width: 100%;\n  max-width: 200px;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n.health-bar-label {\n  font-weight: 700;\n  font-family: 'Space Grotesk', sans-serif;\n  color: #00FFFF;\n  font-size: 0.9rem;\n}\n\n.health-bar {\n  flex: 1;\n  height: 20px;\n  background: rgba(20, 20, 30, 0.8);\n  border: 2px solid rgba(0, 229, 255, 0.3);\n  border-radius: 10px;\n  overflow: hidden;\n  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);\n}\n\n.health-bar-fill {\n  height: 100%;\n  transition: width 0.5s ease;\n  background: linear-gradient(90deg, currentColor, transparent);\n  box-shadow: 0 0 10px currentColor;\n}\n\n.health-bar-value {\n  font-weight: 700;\n  font-family: 'Space Grotesk', sans-serif;\n  color: #fff;\n  font-size: 0.9rem;\n  min-width: 35px;\n  text-align: right;\n}\n\n/* Fighter Score */\n.fighter-score {\n  font-size: 1.2rem;\n  font-weight: 800;\n  font-family: 'Space Grotesk', sans-serif;\n  color: #00FFFF;\n  background: rgba(0, 229, 255, 0.1);\n  padding: 0.5rem 1rem;\n  border-radius: 8px;\n  border: 1px solid rgba(0, 229, 255, 0.3);\n  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);\n}\n\n/* Progress Bar */\n.progress-bar-container {\n  width: 100%;\n  margin-top: 0.5rem;\n}\n\n.progress-bar {\n  height: 8px;\n  background: rgba(20, 20, 30, 0.8);\n  border-radius: 4px;\n  overflow: hidden;\n  border: 1px solid rgba(0, 229, 255, 0.3);\n}\n\n.progress-bar-fill {\n  height: 100%;\n  background: linear-gradient(90deg, #00FFFF, #12A8FF);\n  animation: progressAnimation 2s ease-in-out infinite;\n  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);\n}\n\n@keyframes progressAnimation {\n  0% { width: 0%; }\n  100% { width: 100%; }\n}\n\n.progress-text {\n  font-size: 0.8rem;\n  color: #A8A8B3;\n  text-align: center;\n  margin-top: 0.25rem;\n}\n\n/* Collapsed Answer Box */\n.collapsed-answer-box {\n  width: 100%;\n  padding: 0.75rem;\n  background: rgba(10, 30, 40, 0.6);\n  border: 1px solid rgba(0, 229, 255, 0.2);\n  border-radius: 8px;\n  text-align: center;\n  font-size: 0.9rem;\n  color: #A8A8B3;\n  min-height: 50px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* Winner Announcement */\n.winner-announcement {\n  margin: 3rem auto;\n  max-width: 800px;\n  padding: 3rem;\n  text-align: center;\n  background: rgba(0, 229, 255, 0.1);\n  border: 3px solid #00FFFF;\n  box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);\n  animation: winnerGlow 2s ease-in-out infinite;\n}\n\n@keyframes winnerGlow {\n  0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); }\n  50% { box-shadow: 0 0 60px rgba(0, 255, 255, 0.8); }\n}\n\n.winner-text {\n  font-family: 'Space Grotesk', monospace;\n  font-size: 1.2rem;\n  line-height: 1.8;\n  color: #E9ECFF;\n  white-space: pre-wrap;\n  text-align: left;\n}\n\n/* Full Responses Grid */\n.full-responses-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));\n  gap: 2rem;\n  margin-top: 3rem;\n}\n\n.response-card {\n  min-height: 300px;\n}\n\n.response-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-bottom: 1rem;\n  margin-bottom: 1rem;\n  border-bottom: 2px solid;\n}\n\n.response-header h3 {\n  font-size: 1.5rem;\n  font-weight: 800;\n  font-family: 'Space Grotesk', sans-serif;\n}\n\n.response-score {\n  font-size: 1rem;\n  font-weight: 700;\n  color: #00FFFF;\n  background: rgba(0, 229, 255, 0.1);\n  padding: 0.5rem 1rem;\n  border-radius: 8px;\n}\n\n.response-content {\n  line-height: 1.6;\n  color: #E9ECFF;\n  white-space: pre-wrap;\n}\n\n/* Responsive */\n@media (max-width: 1200px) {\n  .fighter-arena {\n    grid-template-columns: 1fr;\n    gap: 2rem;\n  }\n  \n  .fighter-column {\n    max-width: 400px;\n    margin: 0 auto;\n  }\n}\n\n@keyframes pulse {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.6; }\n}\n
+/* Battle Controls */
+.battle-controls {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.battle-input {
+  width: 100%;
+  background: rgba(20, 20, 30, 0.5);
+  border: 2px solid rgba(138, 43, 226, 0.3);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.battle-input:focus {
+  outline: none;
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+}
+
+.battle-input::placeholder {
+  color: rgba(168, 168, 179, 0.5);
+}
+
+.battle-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.start-button, .reset-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.start-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.start-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reset-button {
+  background: rgba(20, 20, 30, 0.5);
+  border: 2px solid rgba(138, 43, 226, 0.3);
+  color: #fff;
+}
+
+.reset-button:hover:not(:disabled) {
+  background: rgba(138, 43, 226, 0.2);
+  border-color: #8a2be2;
+  transform: translateY(-3px);
+}
+
+/* Battle Grid */
+.battle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.battle-card {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.battle-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid;
+  margin-bottom: 1rem;
+}
+
+.card-header.claude {
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+.card-header.gpt {
+  border-color: rgba(76, 209, 55, 0.5);
+}
+
+.card-header.gemini {
+  border-color: rgba(64, 224, 208, 0.5);
+}
+
+.card-header h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.card-header.claude h3 {
+  color: #ff6b6b;
+}
+
+.card-header.gpt h3 {
+  color: #4cd137;
+}
+
+.card-header.gemini h3 {
+  color: #40e0d0;
+}
+
+.status {
+  font-size: 1.5rem;
+}
+
+.status.running {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.status.complete {
+  animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Card Content */
+.card-content {
+  flex: 1;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.idle-text {
+  color: rgba(168, 168, 179, 0.5);
+  text-align: center;
+  padding: 3rem 1rem;
+  font-style: italic;
+}
+
+.streaming-response {
+  color: #fff;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: #667eea;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.final-response {
+  color: #fff;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Scrollbar */
+.card-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+  background: rgba(138, 43, 226, 0.5);
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .battle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .battle-arena-container {
+    padding: 1rem;
+  }
+  
+  .battle-controls {
+    padding: 1rem;
+  }
+  
+  .battle-input {
+    font-size: 1rem;
+  }
+  
+  .battle-buttons {
+    flex-direction: column;
+  }
+  
+  .start-button, .reset-button {
+    width: 100%;
+  }
+}
