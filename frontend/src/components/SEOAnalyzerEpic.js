@@ -396,23 +396,18 @@ const ScoreCard = ({ score, label, color, icon: Icon, description }) => {
   );
 };
 
-// Screenshot Window Component - REAL SCREENSHOTS
+// Screenshot Window Component - REAL SCREENSHOTS via WordPress mshots
 const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [useFallback, setUseFallback] = useState(false);
-  
-  const isMobile = config.position === 'mobile';
   
   // Generate real screenshot URL
-  const screenshotUrl = url ? getScreenshotUrl(url, config.width, config.height, isMobile) : '';
-  const fallbackUrl = url ? getFallbackImage(url, isMobile) : '';
+  const screenshotUrl = url ? getScreenshotUrl(url, config.width, config.height) : '';
   
   useEffect(() => {
     if (isLoaded && url) {
       setImageLoaded(false);
       setImageError(false);
-      setUseFallback(false);
       
       const timer = setTimeout(() => {
         // Pre-load image
@@ -421,25 +416,13 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
           setImageLoaded(true);
         };
         img.onerror = () => {
-          // Try fallback
-          setUseFallback(true);
-          setImageLoaded(true);
+          setImageError(true);
         };
         img.src = screenshotUrl;
-        
-        // Timeout fallback after 8 seconds
-        setTimeout(() => {
-          if (!imageLoaded) {
-            setUseFallback(true);
-            setImageLoaded(true);
-          }
-        }, 8000);
       }, delay);
       return () => clearTimeout(timer);
     }
-  }, [isLoaded, delay, url]);
-
-  const displayUrl = useFallback ? fallbackUrl : screenshotUrl;
+  }, [isLoaded, delay, url, screenshotUrl]);
 
   return (
     <motion.div
@@ -447,54 +430,56 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: delay / 1000 }}
       className={`relative rounded-lg overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${
-        config.position === 'mobile' ? 'w-24 flex-shrink-0' : 'flex-1'
+        config.position === 'mobile' ? 'w-28 flex-shrink-0' : 'flex-1'
       }`}
     >
       {/* Window header */}
-      <div className="flex items-center gap-1 px-2 py-1 bg-black/60 border-b border-[hsl(var(--border))]">
-        <div className="w-1.5 h-1.5 rounded-full bg-[#ff5f57]" />
-        <div className="w-1.5 h-1.5 rounded-full bg-[#febc2e]" />
-        <div className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
-        <span className="text-[8px] text-[hsl(var(--muted-foreground))] ml-1 truncate">
+      <div className="flex items-center gap-1 px-2 py-1.5 bg-black/60 border-b border-[hsl(var(--border))]">
+        <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+        <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
+        <div className="w-2 h-2 rounded-full bg-[#28c840]" />
+        <span className="text-[10px] text-[hsl(var(--muted-foreground))] ml-2 truncate">
           {config.label}
         </span>
       </div>
       
       {/* Content - BIGGER SCREENSHOTS */}
-      <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-44' : 'h-36'}`}>
-        {!imageLoaded ? (
+      <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-48' : 'h-40'}`}>
+        {!imageLoaded && !imageError ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
             <motion.div
-              className="w-5 h-5 border-2 border-[#00E5FF] border-t-transparent rounded-full"
+              className="w-6 h-6 border-2 border-[#00E5FF] border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
-            <span className="text-[8px] text-[hsl(var(--muted-foreground))] mt-1">Capturing...</span>
+            <span className="text-[10px] text-[hsl(var(--muted-foreground))] mt-2">Capturing live screenshot...</span>
+          </div>
+        ) : imageError ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
+            <Globe className="w-6 h-6 text-[hsl(var(--muted-foreground))] mb-2" />
+            <span className="text-[10px] text-[hsl(var(--muted-foreground))]">Loading preview...</span>
           </div>
         ) : (
           <>
             <img
-              src={displayUrl}
+              src={screenshotUrl}
               alt={config.label}
               className="w-full h-full object-cover object-top"
-              onError={() => {
-                setUseFallback(true);
-              }}
             />
             {/* Scan overlay animation */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/30 to-transparent"
+              className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/20 to-transparent"
               initial={{ y: '-100%' }}
               animate={{ y: '200%' }}
-              transition={{ duration: 1.5, repeat: 2 }}
+              transition={{ duration: 2, repeat: 2 }}
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
-              className="absolute top-1 right-1 px-1 py-0.5 rounded bg-[#00E5FF] text-black text-[6px] font-bold"
+              className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-[#00E5FF] text-black text-[8px] font-bold"
             >
-              {useFallback ? 'OK' : 'LIVE'}
+              LIVE
             </motion.div>
           </>
         )}
