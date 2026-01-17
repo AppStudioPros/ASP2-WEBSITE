@@ -67,18 +67,18 @@ const aiThinkingQuestions = [
   ]},
 ];
 
-// Scanning phases with dramatic effects
+// Scanning phases with dramatic effects - 50% SLOWER for realism
 const scanPhases = [
-  { id: 'init', text: 'Initializing quantum scanners...', duration: 1200 },
-  { id: 'connect', text: 'Establishing secure connection...', duration: 1000 },
-  { id: 'crawl', text: 'Deploying web crawlers...', duration: 1500 },
-  { id: 'capture', text: 'Capturing visual snapshots...', duration: 2000 },
-  { id: 'analyze', text: 'AI analyzing page structure...', duration: 2000 },
-  { id: 'security', text: 'Running security scan...', duration: 1200 },
-  { id: 'performance', text: 'Measuring performance metrics...', duration: 1500 },
-  { id: 'ai', text: 'Neural network processing...', duration: 2000 },
-  { id: 'recommend', text: 'Generating recommendations...', duration: 1200 },
-  { id: 'complete', text: 'Analysis complete!', duration: 500 },
+  { id: 'init', text: 'Initializing quantum scanners...', duration: 1800 },
+  { id: 'connect', text: 'Establishing secure connection...', duration: 1500 },
+  { id: 'crawl', text: 'Deploying web crawlers...', duration: 2250 },
+  { id: 'capture', text: 'Capturing visual snapshots...', duration: 3000 },
+  { id: 'analyze', text: 'AI analyzing page structure...', duration: 3000 },
+  { id: 'security', text: 'Running security scan...', duration: 1800 },
+  { id: 'performance', text: 'Measuring performance metrics...', duration: 2250 },
+  { id: 'ai', text: 'Neural network processing...', duration: 3000 },
+  { id: 'recommend', text: 'Generating recommendations...', duration: 1800 },
+  { id: 'complete', text: 'Analysis complete!', duration: 750 },
 ];
 
 // Mock screenshots with actual images
