@@ -860,10 +860,11 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               <div className="p-3 border-t border-[hsl(var(--border))] bg-black/20">
                 <p className="text-xs text-[hsl(var(--muted-foreground))] mb-2">Site Captures:</p>
                 <div className="flex gap-2">
-                  {mockScreenshots.map((ss, i) => (
+                  {screenshotConfigs.map((config, i) => (
                     <ScreenshotWindow
-                      key={ss.id}
-                      screenshot={ss}
+                      key={config.id}
+                      config={config}
+                      url={url}
                       isLoaded={screenshotsLoaded}
                       delay={i * 400}
                     />
