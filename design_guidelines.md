@@ -1,420 +1,542 @@
 {
   "meta": {
-    "product": "App Studio Pro — AI Website Analyzer",
-    "audience": ["Business owners", "Marketing directors", "CTOs"],
-    "brand_attributes": ["trustworthy", "corporate", "clean", "data-driven", "credible"],
-    "goals": [
-      "Make it effortless to submit a URL and run analysis",
-      "Present scores and insights with instant comprehension",
-      "Show growth projections (traffic, conversions) clearly",
-      "Capture qualified leads via a professional consultation form"
+    "project_name": "Tech Theater — App Studio Pro",
+    "brand_attributes": ["aggressive", "confident", "engineering-first", "high-contrast", "dark theatrical", "anti-template"],
+    "tone": "Dark, high-tech with ember/electric accents. 8/10 on the crazy scale but enterprise-ready.",
+    "primary_audience": ["CTOs", "Product leaders", "VC-backed founders", "Enterprise buyers"],
+    "success_actions": [
+      "Scroll-engage with Hero (particles/parallax)",
+      "Compare split-screen Truth Bomb section",
+      "Interact with widgets (counter/heatmap/code)",
+      "Run the SEO Analyzer tool",
+      "Contact/Book intro via primary CTA"
     ]
   },
+
   "typography": {
-    "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
-      "numeric": "Space Grotesk"
+    "brand_pairing": {
+      "display_headings": "Space Grotesk",
+      "body_copy": "Chivo",
+      "code_mono": "Source Code Pro"
     },
-    "google_fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+    "font_import_html": [
+      "<link href=\"https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Chivo:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600;700&display=swap\" rel=\"stylesheet\">"
+    ],
+    "tailwind_font_classes": {
+      "heading": "font-[\"Space Grotesk\",ui-sans-serif,system-ui]",
+      "body": "font-[Chivo,ui-sans-serif,system-ui]",
+      "mono": "font-[\"Source Code Pro\",ui-monospace,monospace]"
+    },
     "scale": {
-      "h1": "text-4xl sm:text-5xl lg:text-6xl",
-      "h2": "text-base md:text-lg",
-      "h3": "text-xl md:text-2xl",
-      "body": "text-base md:text-base",
-      "small": "text-sm"
-    },
-    "rules": [
-      "Headings weight 700–900; body 400–500",
-      "Use Space Grotesk for numbers, KPIs, chart values",
-      "Tight letter-spacing for numeric readouts (-0.01em)"
-    ]
+      "h1": "text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight",
+      "h2": "text-base md:text-lg font-semibold tracking-tight",
+      "h3": "text-lg md:text-xl font-semibold",
+      "body": "text-sm md:text-base",
+      "small": "text-xs md:text-sm"
+    }
   },
+
   "color_system": {
-    "hex": {
-      "primary": "#667eea",
-      "secondary": "#764ba2",
-      "accent": "#12A8FF",
-      "bg": "#FFFFFF",
-      "bg-muted": "#F7FAFC",
-      "text": "#2D3748",
-      "success": "#48BB78",
-      "warning": "#ECC94B",
-      "error": "#F56565",
-      "border": "#E2E8F0"
+    "notes": "Dark-first palette with ember/electric accents. Avoid startup blue and any saturated purple→pink gradients. Use gradients only in section backdrops and decorative overlays (<=20% viewport).",
+    "tokens_hsl": {
+      "--background": "210 15% 6%",            
+      "--foreground": "210 15% 96%",
+      "--card": "210 14% 8%",
+      "--card-foreground": "210 12% 94%",
+      "--muted": "210 10% 22%",
+      "--muted-foreground": "210 7% 62%",
+      "--border": "210 10% 16%",
+      "--input": "210 10% 18%",
+      "--ring": "24 95% 56%",                  
+      "--accent-ember": "24 100% 52%",          
+      "--accent-ember-2": "40 100% 52%",        
+      "--accent-electric": "186 95% 60%",       
+      "--accent-lava": "358 92% 56%",          
+      "--success": "162 72% 45%",
+      "--warning": "40 100% 52%",
+      "--destructive": "0 72% 46%",
+      "--chart-1": "24 95% 56%",
+      "--chart-2": "186 95% 60%",
+      "--chart-3": "358 92% 56%",
+      "--chart-4": "162 72% 45%",
+      "--chart-5": "210 10% 62%"
     },
-    "css_variables_hsl": {
-      "--background": "0 0% 100%",
-      "--foreground": "222 28% 23%", 
-      "--card": "0 0% 100%",
-      "--card-foreground": "222 28% 23%",
-      "--popover": "0 0% 100%",
-      "--popover-foreground": "222 28% 23%",
-      "--primary": "230 76% 66%", 
-      "--primary-foreground": "0 0% 100%",
-      "--secondary": "267 38% 46%",
-      "--secondary-foreground": "0 0% 100%",
-      "--accent": "202 100% 54%",
-      "--accent-foreground": "0 0% 100%",
-      "--muted": "210 45% 98%",
-      "--muted-foreground": "215 16% 47%",
-      "--success": "146 49% 51%",
-      "--warning": "45 80% 61%",
-      "--destructive": "0 88% 68%",
-      "--destructive-foreground": "0 0% 100%",
-      "--border": "210 31% 90%",
-      "--input": "210 31% 90%",
-      "--ring": "230 76% 66%",
-      "--radius": "0.75rem"
+    "tailwind_suggested_classes": {
+      "bg_base": "bg-[hsl(var(--background))]",
+      "text_base": "text-[hsl(var(--foreground))]",
+      "card": "bg-[hsl(var(--card))] border border-[hsl(var(--border))]",
+      "ember_text": "text-[hsl(var(--accent-ember))]",
+      "electric_text": "text-[hsl(var(--accent-electric))]",
+      "ember_glow": "shadow-[0_0_60px_rgba(255,106,0,0.15)]",
+      "electric_glow": "shadow-[0_0_70px_rgba(0,240,255,0.15)]",
+      "divider": "border-t border-[hsl(var(--border))]"
     },
-    "usage": [
-      "Use white (#FFFFFF) for content surfaces and cards",
-      "Use #F7FAFC for section backgrounds to differentiate",
-      "CTAs use accent #12A8FF with solid/tonal fills only",
-      "Score color rules: >70 success, 40–70 warning, <40 error"
-    ]
-  },
-  "gradients": {
-    "allowed": [
-      "Section background bands: bg from #F7FAFC to #FFFFFF (vertical 0–15% opacity overlay)",
-      "Hero top banner: subtle diagonal from #F7FAFC → #FFFFFF with 10–15% tint",
-      "Decorative legend/slider handles with a single mild two-color gradient"
-    ],
-    "prohibited": [
-      "Dark/saturated purple-pink or blue-purple gradients",
-      "Gradients on text-heavy content areas",
-      "Gradients on small UI elements (<100px)"
-    ],
-    "enforcement": "If gradient area >20% viewport OR readability is impacted, fallback to solid colors"
-  },
-  "layout": {
-    "container": "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8",
-    "grid": "12-column CSS grid; gap-x-6 gap-y-8; cards span 12 on mobile, 6 on md, 3 or 4 on lg as needed",
-    "nav": {
-      "sticky": true,
-      "class": "sticky top-0 z-40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-slate-200"
-    },
-    "sections": [
-      "Hero: URL input + Analyze CTA",
-      "Trust band: logos/badges",
-      "Results dashboard: score grid + assistant",
-      "Before/After comparison",
-      "Growth projections (charts)",
-      "Lead capture/Consultation form",
-      "FAQ + Footer"
-    ]
-  },
-  "components": {
-    "hero_url_input": {
-      "purpose": "Collect website URL and start analysis",
-      "structure": [
-        "Label above input",
-        "Input with placeholder 'https://yourdomain.com'",
-        "Primary CTA button"
+    "gradients": {
+      "allowed_examples": [
+        "bg-[radial-gradient(80%_60%_at_50%_10%,rgba(255,106,0,0.18),rgba(0,0,0,0)_60%)]",
+        "bg-[conic-gradient(from_200deg_at_70%_30%,rgba(0,240,255,0.15),rgba(0,0,0,0)_40%)]"
       ],
-      "ui": {
-        "wrapper": "w-full md:w-4/5 lg:w-2/3 mx-auto",
-        "input": "h-12 rounded-lg border border-slate-300 focus-visible:ring-2 focus-visible:ring-[color:oklch(var(--ring))] text-slate-800 placeholder:text-slate-400",
-        "button": "h-12 px-6 rounded-lg bg-[color:oklch(var(--accent))] text-white hover:bg-[#1197e6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#12A8FF]"
-      },
-      "testids": {
-        "input": "url-input-field",
-        "button": "analyze-cta-button"
-      }
+      "prohibited": ["purple→pink", "blue→purple", "green→blue", "red→pink", "stacked multi-layer in same viewport"],
+      "usage_rules": [
+        "Decorative overlays only; never on heavy text blocks",
+        "Keep under 20% of viewport; otherwise fallback to solid",
+        "Use low alpha to preserve contrast"
+      ]
+    }
+  },
+
+  "css_tokens": {
+    "add_to_index_css": """
+@layer base {
+  :root.tech-theater-dark {
+    --background: 210 15% 6%;
+    --foreground: 210 15% 96%;
+    --card: 210 14% 8%;
+    --card-foreground: 210 12% 94%;
+    --muted: 210 10% 22%;
+    --muted-foreground: 210 7% 62%;
+    --border: 210 10% 16%;
+    --input: 210 10% 18%;
+    --ring: 24 95% 56%;
+    --accent-ember: 24 100% 52%;
+    --accent-ember-2: 40 100% 52%;
+    --accent-electric: 186 95% 60%;
+    --accent-lava: 358 92% 56%;
+    --radius: 0.625rem;
+  }
+}
+    """,
+    "init_dark_mode_js": {
+      "snippet": "document.documentElement.classList.add('dark'); document.documentElement.classList.add('tech-theater-dark');"
+    }
+  },
+
+  "layout_system": {
+    "container": "mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px]",
+    "grid": {
+      "split_screen": "grid grid-cols-1 lg:grid-cols-[1fr,1.18fr] items-stretch gap-6",
+      "bento_3up": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6",
+      "stack": "flex flex-col gap-8"
     },
-    "score_cards": {
-      "items": ["Visual", "UI/UX", "SEO", "Exposure", "Overall"],
-      "container_class": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6",
-      "card_class": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
-      "ring_css": "Use conic-gradient ring to render circular progress (see css_snippets.radial_progress)",
-      "state_colors": {
-        ">=70": "text-[#1F8350] ring-success",
-        "40-69": "text-[#946200] ring-warning",
-        "<40": "text-[#B42323] ring-destructive"
+    "spacing": {
+      "section_y": "py-16 sm:py-24 lg:py-32",
+      "block": "p-6 sm:p-8 lg:p-10"
+    }
+  },
+
+  "sections": {
+    "hero": {
+      "goal": "Deliver a bold engineering-first statement with living background (embers/code particles) + decisive CTA.",
+      "structure": {
+        "wrapper": "relative overflow-hidden bg-[hsl(var(--background))]",
+        "backdrop_layers": [
+          "absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(255,106,0,0.14),rgba(0,0,0,0)_60%)]",
+          "<HeroParticles data-testid=\"hero-particles-canvas\" />"
+        ],
+        "content": "relative container min-h-[72vh] flex items-center",
+        "heading": "text-[hsl(var(--foreground))] font-bold font-[\'Space Grotesk\'] text-4xl sm:text-5xl lg:text-6xl max-w-3xl",
+        "subtext": "text-[hsl(var(--muted-foreground))] text-base md:text-lg max-w-2xl mt-5",
+        "ctas": "mt-8 flex flex-wrap gap-4"
       },
-      "content": [
-        "Large score number in Space Grotesk",
-        "Short 1–2 line explanation"
-      ],
-      "testids": [
-        "score-card-visual",
-        "score-card-uiux",
-        "score-card-seo",
-        "score-card-exposure",
-        "score-card-overall"
+      "interactions": [
+        "Parallax: subtle translateY of ember layer on mousemove",
+        "CTA hover: ring-ember + glow"
       ]
     },
-    "assistant_recommendations": {
-      "component": "Card with list + optional collapsible rows",
-      "ui": {
-        "card": "bg-white rounded-xl border border-slate-200 p-6 shadow-sm",
-        "item": "flex items-start gap-3 py-3 border-b last:border-0"
+
+    "truth_bomb": {
+      "goal": "Call out no-code myths vs real engineering reality in a dramatic split-screen.",
+      "layout": "grid grid-cols-1 lg:grid-cols-2 gap-6",
+      "left_panel": {
+        "classes": "relative border border-[hsl(var(--border))] rounded-xl bg-[hsl(var(--card))] p-8 sm:p-10",
+        "effects": ["grayscale", "opacity-80"],
+        "title_style": "text-[hsl(var(--muted-foreground))] font-semibold",
+        "data_testids": ["truth-bomb-left-panel", "truth-bomb-left-claim-list"]
       },
-      "testids": {
-        "container": "ai-recommendations",
-        "item": "ai-recommendation-item"
-      }
-    },
-    "before_after": {
-      "library": "react-compare-slider",
-      "layout": "Side-by-side or slider on md+; stacked on mobile",
-      "labels": ["Current Site", "Recommended Design"],
-      "ui": {
-        "wrapper": "bg-white rounded-xl border border-slate-200 shadow-sm p-4",
-        "handle": "rounded-full w-8 h-8 bg-white border border-slate-300 shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#667eea]"
+      "right_panel": {
+        "classes": "relative border border-[hsl(var(--border))] rounded-xl bg-[hsl(var(--card))] p-8 sm:p-10 ring-1 ring-[hsl(var(--ring))]",
+        "accents": ["ember_glow", "electric_glow"],
+        "title_style": "text-[hsl(var(--foreground))] font-semibold",
+        "data_testids": ["truth-bomb-right-panel", "truth-bomb-right-proof-list"]
       },
-      "testids": {
-        "container": "before-after",
-        "slider": "before-after-slider"
-      }
+      "mobile": "Stacks vertically; keep left first for narrative"
     },
-    "charts": {
-      "library": "Recharts",
-      "types": ["LineChart", "BarChart"],
-      "ui": {
-        "container": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
-        "height": 320,
-        "palette": {
-          "line_primary": "#12A8FF",
-          "line_secondary": "#667eea",
-          "bar_fill": "#E2E8F0"
-        }
+
+    "widgets": {
+      "build_counter": {
+        "description": "Real-time builds counter with odometer-style animated digits.",
+        "component": "AnimatedCounter.js",
+        "container_classes": "card p-6 flex items-center justify-between",
+        "data_testids": ["build-counter", "build-counter-increment-button"],
+        "note": "Use framer-motion for staggered digits."
       },
-      "features": ["Smooth curves (type=monotone)", "Axis labels", "Legend", "Tooltip"],
-      "testids": {
-        "traffic_chart": "traffic-projection-chart",
-        "conversion_chart": "conversion-projection-chart"
-      }
-    },
-    "lead_capture_form": {
-      "fields": ["Full Name", "Work Email", "Company", "Website URL", "Monthly Visits (optional)", "Message"],
-      "validation": "Use shadcn/ui Form; focus rings use primary; show success/error with Sonner",
-      "ui": {
-        "card": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
-        "button": "h-11 rounded-lg bg-[#12A8FF] hover:bg-[#1197e6] text-white"
+      "github_heatmap": {
+        "description": "Developer activity grid using CSS Grid with d3-scale for intensity.",
+        "component": "ActivityHeatmap.js",
+        "container_classes": "card p-6",
+        "data_testids": ["github-heatmap", "github-heatmap-cell"],
+        "note": "Fetch data or mock. Support dark theme cells and accessible labels."
       },
-      "testids": {
-        "form": "consultation-form",
-        "submit": "request-consultation-button"
+      "code_poetry": {
+        "description": "Animated code snippet with Prism.js highlighting + staggered line reveals.",
+        "component": "CodePoetry.js",
+        "container_classes": "card p-6 bg-gradient-to-b from-transparent to-black/20",
+        "data_testids": ["code-poetry", "code-poetry-line"],
+        "note": "Monospace + mild glow edges; never over 20% gradient coverage."
       }
     },
-    "cards_containers": {
-      "spec": {
-        "bg": "#FFFFFF",
-        "shadow": "0 2px 8px rgba(0,0,0,0.1)",
-        "radius": "12px",
-        "padding": "2rem",
-        "border": "1px solid #E2E8F0"
-      }
-    },
-    "navigation": {
-      "layout": "Left logo + right actions",
-      "class": "flex items-center justify-between py-4",
-      "testids": {
-        "navbar": "main-navbar",
-        "cta": "nav-request-demo-button"
+
+    "seo_analyzer": {
+      "goal": "Dark, dramatic form with kinetic loading: progress ring, dials, and streaming log text.",
+      "wrapper": "card p-6 sm:p-8 space-y-6",
+      "form": {
+        "fields": [
+          {"component": "Input", "label": "Website URL", "placeholder": "https://example.com", "testid": "seo-url-input"},
+          {"component": "Select", "label": "Depth", "options": ["Shallow", "Standard", "Deep"], "testid": "seo-depth-select"}
+        ],
+        "cta": {"component": "Button", "label": "Run Analysis", "variant": "default", "testid": "seo-run-button"}
+      },
+      "loading": {
+        "ui": ["<Progress data-testid=\\"seo-progress\\\" value={progress}/>", "spinner/dials via framer-motion"],
+        "stream": "Animated console lines in monospace with caret; use setInterval to append and auto-scroll.",
+        "testids": ["seo-log-stream", "seo-status-text"]
+      },
+      "result": {
+        "ui": ["Tabs for Overview, Issues, Recommendations", "Badge severities", "Accordion for details"],
+        "testids": ["seo-result-tabs", "seo-issue-item", "seo-recommendation-item"]
       }
     }
   },
-  "shadcn_components": {
-    "paths": [
-      "./components/ui/button.jsx",
-      "./components/ui/input.jsx",
-      "./components/ui/label.jsx",
-      "./components/ui/card.jsx",
-      "./components/ui/progress.jsx",
-      "./components/ui/badge.jsx",
-      "./components/ui/tabs.jsx",
-      "./components/ui/table.jsx",
-      "./components/ui/tooltip.jsx",
-      "./components/ui/dialog.jsx",
-      "./components/ui/switch.jsx",
-      "./components/ui/select.jsx",
-      "./components/ui/textarea.jsx",
-      "./components/ui/form.jsx",
-      "./components/ui/sonner.jsx"
-    ],
-    "import_conventions": {
-      "components": "named exports (export const ComponentName = ...) from ./components/[name]",
-      "pages": "default exports (export default function PageName(){...})"
-    }
-  },
-  "motion": {
-    "libraries": ["framer-motion", "react-countup"],
-    "principles": [
-      "Subtle fade-in on scroll (0.3s–0.4s ease)",
-      "Button hover: specific properties only (background-color, box-shadow)",
-      "Progress bars animate width on mount",
-      "Number counters for scores with react-countup"
+
+  "components_and_paths": {
+    "use_shadcn": true,
+    "paths": {
+      "Button": "./components/ui/button",
+      "Card": "./components/ui/card",
+      "Tabs": "./components/ui/tabs",
+      "Accordion": "./components/ui/accordion",
+      "Badge": "./components/ui/badge",
+      "Input": "./components/ui/input",
+      "Select": "./components/ui/select",
+      "Progress": "./components/ui/progress",
+      "Dialog": "./components/ui/dialog",
+      "Toast": "./components/ui/toaster",
+      "Sonner": "./components/ui/sonner",
+      "Tooltip": "./components/ui/tooltip",
+      "Switch": "./components/ui/switch",
+      "Separator": "./components/ui/separator"
+    },
+    "new_components": [
+      {"name": "HeroParticles", "path_suggestion": "./components/HeroParticles.js"},
+      {"name": "AnimatedCounter", "path_suggestion": "./components/AnimatedCounter.js"},
+      {"name": "ActivityHeatmap", "path_suggestion": "./components/ActivityHeatmap.js"},
+      {"name": "CodePoetry", "path_suggestion": "./components/CodePoetry.js"},
+      {"name": "SEOAnalyzer", "path_suggestion": "./components/SEOAnalyzer.js"}
     ]
   },
-  "accessibility": {
-    "rules": [
-      "All interactive elements MUST include data-testid attributes (kebab-case role names)",
-      "Labels above inputs; inputs have aria-invalid on error",
-      "Focus-visible rings: 2px, high-contrast",
-      "Chart tooltips keyboard accessible via focusable legends",
-      "Minimum touch targets: 44px"
-    ]
-  },
-  "testing_attributes": {
-    "naming": "kebab-case describing role (e.g., 'login-form-submit-button')",
-    "required_on": ["buttons", "links", "form inputs", "menus", "cards showing critical values", "confirmation messages"],
-    "examples": [
-      "data-testid=\"url-input-field\"",
-      "data-testid=\"analyze-cta-button\"",
-      "data-testid=\"score-card-overall\"",
-      "data-testid=\"traffic-projection-chart\"",
-      "data-testid=\"request-consultation-button\""
-    ]
-  },
-  "data_viz": {
-    "recharts_setup_example": "import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';",
-    "line_chart_snippet": "<ResponsiveContainer width='100%' height={320}><LineChart data={data}><CartesianGrid stroke='#EDF2F7' strokeDasharray='3 3' /><XAxis dataKey='label' tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Line type='monotone' dataKey='traffic' stroke='#12A8FF' strokeWidth={3} dot={false} /><Line type='monotone' dataKey='conversions' stroke='#667eea' strokeWidth={3} dot={false} /></LineChart></ResponsiveContainer>",
-    "bar_chart_snippet": "<ResponsiveContainer width='100%' height={320}><BarChart data={data}><CartesianGrid stroke='#EDF2F7' strokeDasharray='3 3' /><XAxis dataKey='label' tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Bar dataKey='baseline' fill='#E2E8F0' radius={[6,6,0,0]} /><Bar dataKey='projected' fill='#12A8FF' radius={[6,6,0,0]} /></BarChart></ResponsiveContainer>"
-  },
-  "css_snippets": {
-    "radial_progress": "/* Circular score ring (conic gradient) */\n.score-ring {\n  --size: 124px;\n  --track: #EDF2F7;\n  --fill: #12A8FF;\n  width: var(--size);\n  height: var(--size);\n  border-radius: 9999px;\n  background: conic-gradient(var(--fill) calc(var(--value) * 1%), var(--track) 0);\n  display: grid;\n  place-items: center;\n}\n.score-ring > span {\n  font-family: 'Space Grotesk', sans-serif;\n  font-size: 1.75rem;\n  color: #2D3748;\n}",
-    "card_base": "@apply bg-white rounded-xl border border-slate-200 shadow-sm p-6;",
-    "button_primary": ".btn-primary { background-color: #12A8FF; color:#fff; border-radius: 0.5rem; padding: 0.75rem 1.25rem; transition: background-color .2s ease, box-shadow .2s ease; } .btn-primary:hover { background-color:#1197e6; box-shadow: 0 6px 18px rgba(18,168,255,0.25); } .btn-primary:focus-visible { outline: 2px solid #12A8FF; outline-offset: 2px; }"
-  },
-  "images": {
-    "usage": "Use real-world corporate imagery sparingly to build trust (hero, consultation form, testimonial band)",
-    "image_urls": [
-      {
-        "category": "hero_trust",
-        "description": "meeting room glass signage",
-        "url": "https://images.unsplash.com/photo-1632858265907-961f1454ccf6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
-      },
-      {
-        "category": "case_study",
-        "description": "boardroom meeting",
-        "url": "https://images.unsplash.com/photo-1764690690771-b4522d66b433?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
-      },
-      {
-        "category": "form_sidebar",
-        "description": "elegant office corridor",
-        "url": "https://images.unsplash.com/photo-1668299444654-cc78b6692db1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwzfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
-      },
-      {
-        "category": "testimonial",
-        "description": "meeting at window table",
-        "url": "https://images.unsplash.com/photo-1565688527174-775059ac429c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHw0fHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
-      }
-    ]
-  },
-  "libraries": {
-    "install": [
-      "npm i recharts",
-      "npm i react-compare-slider",
-      "npm i framer-motion",
-      "npm i react-countup"
-    ],
-    "usage_notes": [
-      "Recharts: always wrap in ResponsiveContainer; use strokeWidth 3; disable dots for lines",
-      "react-compare-slider: add data-testid on the main <ReactCompareSlider />",
-      "Framer Motion: use whileInView with once: true; threshold 0.2",
-      "CountUp: animate score numbers (duration 1.2s)"
-    ]
-  },
-  "page_structure": {
-    "landing": [
-      "Header (logo, Request Demo button)",
-      "Hero with URL input + Analyze CTA",
-      "Trust band (small, muted logos)",
-      "How it works (3 steps, icon + copy)",
-      "Footer (legal, contact)"
-    ],
-    "results_dashboard": [
-      "Business type badge + overall score",
-      "Score cards grid",
-      "AI recommendations",
-      "Before/After comparison",
-      "Growth projections",
-      "Lead capture form"
-    ]
-  },
+
   "buttons": {
-    "style_family": "Professional / Corporate",
     "tokens": {
-      "--btn-radius": "10px",
-      "--btn-shadow": "0 6px 18px rgba(18,168,255,0.18)",
-      "--btn-motion": ".2s ease"
+      "--btn-radius": "0.625rem",
+      "--btn-shadow": "0 0 0 0 rgba(0,0,0,0)",
+      "--btn-motion": "150ms ease-out",
+      "--btn-ring": "0 0 0 4px rgba(255,106,0,0.25)"
     },
     "variants": {
-      "primary": "bg-[#12A8FF] text-white hover:bg-[#1197e6] focus-visible:outline-2 focus-visible:outline-[#12A8FF]",
-      "secondary": "bg-[#667eea] text-white hover:bg-[#5a6fe0]",
-      "ghost": "bg-transparent text-[#2D3748] hover:bg-[#F7FAFC] border border-slate-200"
+      "primary": "bg-[hsl(var(--accent-ember))] text-black hover:bg-[hsl(var(--accent-ember-2))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-ember))] disabled:opacity-60",
+      "secondary": "bg-[hsl(var(--muted))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]/80",
+      "ghost": "bg-transparent text-[hsl(var(--foreground))] hover:bg-white/5 border border-[hsl(var(--border))]"
     },
     "sizes": {
-      "sm": "h-9 px-4",
-      "md": "h-11 px-5",
-      "lg": "h-12 px-6"
+      "sm": "px-3 h-9 rounded-[var(--btn-radius)]",
+      "md": "px-4 h-11 rounded-[var(--btn-radius)]",
+      "lg": "px-6 h-12 rounded-[var(--btn-radius)]"
     }
   },
-  "micro_interactions": {
-    "rules": [
-      "Do not use universal transition; restrict to background-color, box-shadow, color",
-      "Section fade-in on scroll; distance 8–12px",
-      "Charts animate on mount only"
-    ]
-  },
-  "export_conventions": {
-    "components": "named exports (export const ComponentName = ...)",
-    "pages": "default exports (export default function PageName(){...})",
-    "paths_note": "Use ./components/ui/* from this repo (JS files, not TSX)"
-  },
-  "component_path": {
-    "Button": "./components/ui/button.jsx",
-    "Input": "./components/ui/input.jsx",
-    "Label": "./components/ui/label.jsx",
-    "Card": "./components/ui/card.jsx",
-    "Progress": "./components/ui/progress.jsx",
-    "Badge": "./components/ui/badge.jsx",
-    "Tabs": "./components/ui/tabs.jsx",
-    "Table": "./components/ui/table.jsx",
-    "Tooltip": "./components/ui/tooltip.jsx",
-    "Dialog": "./components/ui/dialog.jsx",
-    "Switch": "./components/ui/switch.jsx",
-    "Select": "./components/ui/select.jsx",
-    "Textarea": "./components/ui/textarea.jsx",
-    "Form": "./components/ui/form.jsx",
-    "Sonner": "./components/ui/sonner.jsx"
-  },
-  "code_scaffolds": {
-    "hero_section": "<section className=\"py-12 md:py-20 bg-[#F7FAFC]\" data-testid=\"hero-section\"><div className=\"mx-auto max-w-[1200px] px-4\"><h1 className=\"text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900\">Analyze your website with AI</h1><p className=\"mt-4 text-slate-600 max-w-2xl\">Get a professional-grade audit across UX, SEO, and funnel performance.</p><div className=\"mt-6 flex flex-col sm:flex-row gap-3\"><Input data-testid=\"url-input-field\" type=\"url\" placeholder=\"https://yourdomain.com\" className=\"h-12\" /><Button data-testid=\"analyze-cta-button\" className=\"h-12\">Analyze Website</Button></div></div></section>",
-    "score_card": "<Card className=\"p-6\" data-testid=\"score-card-uiux\"><div className=\"flex items-center justify-between\"><span className=\"text-slate-500 text-sm\">UI/UX</span><Badge variant=\"secondary\">Business: SaaS</Badge></div><div className=\"mt-4 flex items-center gap-6\"><div className=\"score-ring\" style={{ ['--value'] : score }}><span><CountUp end={score} duration={1.2} /></span></div><p className=\"text-slate-600\">Improve spacing, emphasize primary CTA, and streamline forms.</p></div></Card>",
-    "recharts_line": "<ResponsiveContainer width=\"100%\" height={320}><LineChart data={data}><CartesianGrid stroke=\"#EDF2F7\" strokeDasharray=\"3 3\" /><XAxis dataKey=\"label\" tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Line type=\"monotone\" dataKey=\"traffic\" stroke=\"#12A8FF\" strokeWidth={3} dot={false} /></LineChart></ResponsiveContainer>",
-    "before_after": "<div className=\"p-4 bg-white rounded-xl border\" data-testid=\"before-after\"><ReactCompareSlider itemOne={<img src=\"/before.png\" alt=\"Current Site\" />} itemTwo={<img src=\"/after.png\" alt=\"Recommended Design\" />} className=\"rounded-lg\" data-testid=\"before-after-slider\" /></div>",
-    "lead_form": "<Card className=\"p-6\" data-testid=\"consultation-form\"><form className=\"grid grid-cols-1 sm:grid-cols-2 gap-4\"><div className=\"col-span-1\"><Label htmlFor=\"name\">Full Name</Label><Input id=\"name\" data-testid=\"name-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"email\">Work Email</Label><Input id=\"email\" type=\"email\" data-testid=\"email-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"company\">Company</Label><Input id=\"company\" data-testid=\"company-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"url\">Website URL</Label><Input id=\"url\" type=\"url\" data-testid=\"website-input\" /></div><div className=\"col-span-2\"><Label htmlFor=\"message\">Message</Label><Textarea id=\"message\" rows=\"4\" data-testid=\"message-input\" /></div><div className=\"col-span-2\"><Button className=\"h-11\" data-testid=\"request-consultation-button\">Request Consultation</Button></div></form></Card>"
-  },
-  "instructions_to_main_agent": [
-    "Replace sci-fi styling by removing ./src/App.css references where possible; rely on Tailwind + tokens in index.css",
-    "Inject Google Fonts link in index.html head for Inter and Space Grotesk",
-    "Set CSS variables (color_system.css_variables_hsl) in :root (you can extend ./src/index.css base tokens)",
-    "Use shadcn/ui components listed in component_path only; avoid raw HTML for complex components",
-    "For charts use Recharts per data_viz; wrap with Card containers",
-    "Use react-compare-slider for Before/After; ensure keyboard focus ring",
-    "Every interactive and key informational element MUST include data-testid (see testing_attributes)",
-    "Transitions: never use transition-all; restrict to specific properties",
-    "Mobile-first: stack everything; upgrade to grid on md+",
-    "Keep gradients to section backgrounds only and under 20% viewport coverage"
-  ],
-  "inspiration_references": {
-    "stripe_linear_notion_notes": [
-      "Stripe-like scannability: clear type ladder, generous whitespace",
-      "Linear-like calm surfaces and unobtrusive motion",
-      "Notion-like focus on content with minimal chrome"
+
+  "micro_interactions_and_motion": {
+    "principles": [
+      "No universal transition: target only color/background/opacity on interactive elements",
+      "Use short, confident durations (120–220ms)",
+      "Entrance: fade+rise 12px with slight delay staggering",
+      "Hover: ember/electric ring + 1–2px translateY"
     ],
-    "citations": [
-      "https://www.illustration.app/blog/stripe-payment-ux-gold-standard",
-      "https://react-compare-slider.vercel.app"
+    "framer_motion_patterns": {
+      "fade_rise": {"initial": {"opacity": 0, "y": 12}, "animate": {"opacity": 1, "y": 0}, "transition": {"duration": 0.4}},
+      "stagger_container": {"variants": {"show": {"transition": {"staggerChildren": 0.08}}}}
+    }
+  },
+
+  "libraries": {
+    "install": [
+      "npm i framer-motion react-countup",
+      "npm i prismjs",
+      "npm i d3-scale d3-array",
+      "npm i react-tsparticles tsparticles-engine",
+      "npm i lucide-react"
+    ],
+    "usage_notes": [
+      "Use react-tsparticles only in Hero. Keep particle count lean (<150) for performance.",
+      "Prism.js: import 'prismjs/themes/prism-tomorrow.css' or a custom dark theme.",
+      "d3-scale for heatmap color mapping; render with CSS Grid for responsiveness.",
+      "Sonner toasts for SEO Analyzer states (success/error)."
     ]
+  },
+
+  "code_scaffolds_js": {
+    "HeroParticles.js": """
+import { useMemo } from 'react'
+import Particles from 'react-tsparticles'
+import { loadSlim } from 'tsparticles-engine'
+
+export const HeroParticles = (props) => {
+  const options = useMemo(() => ({
+    background: { color: 'transparent' },
+    fullScreen: { enable: false },
+    fpsLimit: 60,
+    particles: {
+      number: { value: 90, density: { enable: true, area: 800 } },
+      color: { value: ['#FF6A00', '#33E6FF'] },
+      opacity: { value: { min: 0.08, max: 0.25 } },
+      size: { value: { min: 1, max: 2 } },
+      move: { enable: true, speed: 0.5 },
+      links: { enable: false },
+      shape: { type: 'circle' }
+    },
+    detectRetina: true
+  }), [])
+
+  return (
+    <div className=\"absolute inset-0 pointer-events-none\" aria-hidden data-testid=\"hero-particles-canvas\">
+      <Particles id=\"hero-particles\" options={options} init={loadSlim} />
+    </div>
+  )
+}
+    """,
+
+    "AnimatedCounter.js": """
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+export const AnimatedCounter = ({ value, label }) => {
+  const [digits, setDigits] = useState(String(value).split(''))
+  useEffect(() => setDigits(String(value).split('')), [value])
+
+  return (
+    <div className=\"flex items-end gap-3\" data-testid=\"build-counter\">
+      <div className=\"flex gap-1 text-4xl sm:text-5xl font-bold font-[\\'Space Grotesk\\'] text-[hsl(var(--foreground))]\">
+        {digits.map((d, i) => (
+          <AnimatePresence key={i} mode=\"popLayout\">
+            <motion.span
+              initial={{ y: 16, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -16, opacity: 0 }}
+              transition={{ duration: 0.25, delay: i * 0.04 }}
+              className=\"tabular-nums font-[\\'Source Code Pro\\'] text-[hsl(var(--accent-ember))]\"
+            >
+              {d}
+            </motion.span>
+          </AnimatePresence>
+        ))}
+      </div>
+      {label && <span className=\"text-sm text-[hsl(var(--muted-foreground))]\">{label}</span>}
+    </div>
+  )
+}
+    """,
+
+    "ActivityHeatmap.js": """
+import { scaleLinear } from 'd3-scale'
+
+export const ActivityHeatmap = ({ weeks = 12, data = [] }) => {
+  // data = [{ date: '2024-01-01', count: 3 }, ...]
+  const values = data.map(d => d.count)
+  const max = Math.max(1, ...values)
+  const color = scaleLinear().domain([0, max]).range(['#161b22', '#FF6A00'])
+
+  // Build a recent-days sequence
+  const days = weeks * 7
+  const today = new Date()
+  const cells = Array.from({ length: days }).map((_, i) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() - (days - 1 - i))
+    const key = date.toISOString().slice(0, 10)
+    const v = data.find(d => d.date === key)?.count || 0
+    return { key, v }
+  })
+
+  return (
+    <div className=\"grid grid-cols-7 gap-1\" role=\"grid\" aria-label=\"Developer activity heatmap\" data-testid=\"github-heatmap\">
+      {cells.map((c, idx) => (
+        <div
+          key={c.key + idx}
+          title={`${c.key}: ${c.v} events`}
+          className=\"w-3.5 h-3.5 rounded-[2px]\"
+          style={{ backgroundColor: color(c.v) }}
+          data-testid=\"github-heatmap-cell\"
+          aria-label={`${c.key}: ${c.v} events`}
+        />
+      ))}
+    </div>
+  )
+}
+    """,
+
+    "CodePoetry.js": """
+import { useEffect, useRef } from 'react'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/themes/prism-tomorrow.css'
+
+export const CodePoetry = ({ code = '', language = 'javascript' }) => {
+  const ref = useRef(null)
+  useEffect(() => {
+    if (ref.current) Prism.highlightAllUnder(ref.current)
+  }, [code])
+
+  const lines = code.split('\n')
+
+  return (
+    <pre ref={ref} className=\"relative p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] before:absolute before:inset-0 before:bg-[radial-gradient(60%_40%_at_10%_0%,rgba(255,106,0,0.07),rgba(0,0,0,0)_60%)] before:pointer-events-none overflow-auto\" data-testid=\"code-poetry\">
+      <code className={`language-${language} text-sm font-[\\'Source Code Pro\\']`}>
+        {lines.map((line, i) => (
+          <div key={i} className=\"opacity-0 animate-[fadeIn_0.4s_ease_forwards] [animation-delay:var(--d)]\" style={{ ['--d']:`${i*80}ms` }} data-testid=\"code-poetry-line\">{line || '\u00A0'}</div>
+        ))}
+      </code>
+    </pre>
+  )
+}
+    """,
+
+    "SEOAnalyzer.js": """
+import { useState } from 'react'
+import { Button } from './components/ui/button'
+import { Input } from './components/ui/input'
+import { Progress } from './components/ui/progress'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './components/ui/tabs'
+import { toast } from './components/ui/sonner'
+
+export default function SEOAnalyzer() {
+  const [url, setUrl] = useState('')
+  const [depth, setDepth] = useState('Standard')
+  const [isRunning, setIsRunning] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [log, setLog] = useState([])
+
+  const run = async () => {
+    if (!url) {
+      toast('Enter a URL to analyze')
+      return
+    }
+    setIsRunning(true)
+    setProgress(0)
+    setLog([])
+
+    let p = 0
+    const timer = setInterval(() => {
+      p = Math.min(100, p + Math.random() * 14)
+      setProgress(p)
+      setLog(prev => [...prev, `Scanning… ${Math.round(p)}%`])
+      if (p >= 100) {
+        clearInterval(timer)
+        setIsRunning(false)
+        setLog(prev => [...prev, 'Complete. Rendering results…'])
+      }
+    }, 450)
   }
+
+  return (
+    <div className=\"space-y-6\">
+      <div className=\"flex flex-col sm:flex-row gap-3\">
+        <Input
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+          placeholder=\"https://example.com\"
+          className=\"h-12 bg-[hsl(var(--input))] border-[hsl(var(--border))]\"
+          data-testid=\"seo-url-input\"
+        />
+        {/* Replace with shadcn Select if needed in your page context */}
+        <Button onClick={run} className=\"h-12\" data-testid=\"seo-run-button\">Run Analysis</Button>
+      </div>
+      {isRunning && (
+        <div className=\"space-y-3\">
+          <Progress value={progress} data-testid=\"seo-progress\" />
+          <div className=\"h-40 overflow-auto bg-black/40 border border-[hsl(var(--border))] rounded-md p-3 font-[\\'Source Code Pro\\'] text-[hsl(var(--muted-foreground))]\" data-testid=\"seo-log-stream\">
+            {log.map((l, i) => (
+              <div key={i}>{l}</div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!isRunning && progress >= 100 && (
+        <Tabs defaultValue=\"overview\" className=\"w-full\" data-testid=\"seo-result-tabs\">
+          <TabsList>
+            <TabsTrigger value=\"overview\">Overview</TabsTrigger>
+            <TabsTrigger value=\"issues\">Issues</TabsTrigger>
+            <TabsTrigger value=\"recs\">Recommendations</TabsTrigger>
+          </TabsList>
+          <TabsContent value=\"overview\">Scores & charts</TabsContent>
+          <TabsContent value=\"issues\">Issue list (a11y, meta, speed)</TabsContent>
+          <TabsContent value=\"recs\">Prioritized actions</TabsContent>
+        </Tabs>
+      )}
+    </div>
+  )
+}
+    """
+  },
+
+  "accessibility": {
+    "contrast": "Maintain WCAG AA contrast. Foreground on background >= 4.5:1. Ember/electric accents must be paired with dark surfaces or black text depending on luminance.",
+    "focus": "Visible focus ring using ring-[hsl(var(--ring))] with 2px thickness.",
+    "motion_pref": "Respect prefers-reduced-motion: reduce parallax and particle counts.",
+    "testing": "Every interactive element and key info block must have data-testid attributes (kebab-case, role-oriented)."
+  },
+
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1766553134878-4e7c9116dfd5?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "category": "hero_overlay",
+      "description": "Flame streaks to multiply-blend over the hero for ember glints",
+      "placement": "Hero background overlay with low opacity (<=12%)"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1690460232618-3b4fb3dc1dd6?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "category": "section_divider",
+      "description": "Glowing ember coals texture",
+      "placement": "Subtle masked top/bottom of sections as decorative band"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1610733099270-0960608da9fc?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "category": "truth_bomb_left",
+      "description": "Subtle dark foliage/ash texture for muted myths side",
+      "placement": "Background image with grayscale/opacity 0.2"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1721040530907-646692053af8?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "category": "code_poetry_bg",
+      "description": "Glossy dark surface to hint at liquid metal",
+      "placement": "Behind code block at 6–10% opacity"
+    }
+  ],
+
+  "instructions_to_main_agent": [
+    "Add the Google Fonts link to index.html head and set base fonts via Tailwind classes on html/body.",
+    "Set documentElement classes 'dark tech-theater-dark' on app init.",
+    "Use shadcn/ui components from ./components/ui; do not use raw HTML for complex controls.",
+    "Implement Hero with <HeroParticles /> and ensure gradient overlays stay under 20% viewport.",
+    "Build Truth Bomb section with two Cards; left muted, right energized with ember/electric rings.",
+    "Create widgets: AnimatedCounter, ActivityHeatmap, CodePoetry using provided scaffolds; ensure data-testid on all key parts.",
+    "Implement SEOAnalyzer with streaming log and Progress; wire to backend later. Use Sonner toasts for states.",
+    "Apply motion patterns with framer-motion; avoid transition-all. Specify transition properties per element.",
+    "Verify accessibility: keyboard focus, reduced motion, and color contrast.",
+    "Mobile-first: stack split sections; increase spacing (2–3x)."
+  ]
 }
 
 
-General UI UX Design Guidelines  
+<General UI UX Design Guidelines>  
     - You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms
     - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text
    - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json
@@ -471,3 +593,4 @@ NEVER stack multiple gradient layers in the same viewport.
   - Sonner component are located in `/app/src/components/ui/sonner.tsx`
 
 Use 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals.
+</General UI UX Design Guidelines>
