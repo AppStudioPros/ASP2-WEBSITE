@@ -1,1 +1,71 @@
-import React, { useState } from 'react';\nimport './App.css';\nimport NeuralBackground from './components/NeuralBackground';\nimport AIAvatarRealistic from './components/AIAvatarRealistic';\nimport BattleArenaEpic from './components/BattleArenaEpic';\n\nfunction App() {\n  const [activeSection, setActiveSection] = useState('hero');\n\n  return (\n    <div className=\"App\">\n      <NeuralBackground />\n      \n      <div className=\"content-wrapper\">\n        {/* Navigation */}\n        <nav className=\"nav-bar\">\n          <div className=\"nav-logo\">APP STUDIO PRO</div>\n          <div className=\"nav-links\">\n            <button \n              className={activeSection === 'hero' ? 'active' : ''}\n              onClick={() => setActiveSection('hero')}\n              data-testid=\"nav-hero\"\n            >\n              AI Avatar\n            </button>\n            <button \n              className={activeSection === 'battle' ? 'active' : ''}\n              onClick={() => setActiveSection('battle')}\n              data-testid=\"nav-battle\"\n            >\n              Epic Battle\n            </button>\n          </div>\n        </nav>\n\n        {/* Hero Section - AI Avatar */}\n        {activeSection === 'hero' && (\n          <section className=\"hero-section\" data-testid=\"hero-section\">\n            <div className=\"hero-content\">\n              <h1 className=\"hero-title\">\n                <span className=\"gradient-text\">THE FUTURE OF AI</span>\n                <br />\n                <span className=\"sub-title\">IS HERE</span>\n              </h1>\n              <p className=\"hero-description\">\n                Experience cutting-edge AI interactions with realistic avatars, voice control, and epic battles\n              </p>\n            </div>\n            <AIAvatarRealistic />\n          </section>\n        )}\n\n        {/* Battle Arena Section */}\n        {activeSection === 'battle' && (\n          <section className=\"battle-section\" data-testid=\"battle-section\">\n            <h2 className=\"section-title\">\n              <span className=\"gradient-text\">EPIC AI BATTLE ARENA</span>\n            </h2>\n            <p className=\"section-description\">\n              Watch Claude, GPT, and Gemini fight in Street Fighter style battles!\n            </p>\n            <BattleArenaEpic />\n          </section>\n        )}\n\n        {/* Footer */}\n        <footer className=\"footer\">\n          <p>App Studio Pro - Kings of AI | EPIC Edition</p>\n        </footer>\n      </div>\n    </div>\n  );\n}\n\nexport default App;\n
+import React, { useState } from 'react';
+import './App.css';
+import NeuralBackground from './components/NeuralBackground';
+import AIAvatarRealistic from './components/AIAvatarRealistic';
+import BattleArenaEpic from './components/BattleArenaEpic';
+
+function App() {
+  const [activeSection, setActiveSection] = useState('hero');
+
+  return (
+    <div className="App">
+      <NeuralBackground />
+      
+      <div className="content-wrapper">
+        <nav className="nav-bar">
+          <div className="nav-logo">APP STUDIO PRO</div>
+          <div className="nav-links">
+            <button 
+              className={activeSection === 'hero' ? 'active' : ''}
+              onClick={() => setActiveSection('hero')}
+              data-testid="nav-hero"
+            >
+              AI Avatar
+            </button>
+            <button 
+              className={activeSection === 'battle' ? 'active' : ''}
+              onClick={() => setActiveSection('battle')}
+              data-testid="nav-battle"
+            >
+              Epic Battle
+            </button>
+          </div>
+        </nav>
+
+        {activeSection === 'hero' && (
+          <section className="hero-section" data-testid="hero-section">
+            <div className="hero-content">
+              <h1 className="hero-title">
+                <span className="gradient-text">THE FUTURE OF AI</span>
+                <br />
+                <span className="sub-title">IS HERE</span>
+              </h1>
+              <p className="hero-description">
+                Experience cutting-edge AI interactions with realistic avatars, voice control, and epic battles
+              </p>
+            </div>
+            <AIAvatarRealistic />
+          </section>
+        )}
+
+        {activeSection === 'battle' && (
+          <section className="battle-section" data-testid="battle-section">
+            <h2 className="section-title">
+              <span className="gradient-text">EPIC AI BATTLE ARENA</span>
+            </h2>
+            <p className="section-description">
+              Watch Claude, GPT, and Gemini fight in Street Fighter style battles!
+            </p>
+            <BattleArenaEpic />
+          </section>
+        )}
+
+        <footer className="footer">
+          <p>App Studio Pro - Kings of AI - EPIC Edition</p>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+export default App;
