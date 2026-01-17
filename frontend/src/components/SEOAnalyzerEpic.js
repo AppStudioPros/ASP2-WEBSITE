@@ -123,12 +123,12 @@ const screenshotConfigs = [
   { id: 'scroll', label: 'Full Page', position: 'desktop', width: 600, height: 400 },
 ];
 
-// Tech stack detection
+// Tech stack detection - NO EMOJIS
 const detectedTech = [
-  { name: 'React', icon: '⚛️', status: 'good' },
-  { name: 'Node.js', icon: '🟢', status: 'good' },
-  { name: 'MongoDB', icon: '🍃', status: 'warning' },
-  { name: 'AWS', icon: '☁️', status: 'good' },
+  { name: 'React', status: 'good' },
+  { name: 'Node.js', status: 'good' },
+  { name: 'MongoDB', status: 'warning' },
+  { name: 'AWS', status: 'good' },
 ];
 
 // Issues found
