@@ -4,14 +4,17 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 import os
-from sse_starlette.sse import EventSourceResponse
 from pydantic import BaseModel
-from typing import List, Dict, Optional
+from typing import Optional, List, Dict
 import asyncio
 from datetime import datetime
 from bson import ObjectId
 import json
+import base64
+from bs4 import BeautifulSoup
+import requests
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
 
 load_dotenv()
 
@@ -22,21 +25,18 @@ db = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global db_client, db
-    # Startup
     mongo_url = os.getenv("MONGO_URL")
-    db_name = os.getenv("DB_NAME", "appstudiopro")
+    db_name = os.getenv("DB_NAME", "appstudiopro_analyzer")
     db_client = AsyncIOMotorClient(mongo_url)
     db = db_client[db_name]
     print(f"✓ Connected to MongoDB: {db_name}")
     yield
-    # Shutdown
     if db_client:
         db_client.close()
         print("✓ MongoDB connection closed")
 
 app = FastAPI(lifespan=lifespan)
 
-# CORS
 cors_origins = os.getenv("CORS_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
@@ -46,7 +46,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Helper: Serialize MongoDB documents
 def serialize_doc(doc):
     if doc is None:
         return None
@@ -68,216 +67,229 @@ def serialize_doc(doc):
         return result
     return doc
 
-# Models
-class Message(BaseModel):
-    role: str
-    content: str
+class AnalyzeRequest(BaseModel):
+    url: str
 
-class ChatRequest(BaseModel):
-    messages: List[Message]
-    model: Optional[str] = "claude"
-    session_id: Optional[str] = "default"
+class ConsultationRequest(BaseModel):
+    name: str
+    email: str
+    phone: str
+    company: str
+    url: Optional[str] = None
+    message: Optional[str] = ""
 
-class BattleRequest(BaseModel):
-    prompt: str
-    session_id: Optional[str] = "battle"
-
-# Root endpoint
 @app.get("/api")
 async def root():
     return {
-        "app": "App Studio Pro - AI Powerhouse",
-        "version": "1.0.0-POC",
-        "status": "ready",
-        "features": ["claude_streaming", "multi_model_battle", "voice_support"]
+        "app": "AI Website Analyzer",
+        "version": "1.0.0",
+        "status": "ready"
     }
 
-# Health check
 @app.get("/api/health")
 async def health():
     return {"status": "healthy", "database": "connected" if db is not None else "disconnected"}
 
-# Claude Streaming Endpoint
-@app.post("/api/ai/claude/stream")
-async def claude_stream(request: ChatRequest):
-    """Stream Claude responses via SSE"""
-    
+def scrape_website(url: str) -> Dict:
+    """Scrape website and extract key information"""
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        
+        response = requests.get(url, headers=headers, timeout=15)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        data = {
+            'url': url,
+            'title': soup.title.string if soup.title else 'No title',
+            'meta_description': '',
+            'h1_tags': [],
+            'h2_tags': [],
+            'has_viewport': False,
+            'has_canonical': False,
+            'og_image': '',
+            'link_count': 0,
+            'image_count': 0,
+            'has_nav': False,
+            'has_footer': False,
+            'has_form': False
+        }
+        
+        meta_desc = soup.find('meta', attrs={'name': 'description'})
+        if meta_desc:
+            data['meta_description'] = meta_desc.get('content', '')
+        
+        data['h1_tags'] = [h1.get_text(strip=True) for h1 in soup.find_all('h1')[:3]]
+        data['h2_tags'] = [h2.get_text(strip=True) for h2 in soup.find_all('h2')[:5]]
+        
+        viewport = soup.find('meta', attrs={'name': 'viewport'})
+        data['has_viewport'] = viewport is not None
+        
+        canonical = soup.find('link', attrs={'rel': 'canonical'})
+        data['has_canonical'] = canonical is not None
+        
+        og_img = soup.find('meta', attrs={'property': 'og:image'})
+        if og_img:
+            data['og_image'] = og_img.get('content', '')
+        
+        data['link_count'] = len(soup.find_all('a'))
+        data['image_count'] = len(soup.find_all('img'))
+        data['has_nav'] = soup.find('nav') is not None
+        data['has_footer'] = soup.find('footer') is not None
+        data['has_form'] = soup.find('form') is not None
+        
+        return data
+        
+    except Exception as e:
+        raise Exception(f"Scraping failed: {str(e)}")
+
+async def analyze_with_claude(scraped_data: Dict) -> Dict:
+    """Analyze website data with Claude AI"""
     api_key = os.getenv("EMERGENT_LLM_KEY")
     if not api_key:
-        raise HTTPException(status_code=500, detail="API key not configured")
+        raise ValueError("EMERGENT_LLM_KEY not found")
     
-    async def event_generator():
-        try:
-            # Initialize Claude
-            system_msg = "You are a helpful AI assistant for App Studio Pro, a cutting-edge AI development agency. You help users understand our services and capabilities."
-            
-            chat = LlmChat(
-                api_key=api_key,
-                session_id=request.session_id,
-                system_message=system_msg
-            ).with_model("anthropic", "claude-4-sonnet-20250514")
-            
-            # Get last user message
-            user_message = request.messages[-1].content if request.messages else "Hello"
-            
-            # For POC, we'll get full response and stream it token by token
-            # In Phase 2, we'll implement true streaming
-            response = await chat.send_message(UserMessage(text=user_message))
-            
-            # Simulate streaming by splitting into words
-            words = response.split()
-            for i, word in enumerate(words):
-                token = word + (" " if i < len(words) - 1 else "")
-                yield {
-                    "event": "token",
-                    "data": json.dumps({"token": token, "done": False})
-                }
-                await asyncio.sleep(0.05)  # Simulate streaming delay
-            
-            # Send done event
-            yield {
-                "event": "done",
-                "data": json.dumps({"done": True})
-            }
-            
-            # Save to database
-            if db is not None:
-                await db.chats.insert_one({
-                    "session_id": request.session_id,
-                    "messages": [m.dict() for m in request.messages] + [{"role": "assistant", "content": response}],
-                    "model": "claude",
-                    "created_at": datetime.utcnow()
-                })
-                
-        except Exception as e:
-            print(f"Error in claude_stream: {e}")
-            yield {
-                "event": "error",
-                "data": json.dumps({"error": str(e)})
-            }
-    
-    return EventSourceResponse(event_generator())
+    prompt = f"""Analyze this website data and provide a JSON response with this exact structure:
+{{
+  "business_type": "one of: ecommerce, saas, local_business, professional_services, content, nonprofit, portfolio, other",
+  "business_category": "specific category like: restaurant, dentist, software, etc.",
+  "visual_score": 0-100 (rate modern design, colors, typography),
+  "ux_score": 0-100 (rate navigation, structure, usability),
+  "seo_score": 0-100 (rate meta tags, viewport, structure),
+  "exposure_score": 0-100 (estimate based on SEO quality and content),
+  "ai_assistants": ["list 2-3 AI assistant types that would help this business"],
+  "funnel_recommendations": ["list 2-3 conversion funnel improvements"],
+  "design_improvements": ["list 3 specific visual/UX improvements"],
+  "seo_improvements": ["list 2-3 SEO recommendations"],
+  "redesign_description": "detailed 2-3 sentence description of recommended homepage redesign"
+}}
 
-# Multi-Model Battle Endpoint
-@app.post("/api/ai/battle")
-async def battle_stream(request: BattleRequest):
-    """Stream responses from multiple AI models concurrently"""
+Website Data:
+- URL: {scraped_data.get('url')}
+- Title: {scraped_data.get('title', 'N/A')}
+- Meta Description: {scraped_data.get('meta_description', 'N/A')}
+- H1 Tags: {', '.join(scraped_data.get('h1_tags', []))}
+- H2 Tags: {', '.join(scraped_data.get('h2_tags', []))}
+- Has Navigation: {scraped_data.get('has_nav', False)}
+- Has Footer: {scraped_data.get('has_footer', False)}
+- Has Forms: {scraped_data.get('has_form', False)}
+- Link Count: {scraped_data.get('link_count', 0)}
+- Image Count: {scraped_data.get('image_count', 0)}
+- Has Viewport: {scraped_data.get('has_viewport', False)}
+- Has Canonical: {scraped_data.get('has_canonical', False)}
+
+Provide ONLY the JSON response."""
+
+    chat = LlmChat(
+        api_key=api_key,
+        session_id="analyzer-" + str(datetime.now().timestamp()),
+        system_message="You are a website analysis expert. Respond only with valid JSON."
+    ).with_model("anthropic", "claude-4-sonnet-20250514")
     
+    response = await chat.send_message(UserMessage(text=prompt))
+    
+    if "```json" in response:
+        json_str = response.split("```json")[1].split("```")[0].strip()
+    elif "```" in response:
+        json_str = response.split("```")[1].split("```")[0].strip()
+    else:
+        json_str = response.strip()
+    
+    analysis = json.loads(json_str)
+    return analysis
+
+async def generate_mockup_image(redesign_description: str, business_type: str) -> str:
+    """Generate redesigned website mockup using OpenAI"""
     api_key = os.getenv("EMERGENT_LLM_KEY")
     if not api_key:
-        raise HTTPException(status_code=500, detail="API key not configured")
+        raise ValueError("EMERGENT_LLM_KEY not found")
     
-    async def event_generator():
-        try:
-            # Initialize all three models
-            claude = LlmChat(
-                api_key=api_key,
-                session_id=f"{request.session_id}-claude",
-                system_message="You are Claude, a helpful AI assistant."
-            ).with_model("anthropic", "claude-4-sonnet-20250514")
-            
-            gpt = LlmChat(
-                api_key=api_key,
-                session_id=f"{request.session_id}-gpt",
-                system_message="You are GPT, a helpful AI assistant."
-            ).with_model("openai", "gpt-5.1")
-            
-            gemini = LlmChat(
-                api_key=api_key,
-                session_id=f"{request.session_id}-gemini",
-                system_message="You are Gemini, a helpful AI assistant."
-            ).with_model("gemini", "gemini-2.5-pro")
-            
-            message = UserMessage(text=request.prompt)
-            
-            # Get all responses concurrently
-            responses = await asyncio.gather(
-                claude.send_message(message),
-                gpt.send_message(message),
-                gemini.send_message(message),
-                return_exceptions=True
-            )
-            
-            models = ["claude", "gpt", "gemini"]
-            
-            # Stream each model's response
-            for model, response in zip(models, responses):
-                if isinstance(response, Exception):
-                    yield {
-                        "event": "error",
-                        "data": json.dumps({"model": model, "error": str(response)})
-                    }
-                else:
-                    # Send start event
-                    yield {
-                        "event": "start",
-                        "data": json.dumps({"model": model})
-                    }
-                    
-                    # Simulate streaming for each model
-                    words = response.split()
-                    for i, word in enumerate(words):
-                        token = word + (" " if i < len(words) - 1 else "")
-                        yield {
-                            "event": "token",
-                            "data": json.dumps({"model": model, "token": token})
-                        }
-                        await asyncio.sleep(0.03)
-                    
-                    # Send model complete event
-                    yield {
-                        "event": "complete",
-                        "data": json.dumps({"model": model, "response": response})
-                    }
-            
-            # Send final done event
-            yield {
-                "event": "done",
-                "data": json.dumps({"done": True})
-            }
-            
-            # Save to database
-            if db is not None:
-                valid_responses = [
-                    {"model": m, "response": r}
-                    for m, r in zip(models, responses)
-                    if not isinstance(r, Exception)
-                ]
-                await db.battles.insert_one({
-                    "session_id": request.session_id,
-                    "prompt": request.prompt,
-                    "responses": valid_responses,
-                    "created_at": datetime.utcnow()
-                })
-                
-        except Exception as e:
-            print(f"Error in battle_stream: {e}")
-            yield {
-                "event": "error",
-                "data": json.dumps({"error": str(e)})
-            }
-    
-    return EventSourceResponse(event_generator())
+    prompt = f"""Professional modern website homepage design:
 
-# Get chat history
-@app.get("/api/chats")
-async def get_chats(limit: int = 5):
-    """Get recent chat history"""
-    if db is None:
-        raise HTTPException(status_code=500, detail="Database not connected")
-    
-    chats = await db.chats.find().sort("created_at", -1).limit(limit).to_list(length=limit)
-    return {"chats": serialize_doc(chats)}
+Business Type: {business_type}
+Design Requirements: {redesign_description}
 
-# Get battle history
-@app.get("/api/battles")
-async def get_battles(limit: int = 5):
-    """Get recent battle history"""
-    if db is None:
-        raise HTTPException(status_code=500, detail="Database not connected")
+Style Guidelines:
+- Clean corporate aesthetic with purple/blue gradient (#667eea to #764ba2)
+- Modern navigation bar at top
+- Hero section with compelling headline and call-to-action button
+- Feature cards or sections below hero
+- Professional footer
+- Spacious, minimal layout
+- High-quality business-focused design
+- Desktop view, 1920x1080 resolution
+
+Overall style: Corporate, professional, trustworthy, modern, clean, data-driven"""
     
-    battles = await db.battles.find().sort("created_at", -1).limit(limit).to_list(length=limit)
-    return {"battles": serialize_doc(battles)}
+    image_gen = OpenAIImageGeneration(api_key=api_key)
+    images = await image_gen.generate_images(
+        prompt=prompt,
+        model="gpt-image-1",
+        number_of_images=1
+    )
+    
+    if not images or len(images) == 0:
+        raise Exception("No images generated")
+    
+    image_base64 = base64.b64encode(images[0]).decode('utf-8')
+    return image_base64
+
+@app.post("/api/analyze")
+async def analyze_website(request: AnalyzeRequest):
+    """Complete website analysis"""
+    try:
+        url = request.url
+        if not url.startswith('http'):
+            url = 'https://' + url
+        
+        scraped_data = scrape_website(url)
+        analysis = await analyze_with_claude(scraped_data)
+        
+        overall_score = (
+            analysis.get('visual_score', 50) * 0.25 +
+            analysis.get('ux_score', 50) * 0.25 +
+            analysis.get('seo_score', 50) * 0.30 +
+            analysis.get('exposure_score', 50) * 0.20
+        )
+        
+        mockup_image = await generate_mockup_image(
+            analysis.get('redesign_description', ''),
+            analysis.get('business_type', 'business')
+        )
+        
+        result = {
+            "url": url,
+            "scraped_data": scraped_data,
+            "analysis": analysis,
+            "overall_score": round(overall_score, 1),
+            "mockup_image": mockup_image,
+            "analyzed_at": datetime.utcnow().isoformat()
+        }
+        
+        return result
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/consultation")
+async def request_consultation(request: ConsultationRequest):
+    """Handle consultation requests (MOCKED)"""
+    try:
+        print(f"📧 MOCK EMAIL: New consultation request from {request.name} ({request.email})")
+        print(f"   Company: {request.company}")
+        print(f"   Phone: {request.phone}")
+        
+        return {
+            "success": True,
+            "message": "Consultation request received! Our team will contact you within 24 hours.",
+            "mock": True
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
