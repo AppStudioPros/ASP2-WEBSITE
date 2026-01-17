@@ -4,30 +4,88 @@ import {
   Search, Loader2, CheckCircle, AlertTriangle, TrendingUp, Globe, Zap, Eye, Shield,
   Smartphone, Monitor, Clock, Users, DollarSign, Rocket, Bot, Cloud, Lock, Sparkles,
   ArrowRight, ExternalLink, ChevronRight, Cpu, Wifi, Database, Code2, Gauge,
-  AlertCircle, CheckCircle2, XCircle, Info, Star, TrendingDown, Activity
+  AlertCircle, CheckCircle2, XCircle, Info, Star, TrendingDown, Activity, X,
+  Brain, MessageSquare, Target, Lightbulb, HelpCircle
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog';
+
+// AI Thinking questions - what the AI "asks itself"
+const aiThinkingQuestions = [
+  { phase: 'init', questions: [
+    "Initializing quantum analysis protocols...",
+    "What's the real story behind this website?",
+  ]},
+  { phase: 'connect', questions: [
+    "Establishing secure neural link...",
+    "Let me bypass the marketing fluff...",
+  ]},
+  { phase: 'crawl', questions: [
+    "Deploying intelligent crawlers...",
+    "What are their competitors doing better?",
+    "Searching industry leaders for comparison...",
+  ]},
+  { phase: 'capture', questions: [
+    "Capturing visual fingerprint...",
+    "How does this look on mobile? Let me check...",
+    "What's the first impression a user gets?",
+  ]},
+  { phase: 'analyze', questions: [
+    "Running deep structure analysis...",
+    "What's actually converting visitors here?",
+    "Where are users dropping off?",
+  ]},
+  { phase: 'security', questions: [
+    "Probing security layers...",
+    "Are they protecting customer data properly?",
+    "What vulnerabilities exist?",
+  ]},
+  { phase: 'performance', questions: [
+    "Measuring real-world performance...",
+    "How fast does this REALLY load?",
+    "What's eating up bandwidth?",
+  ]},
+  { phase: 'ai', questions: [
+    "Neural network synthesizing insights...",
+    "What would make this 10x better?",
+    "What tech are they missing out on?",
+  ]},
+  { phase: 'recommend', questions: [
+    "Generating actionable recommendations...",
+    "What's the highest ROI fix?",
+    "How can App Studio Pro transform this?",
+  ]},
+  { phase: 'complete', questions: [
+    "Analysis complete! Here's the truth...",
+  ]},
+];
 
 // Scanning phases with dramatic effects
 const scanPhases = [
-  { id: 'init', text: 'Initializing quantum scanners...', duration: 800 },
-  { id: 'connect', text: 'Establishing secure connection...', duration: 600 },
-  { id: 'crawl', text: 'Deploying web crawlers...', duration: 1000 },
-  { id: 'capture', text: 'Capturing visual snapshots...', duration: 1200 },
-  { id: 'analyze', text: 'AI analyzing page structure...', duration: 1500 },
-  { id: 'security', text: 'Running security scan...', duration: 800 },
-  { id: 'performance', text: 'Measuring performance metrics...', duration: 1000 },
-  { id: 'ai', text: 'Neural network processing...', duration: 1200 },
-  { id: 'recommend', text: 'Generating recommendations...', duration: 800 },
+  { id: 'init', text: 'Initializing quantum scanners...', duration: 1200 },
+  { id: 'connect', text: 'Establishing secure connection...', duration: 1000 },
+  { id: 'crawl', text: 'Deploying web crawlers...', duration: 1500 },
+  { id: 'capture', text: 'Capturing visual snapshots...', duration: 2000 },
+  { id: 'analyze', text: 'AI analyzing page structure...', duration: 2000 },
+  { id: 'security', text: 'Running security scan...', duration: 1200 },
+  { id: 'performance', text: 'Measuring performance metrics...', duration: 1500 },
+  { id: 'ai', text: 'Neural network processing...', duration: 2000 },
+  { id: 'recommend', text: 'Generating recommendations...', duration: 1200 },
   { id: 'complete', text: 'Analysis complete!', duration: 500 },
 ];
 
-// Mock screenshots (in real app, these would be captured)
+// Mock screenshots with actual images
 const mockScreenshots = [
-  { id: 'hero', label: 'Homepage Hero', position: 'top' },
-  { id: 'mid', label: 'Mid Section', position: 'middle' },
-  { id: 'mobile', label: 'Mobile View', position: 'mobile' },
+  { id: 'hero', label: 'Homepage', position: 'desktop', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=280&fit=crop&q=80' },
+  { id: 'mobile', label: 'Mobile', position: 'mobile', image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=200&h=400&fit=crop&q=80' },
+  { id: 'scroll', label: 'Below Fold', position: 'desktop', image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=280&fit=crop&q=80' },
 ];
 
 // Tech stack detection
@@ -40,43 +98,116 @@ const detectedTech = [
 
 // Issues found
 const issuesFound = [
-  { severity: 'critical', text: 'No HTTPS redirect configured', impact: 'Security risk' },
-  { severity: 'high', text: 'Images not optimized (2.3MB total)', impact: '-40% speed' },
-  { severity: 'high', text: 'Missing meta descriptions on 5 pages', impact: '-15% SEO' },
-  { severity: 'medium', text: 'No structured data markup', impact: 'Missing rich snippets' },
-  { severity: 'low', text: 'Console errors detected', impact: 'Poor UX' },
+  { severity: 'critical', text: 'No HTTPS redirect configured', impact: 'Security risk', detail: 'Your site allows HTTP connections which can be intercepted. All modern sites should force HTTPS to protect user data and improve SEO rankings.' },
+  { severity: 'high', text: 'Images not optimized (2.3MB total)', impact: '-40% speed', detail: 'Large uncompressed images are slowing your page load. We recommend WebP format, lazy loading, and proper sizing for each breakpoint.' },
+  { severity: 'high', text: 'Missing meta descriptions on 5 pages', impact: '-15% SEO', detail: 'Search engines use meta descriptions in results. Missing ones hurt click-through rates and search rankings.' },
+  { severity: 'medium', text: 'No structured data markup', impact: 'Missing rich snippets', detail: 'JSON-LD schema helps Google understand your content and display rich results like ratings, prices, and FAQs.' },
+  { severity: 'low', text: 'Console errors detected', impact: 'Poor UX', detail: 'JavaScript errors can break functionality and hurt user experience. Clean code = professional impression.' },
 ];
 
-// Opportunities / Latest Tech
+// Opportunities with detailed info
 const opportunities = [
   { 
     icon: Bot, 
     title: 'AI Chat Integration', 
     description: 'GPT-powered support could handle 40% of inquiries automatically',
     impact: '+23% conversions',
-    color: '#00E5FF'
+    color: '#00E5FF',
+    fullDetail: {
+      problem: "Your visitors have questions but no immediate way to get answers. They leave.",
+      solution: "We build custom AI chatbots that understand YOUR business, not generic templates. Our agents learn from your data, speak your brand voice, and actually solve problems.",
+      howWeHelp: [
+        "Custom-trained on your products/services",
+        "Seamless handoff to human agents",
+        "24/7 availability in any timezone",
+        "Lead qualification on autopilot"
+      ],
+      techStack: "GPT-4 Turbo + Custom RAG Pipeline + Real-time WebSockets",
+      timeline: "2-3 weeks to production"
+    }
   },
   { 
     icon: Zap, 
     title: 'Edge Computing', 
     description: 'Move to Vercel/Cloudflare for global edge deployment',
     impact: '2x faster loads',
-    color: '#FF6A00'
+    color: '#FF6A00',
+    fullDetail: {
+      problem: "Your server is in one location. Users across the globe experience latency.",
+      solution: "We migrate your app to edge networks, putting your code within 50ms of every user worldwide. Static assets cached globally, dynamic content rendered at the edge.",
+      howWeHelp: [
+        "Zero-downtime migration",
+        "Global CDN configuration",
+        "Edge-side rendering setup",
+        "Automatic failover & scaling"
+      ],
+      techStack: "Cloudflare Workers + Vercel Edge + Smart Caching",
+      timeline: "1-2 weeks to deploy"
+    }
   },
   { 
     icon: Lock, 
     title: 'Zero-Trust Security', 
     description: 'Latest auth patterns with biometric & passkey support',
     impact: '99.9% secure',
-    color: '#4CAF50'
+    color: '#4CAF50',
+    fullDetail: {
+      problem: "Passwords are vulnerable. Your users deserve better protection.",
+      solution: "We implement passwordless authentication with biometrics, passkeys, and magic links. Plus enterprise-grade security with rate limiting, bot protection, and anomaly detection.",
+      howWeHelp: [
+        "Passkey/WebAuthn implementation",
+        "Multi-factor authentication",
+        "Session management & device trust",
+        "Security audit & penetration testing"
+      ],
+      techStack: "WebAuthn API + Hardware Security Keys + JWT Rotation",
+      timeline: "2-4 weeks depending on scope"
+    }
   },
   { 
     icon: Smartphone, 
     title: 'PWA Upgrade', 
     description: 'Make your site installable like a native app',
     impact: '+35% engagement',
-    color: '#2196F3'
+    color: '#2196F3',
+    fullDetail: {
+      problem: "Users have to open a browser, type your URL, wait for load. Friction kills engagement.",
+      solution: "We transform your website into a Progressive Web App. One-tap install, offline support, push notifications, and app-like experience without app store approval.",
+      howWeHelp: [
+        "Service worker implementation",
+        "Offline-first architecture",
+        "Push notification system",
+        "App manifest & install prompts"
+      ],
+      techStack: "Service Workers + Cache API + Web Push Protocol",
+      timeline: "1-2 weeks to launch"
+    }
   },
+];
+
+// AI Generated Vision Samples
+const visionSamples = [
+  {
+    id: 1,
+    title: "Modern Dark Theme",
+    description: "Sleek, professional dark mode with your brand colors",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop&q=80",
+    improvements: ["40% better readability", "Reduced eye strain", "Premium feel"]
+  },
+  {
+    id: 2,
+    title: "Conversion-Optimized Hero",
+    description: "Clear value prop with strong CTA placement",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&q=80",
+    improvements: ["3x larger CTA button", "Social proof badges", "Trust indicators"]
+  },
+  {
+    id: 3,
+    title: "Mobile-First Redesign",
+    description: "Thumb-friendly navigation, fast-loading components",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop&q=80",
+    improvements: ["50% faster mobile load", "Touch-optimized UI", "Sticky CTAs"]
+  }
 ];
 
 // Neural Network Animation
@@ -89,7 +220,6 @@ const NeuralNetwork = ({ active }) => {
 
   return (
     <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 100 100">
-      {/* Connections */}
       {nodes.map((node, i) => 
         nodes.slice(i + 1).map((target, j) => (
           <motion.line
@@ -112,7 +242,6 @@ const NeuralNetwork = ({ active }) => {
           />
         ))
       )}
-      {/* Nodes */}
       {nodes.map((node) => (
         <motion.circle
           key={node.id}
@@ -154,7 +283,6 @@ const RadarSweep = ({ active }) => (
       animate={{ scale: active ? [1, 1.6, 1] : 1, opacity: active ? [0.7, 0, 0.7] : 0 }}
       transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
     />
-    {/* Sweep line */}
     <motion.div
       className="absolute w-32 h-0.5 bg-gradient-to-r from-[#00E5FF] to-transparent origin-left"
       animate={{ rotate: active ? 360 : 0 }}
@@ -193,83 +321,80 @@ const MatrixRain = ({ active }) => {
   );
 };
 
-// Holographic Scan Line
-const ScanLine = ({ active, progress }) => (
+// AI Thinking Bubble
+const AIThinkingBubble = ({ question }) => (
   <motion.div
-    className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent"
-    style={{ 
-      top: `${progress}%`,
-      boxShadow: '0 0 20px #00E5FF, 0 0 40px #00E5FF',
-    }}
-    animate={{ 
-      opacity: active ? [0.8, 1, 0.8] : 0,
-    }}
-    transition={{ duration: 0.5, repeat: Infinity }}
-  />
+    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    exit={{ opacity: 0, y: -10, scale: 0.9 }}
+    className="flex items-start gap-2 bg-black/60 border border-[#00E5FF]/30 rounded-lg px-3 py-2 max-w-md"
+  >
+    <Brain className="w-4 h-4 text-[#00E5FF] flex-shrink-0 mt-0.5" />
+    <span className="text-sm text-[#00E5FF] italic">{question}</span>
+  </motion.div>
 );
 
-// Speedometer Component
-const Speedometer = ({ value, max = 100, label, color = '#00E5FF' }) => {
-  const percentage = (value / max) * 100;
-  const rotation = (percentage / 100) * 180 - 90;
+// Score Card Component
+const ScoreCard = ({ score, label, color, icon: Icon, description }) => {
+  const getGrade = (score) => {
+    if (score >= 90) return { grade: 'A', text: 'Excellent' };
+    if (score >= 80) return { grade: 'B', text: 'Good' };
+    if (score >= 70) return { grade: 'C', text: 'Average' };
+    if (score >= 60) return { grade: 'D', text: 'Needs Work' };
+    return { grade: 'F', text: 'Critical' };
+  };
+  
+  const { grade, text } = getGrade(score);
   
   return (
-    <div className="relative w-24 h-14">
-      {/* Arc background */}
-      <svg className="w-full h-full" viewBox="0 0 100 60">
-        <path
-          d="M 10 55 A 40 40 0 0 1 90 55"
-          fill="none"
-          stroke="hsl(210 10% 20%)"
-          strokeWidth="8"
-          strokeLinecap="round"
-        />
-        <motion.path
-          d="M 10 55 A 40 40 0 0 1 90 55"
-          fill="none"
-          stroke={color}
-          strokeWidth="8"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: percentage / 100 }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="p-4 rounded-xl bg-black/30 border border-[hsl(var(--border))] hover:border-[#00E5FF]/50 transition-all"
+    >
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Icon className="w-5 h-5" style={{ color }} />
+          <span className="font-medium text-[hsl(var(--foreground))]">{label}</span>
+        </div>
+        <div 
+          className="px-2 py-0.5 rounded text-xs font-bold"
+          style={{ backgroundColor: `${color}20`, color }}
+        >
+          {grade}
+        </div>
+      </div>
+      
+      <div className="flex items-baseline gap-2 mb-2">
+        <span className="text-4xl font-bold font-mono" style={{ color }}>{score}</span>
+        <span className="text-sm text-[hsl(var(--muted-foreground))]">/100</span>
+      </div>
+      
+      <div className="h-2 rounded-full bg-[hsl(var(--border))] overflow-hidden mb-2">
+        <motion.div
+          className="h-full rounded-full"
+          style={{ backgroundColor: color }}
+          initial={{ width: 0 }}
+          animate={{ width: `${score}%` }}
           transition={{ duration: 1.5, ease: 'easeOut' }}
         />
-      </svg>
-      {/* Needle */}
-      <motion.div
-        className="absolute bottom-1 left-1/2 w-0.5 h-8 origin-bottom"
-        style={{ backgroundColor: color }}
-        initial={{ rotate: -90 }}
-        animate={{ rotate: rotation }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      />
-      {/* Value */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-center">
-        <div className="text-lg font-bold font-mono" style={{ color }}>{value}</div>
-        <div className="text-[10px] text-[hsl(var(--muted-foreground))]">{label}</div>
       </div>
-    </div>
+      
+      <p className="text-xs text-[hsl(var(--muted-foreground))]">{text} - {description}</p>
+    </motion.div>
   );
 };
 
-// Screenshot Window Component
-const ScreenshotWindow = ({ screenshot, url, isScanning, delay = 0 }) => {
-  const [loaded, setLoaded] = useState(false);
+// Screenshot Window Component - FIXED
+const ScreenshotWindow = ({ screenshot, isLoaded, delay = 0 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   useEffect(() => {
-    if (isScanning) {
-      const timer = setTimeout(() => setLoaded(true), delay);
+    if (isLoaded) {
+      const timer = setTimeout(() => setImageLoaded(true), delay);
       return () => clearTimeout(timer);
     }
-  }, [isScanning, delay]);
-
-  // Generate a placeholder based on the URL
-  const getPlaceholderImage = () => {
-    if (screenshot.position === 'mobile') {
-      return 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=500&fit=crop';
-    }
-    return `https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop`;
-  };
+  }, [isLoaded, delay]);
 
   return (
     <motion.div
@@ -277,25 +402,25 @@ const ScreenshotWindow = ({ screenshot, url, isScanning, delay = 0 }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: delay / 1000 }}
       className={`relative rounded-lg overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${
-        screenshot.position === 'mobile' ? 'w-20' : 'flex-1'
+        screenshot.position === 'mobile' ? 'w-16 flex-shrink-0' : 'flex-1'
       }`}
     >
       {/* Window header */}
-      <div className="flex items-center gap-1.5 px-2 py-1.5 bg-black/40 border-b border-[hsl(var(--border))]">
-        <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
-        <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
-        <div className="w-2 h-2 rounded-full bg-[#28c840]" />
-        <span className="text-[9px] text-[hsl(var(--muted-foreground))] ml-2 truncate">
+      <div className="flex items-center gap-1 px-2 py-1 bg-black/60 border-b border-[hsl(var(--border))]">
+        <div className="w-1.5 h-1.5 rounded-full bg-[#ff5f57]" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#febc2e]" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
+        <span className="text-[8px] text-[hsl(var(--muted-foreground))] ml-1 truncate">
           {screenshot.label}
         </span>
       </div>
       
       {/* Content */}
-      <div className={`relative bg-gray-900 ${screenshot.position === 'mobile' ? 'h-36' : 'h-28'}`}>
-        {!loaded ? (
-          <div className="absolute inset-0 flex items-center justify-center">
+      <div className={`relative bg-gray-900 ${screenshot.position === 'mobile' ? 'h-28' : 'h-24'}`}>
+        {!imageLoaded ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
             <motion.div
-              className="w-6 h-6 border-2 border-[#00E5FF] border-t-transparent rounded-full"
+              className="w-5 h-5 border-2 border-[#00E5FF] border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
@@ -303,25 +428,25 @@ const ScreenshotWindow = ({ screenshot, url, isScanning, delay = 0 }) => {
         ) : (
           <>
             <img
-              src={getPlaceholderImage()}
+              src={screenshot.image}
               alt={screenshot.label}
-              className="w-full h-full object-cover opacity-80"
+              className="w-full h-full object-cover"
+              onLoad={() => setImageLoaded(true)}
             />
-            {/* Scan overlay */}
+            {/* Scan overlay animation */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/20 to-transparent"
+              className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/30 to-transparent"
               initial={{ y: '-100%' }}
-              animate={{ y: '100%' }}
-              transition={{ duration: 1.5, repeat: 2 }}
+              animate={{ y: '200%' }}
+              transition={{ duration: 1, repeat: 2 }}
             />
-            {/* Captured badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
+              initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-[#00E5FF] text-black text-[8px] font-bold"
+              transition={{ delay: 0.3 }}
+              className="absolute top-1 right-1 px-1 py-0.5 rounded bg-[#00E5FF] text-black text-[6px] font-bold"
             >
-              CAPTURED
+              ✓
             </motion.div>
           </>
         )}
@@ -330,9 +455,154 @@ const ScreenshotWindow = ({ screenshot, url, isScanning, delay = 0 }) => {
   );
 };
 
-// Revenue Calculator
+// Opportunity Modal
+const OpportunityModal = ({ opportunity, isOpen, onClose }) => {
+  if (!opportunity) return null;
+  
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl bg-[hsl(var(--card))] border-[hsl(var(--border))]">
+        <DialogHeader>
+          <div className="flex items-center gap-3 mb-2">
+            <div 
+              className="w-12 h-12 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: `${opportunity.color}20` }}
+            >
+              <opportunity.icon className="w-6 h-6" style={{ color: opportunity.color }} />
+            </div>
+            <div>
+              <DialogTitle className="text-xl">{opportunity.title}</DialogTitle>
+              <DialogDescription className="text-sm" style={{ color: opportunity.color }}>
+                Potential Impact: {opportunity.impact}
+              </DialogDescription>
+            </div>
+          </div>
+        </DialogHeader>
+        
+        <div className="space-y-4 mt-4">
+          {/* Problem */}
+          <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
+            <h4 className="font-semibold text-red-400 mb-2 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" /> The Problem
+            </h4>
+            <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              {opportunity.fullDetail.problem}
+            </p>
+          </div>
+          
+          {/* Solution */}
+          <div className="p-4 rounded-lg bg-[#00E5FF]/10 border border-[#00E5FF]/20">
+            <h4 className="font-semibold text-[#00E5FF] mb-2 flex items-center gap-2">
+              <Lightbulb className="w-4 h-4" /> Our Solution
+            </h4>
+            <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              {opportunity.fullDetail.solution}
+            </p>
+          </div>
+          
+          {/* How We Help */}
+          <div>
+            <h4 className="font-semibold text-[hsl(var(--foreground))] mb-2 flex items-center gap-2">
+              <Target className="w-4 h-4 text-[#FF6A00]" /> How App Studio Pro Delivers
+            </h4>
+            <ul className="space-y-2">
+              {opportunity.fullDetail.howWeHelp.map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
+                  <CheckCircle2 className="w-4 h-4 text-[#4CAF50]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Tech & Timeline */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))]">
+              <div className="text-xs text-[hsl(var(--muted-foreground))] mb-1">Tech Stack</div>
+              <div className="text-sm font-mono text-[#00E5FF]">{opportunity.fullDetail.techStack}</div>
+            </div>
+            <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))]">
+              <div className="text-xs text-[hsl(var(--muted-foreground))] mb-1">Timeline</div>
+              <div className="text-sm font-mono text-[#FF6A00]">{opportunity.fullDetail.timeline}</div>
+            </div>
+          </div>
+          
+          {/* CTA */}
+          <Button className="w-full h-12 bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black font-semibold">
+            <Rocket className="w-4 h-4 mr-2" /> Get This Built
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// Vision Modal
+const VisionModal = ({ isOpen, onClose }) => (
+  <Dialog open={isOpen} onOpenChange={onClose}>
+    <DialogContent className="max-w-4xl bg-[hsl(var(--card))] border-[hsl(var(--border))] max-h-[90vh] overflow-y-auto">
+      <DialogHeader>
+        <DialogTitle className="text-2xl flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-[#00E5FF]" />
+          AI-Generated Vision Samples
+        </DialogTitle>
+        <DialogDescription>
+          These are initial concepts generated by our AI. Our real engineers will fine-tune every detail to match your brand perfectly.
+        </DialogDescription>
+      </DialogHeader>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        {visionSamples.map((sample, i) => (
+          <motion.div
+            key={sample.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="rounded-xl overflow-hidden border border-[hsl(var(--border))] bg-black/20 hover:border-[#00E5FF]/50 transition-all group"
+          >
+            <div className="relative aspect-video overflow-hidden">
+              <img
+                src={sample.image}
+                alt={sample.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <span className="px-2 py-0.5 rounded bg-[#00E5FF] text-black text-xs font-bold">
+                  Sample {sample.id}
+                </span>
+              </div>
+            </div>
+            <div className="p-4">
+              <h4 className="font-semibold text-[hsl(var(--foreground))] mb-1">{sample.title}</h4>
+              <p className="text-xs text-[hsl(var(--muted-foreground))] mb-3">{sample.description}</p>
+              <div className="space-y-1">
+                {sample.improvements.map((imp, j) => (
+                  <div key={j} className="flex items-center gap-2 text-xs text-[#4CAF50]">
+                    <CheckCircle2 className="w-3 h-3" />
+                    {imp}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      <div className="mt-6 p-4 rounded-xl bg-[#FF6A00]/10 border border-[#FF6A00]/30 text-center">
+        <p className="text-sm text-[hsl(var(--foreground))] mb-3">
+          <strong>Ready to see YOUR site transformed?</strong> Our engineers will create a custom vision based on your brand, goals, and users.
+        </p>
+        <Button className="bg-[#FF6A00] text-black hover:bg-[#FF8C00] font-semibold">
+          <MessageSquare className="w-4 h-4 mr-2" /> Request Custom Vision - Free
+        </Button>
+      </div>
+    </DialogContent>
+  </Dialog>
+);
+
+// Revenue Calculator with Range
 const RevenueCalculator = ({ issues }) => {
-  const baseRevenue = 50000; // Monthly
   const lostPercentage = issues.reduce((acc, issue) => {
     if (issue.severity === 'critical') return acc + 15;
     if (issue.severity === 'high') return acc + 8;
@@ -340,27 +610,35 @@ const RevenueCalculator = ({ issues }) => {
     return acc + 1;
   }, 0);
   
-  const potentialGain = Math.round(baseRevenue * (lostPercentage / 100) * 12);
+  const lowEstimate = Math.round(30000 * (lostPercentage / 100) * 12);
+  const highEstimate = Math.round(80000 * (lostPercentage / 100) * 12);
   
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-4 rounded-lg bg-gradient-to-r from-[#00E5FF]/10 to-[#2196F3]/10 border border-[#00E5FF]/30"
+      className="p-4 rounded-xl bg-gradient-to-r from-[#00E5FF]/10 to-[#2196F3]/10 border border-[#00E5FF]/30"
     >
       <div className="flex items-center gap-2 mb-2">
         <DollarSign className="w-5 h-5 text-[#00E5FF]" />
-        <span className="font-semibold text-[hsl(var(--foreground))]">Revenue Impact Calculator</span>
+        <span className="font-semibold text-[hsl(var(--foreground))]">Potential Revenue Impact</span>
       </div>
       <p className="text-sm text-[hsl(var(--muted-foreground))] mb-3">
-        Based on our analysis, fixing these issues could recover:
+        Based on industry benchmarks, fixing these issues could <em>potentially</em> recover:
       </p>
-      <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-bold text-[#00E5FF] font-mono">
-          ${potentialGain.toLocaleString()}
+      <div className="flex items-baseline gap-2 flex-wrap">
+        <span className="text-2xl font-bold text-[#00E5FF] font-mono">
+          ${lowEstimate.toLocaleString()}
         </span>
-        <span className="text-sm text-[hsl(var(--muted-foreground))]">/year in lost revenue</span>
+        <span className="text-lg text-[hsl(var(--muted-foreground))]">to</span>
+        <span className="text-2xl font-bold text-[#4CAF50] font-mono">
+          ${highEstimate.toLocaleString()}
+        </span>
+        <span className="text-sm text-[hsl(var(--muted-foreground))]">/year*</span>
       </div>
+      <p className="text-xs text-[hsl(var(--muted-foreground))] mt-2 italic">
+        *Estimates vary based on your traffic, industry, and conversion rates. We'll provide precise projections during consultation.
+      </p>
     </motion.div>
   );
 };
@@ -372,7 +650,10 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
   const [scanProgress, setScanProgress] = useState(0);
   const [logs, setLogs] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [capturedScreenshots, setCapturedScreenshots] = useState([]);
+  const [screenshotsLoaded, setScreenshotsLoaded] = useState(false);
+  const [currentThought, setCurrentThought] = useState('');
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+  const [showVisionModal, setShowVisionModal] = useState(false);
   const logRef = useRef(null);
 
   useEffect(() => {
@@ -389,59 +670,55 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
     setCurrentPhase(0);
     setScanProgress(0);
     setLogs([]);
-    setCapturedScreenshots([]);
+    setScreenshotsLoaded(false);
+    setCurrentThought('');
 
     for (let i = 0; i < scanPhases.length; i++) {
       setCurrentPhase(i);
       const phase = scanPhases[i];
       
-      // Add log
+      // Add main log
       setLogs(prev => [...prev, {
         time: new Date().toLocaleTimeString(),
         text: phase.text,
         type: i === scanPhases.length - 1 ? 'success' : 'info'
       }]);
 
-      // Update progress
-      const targetProgress = ((i + 1) / scanPhases.length) * 100;
-      const steps = 10;
-      for (let j = 0; j < steps; j++) {
-        await new Promise(r => setTimeout(r, phase.duration / steps));
-        setScanProgress(prev => Math.min(targetProgress, prev + (targetProgress - prev) / (steps - j)));
-      }
-
-      // Capture screenshots during capture phase
-      if (phase.id === 'capture') {
-        for (let s = 0; s < mockScreenshots.length; s++) {
-          await new Promise(r => setTimeout(r, 300));
-          setCapturedScreenshots(prev => [...prev, mockScreenshots[s]]);
+      // Show AI thinking questions for this phase
+      const phaseQuestions = aiThinkingQuestions.find(q => q.phase === phase.id)?.questions || [];
+      for (let q = 0; q < phaseQuestions.length; q++) {
+        setCurrentThought(phaseQuestions[q]);
+        await new Promise(r => setTimeout(r, phase.duration / (phaseQuestions.length + 1)));
+        
+        // Add some questions to the log
+        if (q > 0 && phaseQuestions[q].includes('?')) {
           setLogs(prev => [...prev, {
             time: new Date().toLocaleTimeString(),
-            text: `→ Captured: ${mockScreenshots[s].label}`,
-            type: 'detail'
+            text: `🧠 ${phaseQuestions[q]}`,
+            type: 'thought'
           }]);
         }
       }
 
-      // Add sub-logs for certain phases
-      if (phase.id === 'security') {
-        await new Promise(r => setTimeout(r, 200));
+      // Update progress
+      const targetProgress = ((i + 1) / scanPhases.length) * 100;
+      setScanProgress(targetProgress);
+
+      // Load screenshots during capture phase
+      if (phase.id === 'capture') {
+        await new Promise(r => setTimeout(r, 500));
+        setScreenshotsLoaded(true);
         setLogs(prev => [...prev, {
           time: new Date().toLocaleTimeString(),
-          text: '→ SSL Certificate: Valid until 2026',
-          type: 'success'
-        }]);
-      }
-      if (phase.id === 'ai') {
-        await new Promise(r => setTimeout(r, 200));
-        setLogs(prev => [...prev, {
-          time: new Date().toLocaleTimeString(),
-          text: '→ Processing 847 data points...',
+          text: '→ Captured 3 viewport snapshots',
           type: 'detail'
         }]);
       }
+
+      await new Promise(r => setTimeout(r, 200));
     }
 
+    setCurrentThought('');
     await new Promise(r => setTimeout(r, 500));
     setIsScanning(false);
     setShowResults(true);
@@ -452,11 +729,21 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
     setShowResults(false);
     setScanProgress(0);
     setLogs([]);
-    setCapturedScreenshots([]);
+    setScreenshotsLoaded(false);
   };
 
   return (
     <div className={`relative ${className}`} data-testid="seo-analyzer-epic">
+      {/* Opportunity Modal */}
+      <OpportunityModal 
+        opportunity={selectedOpportunity} 
+        isOpen={!!selectedOpportunity} 
+        onClose={() => setSelectedOpportunity(null)} 
+      />
+      
+      {/* Vision Modal */}
+      <VisionModal isOpen={showVisionModal} onClose={() => setShowVisionModal(false)} />
+
       {/* Main Container */}
       <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] overflow-hidden">
         
@@ -465,11 +752,11 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00E5FF] to-[#2196F3] flex items-center justify-center">
-                <Cpu className="w-5 h-5 text-black" />
+                <Brain className="w-5 h-5 text-black" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">AI Website Scanner</h3>
-                <p className="text-xs text-[hsl(var(--muted-foreground))]">Powered by neural network analysis</p>
+                <p className="text-xs text-[hsl(var(--muted-foreground))]\">Neural network deep analysis</p>
               </div>
             </div>
             {showResults && (
@@ -500,7 +787,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                 data-testid="epic-scan-button"
               >
                 {isScanning ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Scanning...</>
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...</>
                 ) : (
                   <><Search className="w-4 h-4 mr-2" /> Deep Scan</>
                 )}
@@ -519,61 +806,54 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               className="relative"
             >
               {/* Animations Container */}
-              <div className="relative h-64 overflow-hidden bg-black/40">
+              <div className="relative h-56 overflow-hidden bg-black/40">
                 <NeuralNetwork active={currentPhase >= 7} />
                 <MatrixRain active={currentPhase >= 3 && currentPhase < 8} />
                 <RadarSweep active={currentPhase >= 1 && currentPhase < 5} />
-                <ScanLine active={currentPhase >= 2} progress={scanProgress} />
                 
                 {/* Center Status */}
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <div className="text-center">
-                    <motion.div
-                      className="w-20 h-20 mx-auto mb-4 rounded-full border-4 border-[#00E5FF]/30 flex items-center justify-center"
-                      animate={{ 
-                        borderColor: ['rgba(0,229,255,0.3)', 'rgba(0,229,255,0.8)', 'rgba(0,229,255,0.3)'],
-                        boxShadow: ['0 0 20px rgba(0,229,255,0)', '0 0 40px rgba(0,229,255,0.5)', '0 0 20px rgba(0,229,255,0)']
-                      }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <span className="text-2xl font-bold text-[#00E5FF] font-mono">
-                        {Math.round(scanProgress)}%
-                      </span>
-                    </motion.div>
-                    <motion.p
-                      key={currentPhase}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-sm text-[#00E5FF]"
-                    >
-                      {scanPhases[currentPhase]?.text}
-                    </motion.p>
-                  </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+                  <motion.div
+                    className="w-16 h-16 mb-3 rounded-full border-4 border-[#00E5FF]/30 flex items-center justify-center"
+                    animate={{ 
+                      borderColor: ['rgba(0,229,255,0.3)', 'rgba(0,229,255,0.8)', 'rgba(0,229,255,0.3)'],
+                      boxShadow: ['0 0 20px rgba(0,229,255,0)', '0 0 40px rgba(0,229,255,0.5)', '0 0 20px rgba(0,229,255,0)']
+                    }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <span className="text-xl font-bold text-[#00E5FF] font-mono">
+                      {Math.round(scanProgress)}%
+                    </span>
+                  </motion.div>
+                  
+                  {/* AI Thinking Bubble */}
+                  <AnimatePresence mode="wait">
+                    {currentThought && (
+                      <AIThinkingBubble key={currentThought} question={currentThought} />
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 
-              {/* Screenshots being captured */}
-              {capturedScreenshots.length > 0 && (
-                <div className="p-4 border-t border-[hsl(var(--border))] bg-black/20">
-                  <p className="text-xs text-[hsl(var(--muted-foreground))] mb-3">Captured Screenshots:</p>
-                  <div className="flex gap-3">
-                    {capturedScreenshots.map((ss, i) => (
-                      <ScreenshotWindow
-                        key={ss.id}
-                        screenshot={ss}
-                        url={url}
-                        isScanning={true}
-                        delay={i * 300}
-                      />
-                    ))}
-                  </div>
+              {/* Screenshots Row */}
+              <div className="p-3 border-t border-[hsl(var(--border))] bg-black/20">
+                <p className="text-xs text-[hsl(var(--muted-foreground))] mb-2">Site Captures:</p>
+                <div className="flex gap-2">
+                  {mockScreenshots.map((ss, i) => (
+                    <ScreenshotWindow
+                      key={ss.id}
+                      screenshot={ss}
+                      isLoaded={screenshotsLoaded}
+                      delay={i * 400}
+                    />
+                  ))}
                 </div>
-              )}
+              </div>
 
               {/* Console Log */}
               <div
                 ref={logRef}
-                className="h-32 overflow-auto bg-black/60 p-3 font-mono text-xs border-t border-[hsl(var(--border))]"
+                className="h-28 overflow-auto bg-black/60 p-3 font-mono text-[11px] border-t border-[hsl(var(--border))]"
               >
                 {logs.map((log, i) => (
                   <motion.div
@@ -583,6 +863,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                     className={`flex gap-2 ${
                       log.type === 'success' ? 'text-[#4CAF50]' :
                       log.type === 'detail' ? 'text-[hsl(var(--muted-foreground))]' :
+                      log.type === 'thought' ? 'text-[#FF6A00] italic' :
                       'text-[#00E5FF]'
                     }`}
                   >
@@ -611,60 +892,83 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               {/* Screenshots Row */}
               <div>
                 <h4 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 flex items-center gap-2">
-                  <Monitor className="w-4 h-4" /> Site Snapshots
+                  <Monitor className="w-4 h-4" /> Site Captures
                 </h4>
-                <div className="flex gap-3">
+                <div className="flex gap-2">
                   {mockScreenshots.map((ss, i) => (
                     <ScreenshotWindow
                       key={ss.id}
                       screenshot={ss}
-                      url={url}
-                      isScanning={false}
+                      isLoaded={true}
                       delay={0}
                     />
                   ))}
                 </div>
               </div>
 
-              {/* Scores Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] text-center">
-                  <Speedometer value={78} label="Overall" color="#00E5FF" />
-                </div>
-                <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] text-center">
-                  <Speedometer value={82} label="SEO" color="#4CAF50" />
-                </div>
-                <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] text-center">
-                  <Speedometer value={65} label="Speed" color="#FF6A00" />
-                </div>
-                <div className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] text-center">
-                  <Speedometer value={91} label="Security" color="#2196F3" />
-                </div>
+              {/* Score Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <ScoreCard score={78} label="Overall" color="#00E5FF" icon={Gauge} description="Room for improvement" />
+                <ScoreCard score={82} label="SEO" color="#4CAF50" icon={Search} description="Meta tags present" />
+                <ScoreCard score={65} label="Speed" color="#FF6A00" icon={Zap} description="Needs optimization" />
+                <ScoreCard score={91} label="Security" color="#2196F3" icon={Shield} description="SSL configured" />
               </div>
 
-              {/* Tech Stack Detected */}
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-2">
+                <span className="text-xs text-[hsl(var(--muted-foreground))]">Detected:</span>
+                {detectedTech.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
+                      tech.status === 'good' ? 'bg-[#4CAF50]/20 text-[#4CAF50]' :
+                      'bg-[#FF6A00]/20 text-[#FF6A00]'
+                    }`}
+                  >
+                    <span>{tech.icon}</span>
+                    {tech.name}
+                  </div>
+                ))}
+              </div>
+
+              {/* REORDERED: Opportunities FIRST */}
               <div>
-                <h4 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 flex items-center gap-2">
-                  <Code2 className="w-4 h-4" /> Technology Detected
+                <h4 className="text-sm font-medium text-[hsl(var(--foreground))] mb-3 flex items-center gap-2">
+                  <Rocket className="w-4 h-4 text-[#00E5FF]" /> Upgrade Opportunities
+                  <span className="text-xs text-[hsl(var(--muted-foreground))]">- Click for details</span>
                 </h4>
-                <div className="flex flex-wrap gap-2">
-                  {detectedTech.map((tech) => (
-                    <div
-                      key={tech.name}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 ${
-                        tech.status === 'good' ? 'bg-[#4CAF50]/20 text-[#4CAF50] border border-[#4CAF50]/30' :
-                        'bg-[#FF6A00]/20 text-[#FF6A00] border border-[#FF6A00]/30'
-                      }`}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {opportunities.map((opp, i) => (
+                    <motion.button
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      onClick={() => setSelectedOpportunity(opp)}
+                      className="p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] hover:border-[#00E5FF]/50 transition-all cursor-pointer group text-left"
                     >
-                      <span>{tech.icon}</span>
-                      {tech.name}
-                      {tech.status === 'good' ? <CheckCircle2 className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
-                    </div>
+                      <div className="flex items-start gap-3">
+                        <div 
+                          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                          style={{ backgroundColor: `${opp.color}20` }}
+                        >
+                          <opp.icon className="w-4 h-4" style={{ color: opp.color }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-0.5">
+                            <h5 className="font-medium text-sm text-[hsl(var(--foreground))]">{opp.title}</h5>
+                            <span className="text-xs font-bold" style={{ color: opp.color }}>{opp.impact}</span>
+                          </div>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))] line-clamp-2">{opp.description}</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-[hsl(var(--muted-foreground))] group-hover:text-[#00E5FF] transition-colors" />
+                      </div>
+                    </motion.button>
                   ))}
                 </div>
               </div>
 
-              {/* Issues Found */}
+              {/* Issues Found - NOW SECOND */}
               <div>
                 <h4 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-[#FF6A00]" /> Issues Found ({issuesFound.length})
@@ -675,11 +979,11 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center justify-between p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))]"
+                      transition={{ delay: 0.3 + i * 0.05 }}
+                      className="flex items-start justify-between p-3 rounded-lg bg-black/20 border border-[hsl(var(--border))] group hover:border-[hsl(var(--border))]/80"
                     >
-                      <div className="flex items-center gap-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      <div className="flex items-start gap-2">
+                        <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase flex-shrink-0 ${
                           issue.severity === 'critical' ? 'bg-red-500 text-white' :
                           issue.severity === 'high' ? 'bg-[#FF6A00] text-black' :
                           issue.severity === 'medium' ? 'bg-yellow-500 text-black' :
@@ -687,43 +991,12 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                         }`}>
                           {issue.severity}
                         </span>
-                        <span className="text-sm text-[hsl(var(--foreground))]">{issue.text}</span>
-                      </div>
-                      <span className="text-xs text-[hsl(var(--muted-foreground))]">{issue.impact}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Opportunities - Latest Tech */}
-              <div>
-                <h4 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 flex items-center gap-2">
-                  <Rocket className="w-4 h-4 text-[#00E5FF]" /> Upgrade Opportunities
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {opportunities.map((opp, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      className="p-4 rounded-lg bg-black/20 border border-[hsl(var(--border))] hover:border-[#00E5FF]/50 transition-colors cursor-pointer group"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div 
-                          className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: `${opp.color}20` }}
-                        >
-                          <opp.icon className="w-5 h-5" style={{ color: opp.color }} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-1">
-                            <h5 className="font-medium text-sm text-[hsl(var(--foreground))]">{opp.title}</h5>
-                            <span className="text-xs font-bold" style={{ color: opp.color }}>{opp.impact}</span>
-                          </div>
-                          <p className="text-xs text-[hsl(var(--muted-foreground))]">{opp.description}</p>
+                        <div>
+                          <span className="text-sm text-[hsl(var(--foreground))]">{issue.text}</span>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))] mt-0.5 hidden group-hover:block">{issue.detail}</p>
                         </div>
                       </div>
+                      <span className="text-xs text-[hsl(var(--muted-foreground))] flex-shrink-0">{issue.impact}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -733,13 +1006,13 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               <RevenueCalculator issues={issuesFound} />
 
               {/* Social Proof */}
-              <div className="flex items-center justify-center gap-6 py-4 border-t border-[hsl(var(--border))]">
-                <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
-                  <Activity className="w-4 h-4 text-[#00E5FF]" />
+              <div className="flex items-center justify-center gap-6 py-3 border-t border-[hsl(var(--border))]">
+                <div className="flex items-center gap-2 text-xs text-[hsl(var(--muted-foreground))]">
+                  <Activity className="w-3 h-3 text-[#00E5FF]" />
                   <span><strong className="text-[hsl(var(--foreground))]">847</strong> sites scanned this month</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
-                  <Star className="w-4 h-4 text-[#FF6A00]" />
+                <div className="flex items-center gap-2 text-xs text-[hsl(var(--muted-foreground))]">
+                  <Star className="w-3 h-3 text-[#FF6A00]" />
                   <span><strong className="text-[hsl(var(--foreground))]">4.9/5</strong> avg rating</span>
                 </div>
               </div>
@@ -747,29 +1020,30 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               {/* CTAs */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Button 
-                  className="h-12 bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold"
+                  onClick={() => setShowVisionModal(true)}
+                  className="h-11 bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold text-sm"
                 >
                   <Sparkles className="w-4 h-4 mr-2" />
-                  See Our Redesign Vision
+                  See AI Vision Samples
                 </Button>
                 <Button 
                   variant="outline"
-                  className="h-12 border-[#FF6A00] text-[#FF6A00] hover:bg-[#FF6A00] hover:text-black font-semibold"
+                  className="h-11 border-[#FF6A00] text-[#FF6A00] hover:bg-[#FF6A00] hover:text-black font-semibold text-sm"
                 >
                   <Clock className="w-4 h-4 mr-2" />
                   Get Quote in 24hrs
                 </Button>
               </div>
 
-              {/* Scarcity CTA */}
+              {/* Scarcity */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                className="text-center p-4 rounded-lg bg-[#FF6A00]/10 border border-[#FF6A00]/30"
+                transition={{ delay: 0.5 }}
+                className="text-center p-3 rounded-lg bg-[#FF6A00]/10 border border-[#FF6A00]/30"
               >
-                <p className="text-sm text-[hsl(var(--foreground))]">
-                  <span className="text-[#FF6A00] font-bold">⚡ Limited Availability:</span> We only take <strong>3 new clients</strong> per month.
+                <p className="text-xs text-[hsl(var(--foreground))]">
+                  <span className="text-[#FF6A00] font-bold">⚡ Limited:</span> We take only <strong>3 new clients</strong> per month
                 </p>
               </motion.div>
             </motion.div>
