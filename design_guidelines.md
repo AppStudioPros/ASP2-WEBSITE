@@ -1,470 +1,473 @@
 {
-  "brand_meta": {
-    "product": "App Studio Pro - Ultra-futuristic AI Agency Website (Phase 2)",
-    "audience": ["startups", "enterprises", "tech enthusiasts"],
-    "brand_attributes": ["visionary", "mastery of AI", "precision", "awe-inducing", "trustworthy"],
-    "tone": "confident, futuristic, technically sophisticated, welcoming to non-technical buyers"
-  },
-  "visual_personality": {
-    "style_fusion": "Glassmorphism + Holographic neon + Asymmetrical hero + Bento/Grid sections + Subtle parallax",
-    "do_not_center_entire_app": true,
-    "use_dark_base": "#0a0a0f solid (no heavy gradients on content)",
-    "neon_usage": "cyan/ocean-blue highlights only; purple used as solid accent borders and text glow — never as small-element gradients; gradients limited to section backgrounds under 20% viewport"
-  },
-  "color_system": {
-    "base": {
-      "background": "#0a0a0f",
-      "surface": "#131320",
-      "elevated": "rgba(20,20,30,0.6)",
-      "border": "rgba(138,43,226,0.30)",
-      "divider": "rgba(102,126,234,0.25)",
-      "text_primary": "#E9ECFF",
-      "text_secondary": "#A8A8B3",
-      "text_muted": "#7B7B8A"
-    },
-    "brand": {
-      "primary_cyan": "#00FFFF",
-      "primary_cyan_soft": "#66E0FF",
-      "ocean_blue": "#12A8FF",
-      "electric_blue": "#4FD1FF",
-      "purple_accent": "#8A2BE2",
-      "indigo": "#667EEA"
-    },
-    "states": {
-      "success": "#1DE9B6",
-      "warning": "#FFD166",
-      "error": "#FF5C7A",
-      "info": "#64E1FF",
-      "focus_ring": "#00E5FF"
-    },
-    "chat_voice_overrides": {
-      "note": "Per rule: avoid purple for AI chat/voice. Use cyan/ocean for chat bubbles and accents",
-      "assistant_bubble_bg": "rgba(10, 30, 40, 0.6)",
-      "user_bubble_bg": "rgba(25, 25, 40, 0.6)",
-      "bubble_border": "rgba(0, 229, 255, 0.35)",
-      "bubble_glow": "rgba(0, 229, 255, 0.25)"
-    },
-    "charts": {
-      "series": ["#12A8FF", "#1DE9B6", "#FFD166", "#8A2BE2", "#FF5C7A"],
-      "grid": "rgba(100, 100, 140, 0.25)"
-    },
-    "css_custom_properties": {
-      "--bg": "#0a0a0f",
-      "--surface": "#131320",
-      "--elevated": "rgba(20,20,30,0.6)",
-      "--border": "rgba(138,43,226,0.30)",
-      "--text": "#E9ECFF",
-      "--text-2": "#A8A8B3",
-      "--primary": "#00FFFF",
-      "--primary-2": "#12A8FF",
-      "--accent-purple": "#8A2BE2",
-      "--ring": "#00E5FF",
-      "--success": "#1DE9B6",
-      "--warning": "#FFD166",
-      "--error": "#FF5C7A",
-      "--glass": "rgba(20,20,30,0.6)",
-      "--glass-border": "rgba(138,43,226,0.30)",
-      "--glass-blur": "20px",
-      "--shadow-neon": "0 0 32px rgba(0,229,255,0.28)",
-      "--shadow-elev": "0 8px 32px rgba(0,0,0,0.35)"
-    }
-  },
-  "gradients_and_texture": {
-    "restriction_rule": "NEVER use dark/saturated purple/pink stacks on small elements; gradient area < 20% viewport; never on text-heavy blocks",
-    "approved_gradients": [
-      {
-        "name": "Neon Mist",
-        "usage": "hero/section bg only",
-        "css": "linear-gradient(135deg, rgba(0,255,255,0.08) 0%, rgba(18,168,255,0.10) 50%, rgba(102,126,234,0.08) 100%)"
-      },
-      {
-        "name": "Abyss Edge",
-        "usage": "decorative overlays, dividers",
-        "css": "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(18,168,255,0.10) 50%, rgba(0,0,0,0) 100%)"
-      },
-      {
-        "name": "Holo Halo",
-        "usage": "hero orb accents (SVG mask)",
-        "css": "radial-gradient(60% 60% at 50% 40%, rgba(0,229,255,0.20) 0%, rgba(0,229,255,0) 60%)"
-      }
-    ],
-    "texture": {
-      "noise_overlay": "subtle grain via CSS background-image: url('/noise.png') with opacity 0.04 on section wrappers (avoid on cards)",
-      "glow_edges": "box-shadow: 0 0 0 1px rgba(0,229,255,0.25) inset, 0 0 24px rgba(0,229,255,0.2)"
-    }
+  "meta": {
+    "product": "App Studio Pro — AI Website Analyzer",
+    "audience": ["Business owners", "Marketing directors", "CTOs"],
+    "brand_attributes": ["trustworthy", "corporate", "clean", "data-driven", "credible"],
+    "goals": [
+      "Make it effortless to submit a URL and run analysis",
+      "Present scores and insights with instant comprehension",
+      "Show growth projections (traffic, conversions) clearly",
+      "Capture qualified leads via a professional consultation form"
+    ]
   },
   "typography": {
-    "web_fonts": [
-      {
-        "family": "Space Grotesk",
-        "role": "Headings / Numeric / Tech flair"
-      },
-      {
-        "family": "Fira Sans",
-        "role": "Body / UI labels (clear + engineered)"
-      }
-    ],
-    "import_example": "<link href=\"https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fira+Sans:wght@400;500;700&display=swap\" rel=\"stylesheet\">",
+    "fonts": {
+      "heading": "Inter",
+      "body": "Inter",
+      "numeric": "Space Grotesk"
+    },
+    "google_fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap",
     "scale": {
-      "h1": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight",
-      "h2": "text-base md:text-lg font-semibold uppercase tracking-wider text-[--text-2]",
-      "body": "text-base sm:text-sm leading-relaxed",
-      "small": "text-sm text-[--text-2]",
-      "mono_for_code": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+      "h1": "text-4xl sm:text-5xl lg:text-6xl",
+      "h2": "text-base md:text-lg",
+      "h3": "text-xl md:text-2xl",
+      "body": "text-base md:text-base",
+      "small": "text-sm"
     },
-    "letterforms": {
-      "tracking": "wide for overlines, tight for headlines",
-      "gradient_text_rule": "Use gradient text only for single-line hero highlights (existing gradient ok). Never on paragraphs."
-    }
+    "rules": [
+      "Headings weight 700–900; body 400–500",
+      "Use Space Grotesk for numbers, KPIs, chart values",
+      "Tight letter-spacing for numeric readouts (-0.01em)"
+    ]
   },
-  "spacing_and_layout": {
-    "container": "max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8",
-    "grid": {
-      "columns": "12",
-      "gutter": "1.25rem",
-      "bento": "use grid auto-rows-[minmax(120px,auto)] gap-5; place larger cards via col-span-* row-span-*"
+  "color_system": {
+    "hex": {
+      "primary": "#667eea",
+      "secondary": "#764ba2",
+      "accent": "#12A8FF",
+      "bg": "#FFFFFF",
+      "bg-muted": "#F7FAFC",
+      "text": "#2D3748",
+      "success": "#48BB78",
+      "warning": "#ECC94B",
+      "error": "#F56565",
+      "border": "#E2E8F0"
     },
-    "spacing_scale_px": [4, 8, 12, 16, 24, 32, 40, 48, 64, 80],
-    "radius": {
-      "sm": 8,
-      "md": 12,
-      "lg": 20,
-      "xl": 28
+    "css_variables_hsl": {
+      "--background": "0 0% 100%",
+      "--foreground": "222 28% 23%", 
+      "--card": "0 0% 100%",
+      "--card-foreground": "222 28% 23%",
+      "--popover": "0 0% 100%",
+      "--popover-foreground": "222 28% 23%",
+      "--primary": "230 76% 66%", 
+      "--primary-foreground": "0 0% 100%",
+      "--secondary": "267 38% 46%",
+      "--secondary-foreground": "0 0% 100%",
+      "--accent": "202 100% 54%",
+      "--accent-foreground": "0 0% 100%",
+      "--muted": "210 45% 98%",
+      "--muted-foreground": "215 16% 47%",
+      "--success": "146 49% 51%",
+      "--warning": "45 80% 61%",
+      "--destructive": "0 88% 68%",
+      "--destructive-foreground": "0 0% 100%",
+      "--border": "210 31% 90%",
+      "--input": "210 31% 90%",
+      "--ring": "230 76% 66%",
+      "--radius": "0.75rem"
     },
-    "shadows": {
-      "elevated": "var(--shadow-elev)",
-      "neon": "var(--shadow-neon)",
-      "glass_border": "0 0 0 1px var(--glass-border) inset"
-    }
+    "usage": [
+      "Use white (#FFFFFF) for content surfaces and cards",
+      "Use #F7FAFC for section backgrounds to differentiate",
+      "CTAs use accent #12A8FF with solid/tonal fills only",
+      "Score color rules: >70 success, 40–70 warning, <40 error"
+    ]
   },
-  "components": {
-    "use_shadcn_first": true,
-    "component_path": {
-      "button": "./components/ui/button.jsx",
-      "card": "./components/ui/card.jsx",
-      "tabs": "./components/ui/tabs.jsx",
-      "dialog": "./components/ui/dialog.jsx",
-      "tooltip": "./components/ui/tooltip.jsx",
-      "sheet": "./components/ui/sheet.jsx",
-      "dropdown_menu": "./components/ui/dropdown-menu.jsx",
-      "select": "./components/ui/select.jsx",
-      "switch": "./components/ui/switch.jsx",
-      "slider": "./components/ui/slider.jsx",
-      "avatar": "./components/ui/avatar.jsx",
-      "progress": "./components/ui/progress.jsx",
-      "carousel": "./components/ui/carousel.jsx",
-      "calendar": "./components/ui/calendar.jsx",
-      "sonner_toast": "./components/ui/sonner.jsx",
-      "input": "./components/ui/input.jsx",
-      "textarea": "./components/ui/textarea.jsx",
-      "badge": "./components/ui/badge.jsx",
-      "hover_card": "./components/ui/hover-card.jsx"
-    },
-    "new_composites_to_create": [
-      {
-        "name": "NeuralBackgroundCanvas.js",
-        "tech": ["three", "@react-three/fiber", "@react-three/drei"],
-        "desc": "Live neural net with particles + lines; respect performance budget"
-      },
-      {
-        "name": "AvatarDock.js",
-        "desc": "Glassmorphic floating panel that hosts AI avatar video/canvas + transcript",
-        "notes": "No purple accents inside chat; cyan glow focus",
-        "testids": ["avatar-dock", "avatar-mic-button", "avatar-transcript"]
-      },
-      {
-        "name": "BattleArena.js",
-        "desc": "Multi-model chat arena with Tabs from shadcn for models and live streaming",
-        "testids": ["arena-root", "arena-model-tab-claude", "arena-model-tab-gpt", "arena-model-tab-gemini"]
-      },
-      {
-        "name": "HologramShowcase.js",
-        "desc": "3D project viewer (R3F) with turntable controls, holographic material, grid floor, bloom postprocessing",
-        "testids": ["hologram-canvas", "hologram-asset-select", "hologram-rotate-cta"]
-      },
-      {
-        "name": "PortfolioGeneratorForm.js",
-        "desc": "AI-powered portfolio generator; use shadcn Form + Input + Textarea + Select",
-        "testids": ["portfolio-form", "portfolio-submit-button"]
-      },
-      {
-        "name": "VoiceHUD.js",
-        "desc": "Voice command overlay + command tips; non-blocking to pointer",
-        "testids": ["voice-hud", "voice-toggle"]
-      },
-      {
-        "name": "RoadmapTimeline.js",
-        "desc": "Scrollable timeline using Steps (Tabs/Accordion) with progress",
-        "testids": ["roadmap-timeline"]
-      },
-      {
-        "name": "TeamGrid.js",
-        "desc": "Team in cards with neon underglow + tilt/parallax",
-        "testids": ["team-grid"]
-      },
-      {
-        "name": "ContactAIForm.js",
-        "desc": "AI-assisted form with suggestions; shadcn form + Sonner toasts",
-        "testids": ["contact-form", "contact-submit-button"]
-      }
+  "gradients": {
+    "allowed": [
+      "Section background bands: bg from #F7FAFC to #FFFFFF (vertical 0–15% opacity overlay)",
+      "Hero top banner: subtle diagonal from #F7FAFC → #FFFFFF with 10–15% tint",
+      "Decorative legend/slider handles with a single mild two-color gradient"
     ],
-    "button_variants": {
-      "primary": {
-        "shape": "professional/corporate",
-        "classes": "inline-flex items-center justify-center rounded-md px-5 py-3 bg-[--primary] text-[#001A1F] font-semibold shadow-[var(--shadow-neon)] hover:bg-[#12D7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] disabled:opacity-60 disabled:cursor-not-allowed transition-colors",
-        "data_testid": "primary-button"
-      },
-      "secondary_glass": {
-        "shape": "glass/neomorphic",
-        "classes": "rounded-xl px-5 py-3 bg-[--glass] border border-[color:var(--glass-border)] text-[--text] shadow-[var(--shadow-elev)] hover:shadow-[0_0_0_1px_rgba(0,229,255,0.25),0_0_24px_rgba(0,229,255,0.20)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] transition-shadow",
-        "data_testid": "secondary-glass-button"
-      },
-      "ghost": {
-        "shape": "minimalist",
-        "classes": "rounded-md px-4 py-2 text-[--text] border border-transparent hover:border-[color:var(--glass-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] transition-colors",
-        "data_testid": "ghost-button"
-      }
-    },
-    "interactive_states": {
-      "hover": "Use transition-colors or transition-shadow only. Never use transition: all",
-      "active": "translate-y-[1px] for press feedback on large buttons",
-      "disabled": "opacity-60 cursor-not-allowed",
-      "focus": "focus-visible:ring-2 ring-[--ring] ring-offset-0"
-    }
+    "prohibited": [
+      "Dark/saturated purple-pink or blue-purple gradients",
+      "Gradients on text-heavy content areas",
+      "Gradients on small UI elements (<100px)"
+    ],
+    "enforcement": "If gradient area >20% viewport OR readability is impacted, fallback to solid colors"
   },
-  "page_structure": {
+  "layout": {
+    "container": "mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8",
+    "grid": "12-column CSS grid; gap-x-6 gap-y-8; cards span 12 on mobile, 6 on md, 3 or 4 on lg as needed",
     "nav": {
-      "layout": "sticky top-0 backdrop-blur-xl bg-black/40 border-b border-[color:var(--glass-border)]",
-      "content": ["logo", "primary links", "voice toggle", "cta button"],
-      "micro": "underline-on-hover for links; voice toggle glows when active",
-      "testids": ["nav-bar", "nav-voice-toggle", "nav-cta"]
-    },
-    "hero": {
-      "layout": "asymmetrical split: left text stack, right avatar/hologram",
-      "elements": ["h1 gradient accent", "subhead overline", "support copy", "primary + secondary CTAs", "avatar dock or neural canvas"],
-      "notes": "Limit gradient to background deco only. Keep copy on solid/blur glass surfaces"
+      "sticky": true,
+      "class": "sticky top-0 z-40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-slate-200"
     },
     "sections": [
+      "Hero: URL input + Analyze CTA",
+      "Trust band: logos/badges",
+      "Results dashboard: score grid + assistant",
+      "Before/After comparison",
+      "Growth projections (charts)",
+      "Lead capture/Consultation form",
+      "FAQ + Footer"
+    ]
+  },
+  "components": {
+    "hero_url_input": {
+      "purpose": "Collect website URL and start analysis",
+      "structure": [
+        "Label above input",
+        "Input with placeholder 'https://yourdomain.com'",
+        "Primary CTA button"
+      ],
+      "ui": {
+        "wrapper": "w-full md:w-4/5 lg:w-2/3 mx-auto",
+        "input": "h-12 rounded-lg border border-slate-300 focus-visible:ring-2 focus-visible:ring-[color:oklch(var(--ring))] text-slate-800 placeholder:text-slate-400",
+        "button": "h-12 px-6 rounded-lg bg-[color:oklch(var(--accent))] text-white hover:bg-[#1197e6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#12A8FF]"
+      },
+      "testids": {
+        "input": "url-input-field",
+        "button": "analyze-cta-button"
+      }
+    },
+    "score_cards": {
+      "items": ["Visual", "UI/UX", "SEO", "Exposure", "Overall"],
+      "container_class": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6",
+      "card_class": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
+      "ring_css": "Use conic-gradient ring to render circular progress (see css_snippets.radial_progress)",
+      "state_colors": {
+        ">=70": "text-[#1F8350] ring-success",
+        "40-69": "text-[#946200] ring-warning",
+        "<40": "text-[#B42323] ring-destructive"
+      },
+      "content": [
+        "Large score number in Space Grotesk",
+        "Short 1–2 line explanation"
+      ],
+      "testids": [
+        "score-card-visual",
+        "score-card-uiux",
+        "score-card-seo",
+        "score-card-exposure",
+        "score-card-overall"
+      ]
+    },
+    "assistant_recommendations": {
+      "component": "Card with list + optional collapsible rows",
+      "ui": {
+        "card": "bg-white rounded-xl border border-slate-200 p-6 shadow-sm",
+        "item": "flex items-start gap-3 py-3 border-b last:border-0"
+      },
+      "testids": {
+        "container": "ai-recommendations",
+        "item": "ai-recommendation-item"
+      }
+    },
+    "before_after": {
+      "library": "react-compare-slider",
+      "layout": "Side-by-side or slider on md+; stacked on mobile",
+      "labels": ["Current Site", "Recommended Design"],
+      "ui": {
+        "wrapper": "bg-white rounded-xl border border-slate-200 shadow-sm p-4",
+        "handle": "rounded-full w-8 h-8 bg-white border border-slate-300 shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#667eea]"
+      },
+      "testids": {
+        "container": "before-after",
+        "slider": "before-after-slider"
+      }
+    },
+    "charts": {
+      "library": "Recharts",
+      "types": ["LineChart", "BarChart"],
+      "ui": {
+        "container": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
+        "height": 320,
+        "palette": {
+          "line_primary": "#12A8FF",
+          "line_secondary": "#667eea",
+          "bar_fill": "#E2E8F0"
+        }
+      },
+      "features": ["Smooth curves (type=monotone)", "Axis labels", "Legend", "Tooltip"],
+      "testids": {
+        "traffic_chart": "traffic-projection-chart",
+        "conversion_chart": "conversion-projection-chart"
+      }
+    },
+    "lead_capture_form": {
+      "fields": ["Full Name", "Work Email", "Company", "Website URL", "Monthly Visits (optional)", "Message"],
+      "validation": "Use shadcn/ui Form; focus rings use primary; show success/error with Sonner",
+      "ui": {
+        "card": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
+        "button": "h-11 rounded-lg bg-[#12A8FF] hover:bg-[#1197e6] text-white"
+      },
+      "testids": {
+        "form": "consultation-form",
+        "submit": "request-consultation-button"
+      }
+    },
+    "cards_containers": {
+      "spec": {
+        "bg": "#FFFFFF",
+        "shadow": "0 2px 8px rgba(0,0,0,0.1)",
+        "radius": "12px",
+        "padding": "2rem",
+        "border": "1px solid #E2E8F0"
+      }
+    },
+    "navigation": {
+      "layout": "Left logo + right actions",
+      "class": "flex items-center justify-between py-4",
+      "testids": {
+        "navbar": "main-navbar",
+        "cta": "nav-request-demo-button"
+      }
+    }
+  },
+  "shadcn_components": {
+    "paths": [
+      "./components/ui/button.jsx",
+      "./components/ui/input.jsx",
+      "./components/ui/label.jsx",
+      "./components/ui/card.jsx",
+      "./components/ui/progress.jsx",
+      "./components/ui/badge.jsx",
+      "./components/ui/tabs.jsx",
+      "./components/ui/table.jsx",
+      "./components/ui/tooltip.jsx",
+      "./components/ui/dialog.jsx",
+      "./components/ui/switch.jsx",
+      "./components/ui/select.jsx",
+      "./components/ui/textarea.jsx",
+      "./components/ui/form.jsx",
+      "./components/ui/sonner.jsx"
+    ],
+    "import_conventions": {
+      "components": "named exports (export const ComponentName = ...) from ./components/[name]",
+      "pages": "default exports (export default function PageName(){...})"
+    }
+  },
+  "motion": {
+    "libraries": ["framer-motion", "react-countup"],
+    "principles": [
+      "Subtle fade-in on scroll (0.3s–0.4s ease)",
+      "Button hover: specific properties only (background-color, box-shadow)",
+      "Progress bars animate width on mount",
+      "Number counters for scores with react-countup"
+    ]
+  },
+  "accessibility": {
+    "rules": [
+      "All interactive elements MUST include data-testid attributes (kebab-case role names)",
+      "Labels above inputs; inputs have aria-invalid on error",
+      "Focus-visible rings: 2px, high-contrast",
+      "Chart tooltips keyboard accessible via focusable legends",
+      "Minimum touch targets: 44px"
+    ]
+  },
+  "testing_attributes": {
+    "naming": "kebab-case describing role (e.g., 'login-form-submit-button')",
+    "required_on": ["buttons", "links", "form inputs", "menus", "cards showing critical values", "confirmation messages"],
+    "examples": [
+      "data-testid=\"url-input-field\"",
+      "data-testid=\"analyze-cta-button\"",
+      "data-testid=\"score-card-overall\"",
+      "data-testid=\"traffic-projection-chart\"",
+      "data-testid=\"request-consultation-button\""
+    ]
+  },
+  "data_viz": {
+    "recharts_setup_example": "import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';",
+    "line_chart_snippet": "<ResponsiveContainer width='100%' height={320}><LineChart data={data}><CartesianGrid stroke='#EDF2F7' strokeDasharray='3 3' /><XAxis dataKey='label' tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Line type='monotone' dataKey='traffic' stroke='#12A8FF' strokeWidth={3} dot={false} /><Line type='monotone' dataKey='conversions' stroke='#667eea' strokeWidth={3} dot={false} /></LineChart></ResponsiveContainer>",
+    "bar_chart_snippet": "<ResponsiveContainer width='100%' height={320}><BarChart data={data}><CartesianGrid stroke='#EDF2F7' strokeDasharray='3 3' /><XAxis dataKey='label' tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Bar dataKey='baseline' fill='#E2E8F0' radius={[6,6,0,0]} /><Bar dataKey='projected' fill='#12A8FF' radius={[6,6,0,0]} /></BarChart></ResponsiveContainer>"
+  },
+  "css_snippets": {
+    "radial_progress": "/* Circular score ring (conic gradient) */\n.score-ring {\n  --size: 124px;\n  --track: #EDF2F7;\n  --fill: #12A8FF;\n  width: var(--size);\n  height: var(--size);\n  border-radius: 9999px;\n  background: conic-gradient(var(--fill) calc(var(--value) * 1%), var(--track) 0);\n  display: grid;\n  place-items: center;\n}\n.score-ring > span {\n  font-family: 'Space Grotesk', sans-serif;\n  font-size: 1.75rem;\n  color: #2D3748;\n}",
+    "card_base": "@apply bg-white rounded-xl border border-slate-200 shadow-sm p-6;",
+    "button_primary": ".btn-primary { background-color: #12A8FF; color:#fff; border-radius: 0.5rem; padding: 0.75rem 1.25rem; transition: background-color .2s ease, box-shadow .2s ease; } .btn-primary:hover { background-color:#1197e6; box-shadow: 0 6px 18px rgba(18,168,255,0.25); } .btn-primary:focus-visible { outline: 2px solid #12A8FF; outline-offset: 2px; }"
+  },
+  "images": {
+    "usage": "Use real-world corporate imagery sparingly to build trust (hero, consultation form, testimonial band)",
+    "image_urls": [
       {
-        "id": "services",
-        "layout": "bento grid of glass cards; each card shows a live micro-demo or icon",
-        "testids": ["services-section", "service-card-web", "service-card-app", "service-card-ai"]
+        "category": "hero_trust",
+        "description": "meeting room glass signage",
+        "url": "https://images.unsplash.com/photo-1632858265907-961f1454ccf6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
       },
       {
-        "id": "portfolio",
-        "layout": "HologramShowcase + carousel of static case cards",
-        "testids": ["portfolio-section"]
+        "category": "case_study",
+        "description": "boardroom meeting",
+        "url": "https://images.unsplash.com/photo-1764690690771-b4522d66b433?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
       },
       {
-        "id": "battle-arena",
-        "layout": "Tabs per model + side-by-side transcript blocks",
-        "testids": ["battle-section"]
+        "category": "form_sidebar",
+        "description": "elegant office corridor",
+        "url": "https://images.unsplash.com/photo-1668299444654-cc78b6692db1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwzfHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
       },
       {
-        "id": "team",
-        "layout": "responsive 2/3/4 grid with avatar glow rings and role badges",
-        "testids": ["team-section"]
-      },
-      {
-        "id": "roadmap",
-        "layout": "horizontal scroll on lg, vertical accordion on sm",
-        "testids": ["roadmap-section"]
-      },
-      {
-        "id": "contact",
-        "layout": "AI-assisted form with suggestion chips + validation hints",
-        "testids": ["contact-section"]
+        "category": "testimonial",
+        "description": "meeting at window table",
+        "url": "https://images.unsplash.com/photo-1565688527174-775059ac429c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHw0fHxjb3Jwb3JhdGUlMjBiMmIlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3Njg2MTI3NDB8MA&ixlib=rb-4.1.0&q=85"
       }
     ]
   },
-  "motion_and_microinteractions": {
-    "library": "framer-motion",
-    "principles": [
-      "stagger entrances (40-80ms) for grid items",
-      "no universal transition: all; only specific properties",
-      "parallax on mouse for hologram panel (translate and rotate up to 4deg)",
-      "neon pulse for voice toggle (opacity + box-shadow)"
+  "libraries": {
+    "install": [
+      "npm i recharts",
+      "npm i react-compare-slider",
+      "npm i framer-motion",
+      "npm i react-countup"
     ],
-    "example_js_variants": {
-      "fadeUp": "{ hidden:{opacity:0, y:20}, show:{opacity:1, y:0, transition:{duration:0.5, ease:'easeOut'}} }",
-      "stagger": "{ show:{ transition:{ staggerChildren:0.06 } } }"
-    },
-    "scroll_reveal": "use IntersectionObserver or framer-motion whileInView, once:true, margin:'-10%'"
+    "usage_notes": [
+      "Recharts: always wrap in ResponsiveContainer; use strokeWidth 3; disable dots for lines",
+      "react-compare-slider: add data-testid on the main <ReactCompareSlider />",
+      "Framer Motion: use whileInView with once: true; threshold 0.2",
+      "CountUp: animate score numbers (duration 1.2s)"
+    ]
   },
-  "three_js_hologram_spec": {
-    "r3f_setup": "import { Canvas } from '@react-three/fiber'; import { OrbitControls, Grid, Environment } from '@react-three/drei';",
-    "canvas_props": "gl powerPreference:'high-performance', dpr:[1,2], frameloop:'demand' when idle",
-    "scene": {
-      "lights": "Three low-intensity area/spot lights in cyan/teal/indigo; ambient minimal",
-      "materials": "Additive emissive material (emissive: '#00E5FF', emissiveIntensity: 0.6). Use thin-film fresnel shader or MeshPhysicalMaterial with transmission 0.8, clearcoat 1",
-      "post": "bloom (threshold 0.85, intensity 0.6, radius 0.7)",
-      "floor": "Grid from drei with fade and cyan lines (opacity 0.15)"
-    },
-    "performance": [
-      "Cap polycount < 120k",
-      "Use KTX2 compressed textures",
-      "Lazy-load models via suspense and prefetch on hover",
-      "Pause rendering when tab hidden"
+  "page_structure": {
+    "landing": [
+      "Header (logo, Request Demo button)",
+      "Hero with URL input + Analyze CTA",
+      "Trust band (small, muted logos)",
+      "How it works (3 steps, icon + copy)",
+      "Footer (legal, contact)"
     ],
-    "controls": "OrbitControls enablePan:false minDistance:1.6 maxDistance:6 autoRotate on idle"
+    "results_dashboard": [
+      "Business type badge + overall score",
+      "Score cards grid",
+      "AI recommendations",
+      "Before/After comparison",
+      "Growth projections",
+      "Lead capture form"
+    ]
   },
-  "icons_and_media": {
-    "icons": "Use lucide-react for line icons; fallback: Font Awesome CDN. No emoji icons.",
-    "image_treatment": "Desaturate 10-20%, add cyan inner glow for hover; always put images on glass cards with border-[rgba(138,43,226,0.30)]",
-    "video_and_lottie": "Prefer Lottie for small loop accents (<300KB). For avatar, use video/canvas with masking and soft drop-shadow"
-  },
-  "breakpoints_and_responsiveness": {
-    "mobile_first": true,
-    "tailwind_breakpoints": {"sm": 640, "md": 768, "lg": 1024, "xl": 1280},
-    "adaptations": {
-      "hero": "Stacked column; avatar canvas occupies full width above fold",
-      "bento": "1-col mobile, 2-col md, 3-4 col lg",
-      "timeline": "Accordion on mobile, horizontal on lg",
-      "3d": "Lower DPR to 1 on mobile, disable bloom on low-end via prefers-reduced-data"
+  "buttons": {
+    "style_family": "Professional / Corporate",
+    "tokens": {
+      "--btn-radius": "10px",
+      "--btn-shadow": "0 6px 18px rgba(18,168,255,0.18)",
+      "--btn-motion": ".2s ease"
+    },
+    "variants": {
+      "primary": "bg-[#12A8FF] text-white hover:bg-[#1197e6] focus-visible:outline-2 focus-visible:outline-[#12A8FF]",
+      "secondary": "bg-[#667eea] text-white hover:bg-[#5a6fe0]",
+      "ghost": "bg-transparent text-[#2D3748] hover:bg-[#F7FAFC] border border-slate-200"
+    },
+    "sizes": {
+      "sm": "h-9 px-4",
+      "md": "h-11 px-5",
+      "lg": "h-12 px-6"
     }
   },
-  "accessibility": {
-    "contrast": "Maintain WCAG AA: body text on #0a0a0f >= 4.5:1; avoid neon text on transparent backgrounds",
-    "focus": "Always visible ring color var(--ring); do not rely on glow alone",
-    "motion_reduce": "Respect prefers-reduced-motion: disable auto-rotate, parallax, excessive animations",
-    "aria": "Label mic/voice toggles, model tabs, 3D canvas role='img' with aria-label for scene description"
-  },
-  "testing_conventions": {
-    "rule": "All interactive and key informational elements MUST include data-testid (kebab-case)",
-    "naming": [
-      "<feature>-<element>-button",
-      "<section>-title",
-      "<component>-input",
-      "<component>-error-text"
-    ],
-    "examples": [
-      "data-testid=\"nav-cta\"",
-      "data-testid=\"portfolio-submit-button\"",
-      "data-testid=\"arena-model-tab-claude\"",
-      "data-testid=\"contact-form-error-text\""
+  "micro_interactions": {
+    "rules": [
+      "Do not use universal transition; restrict to background-color, box-shadow, color",
+      "Section fade-in on scroll; distance 8–12px",
+      "Charts animate on mount only"
     ]
+  },
+  "export_conventions": {
+    "components": "named exports (export const ComponentName = ...)",
+    "pages": "default exports (export default function PageName(){...})",
+    "paths_note": "Use ./components/ui/* from this repo (JS files, not TSX)"
+  },
+  "component_path": {
+    "Button": "./components/ui/button.jsx",
+    "Input": "./components/ui/input.jsx",
+    "Label": "./components/ui/label.jsx",
+    "Card": "./components/ui/card.jsx",
+    "Progress": "./components/ui/progress.jsx",
+    "Badge": "./components/ui/badge.jsx",
+    "Tabs": "./components/ui/tabs.jsx",
+    "Table": "./components/ui/table.jsx",
+    "Tooltip": "./components/ui/tooltip.jsx",
+    "Dialog": "./components/ui/dialog.jsx",
+    "Switch": "./components/ui/switch.jsx",
+    "Select": "./components/ui/select.jsx",
+    "Textarea": "./components/ui/textarea.jsx",
+    "Form": "./components/ui/form.jsx",
+    "Sonner": "./components/ui/sonner.jsx"
   },
   "code_scaffolds": {
-    "tailwind_tokens": "Add CSS variables to :root or .dark using existing index.css, mapping brand colors; use classes like bg-[--glass] border-[color:var(--glass-border)] text-[--text]",
-    "glass_card_class": "'bg-[--glass] backdrop-blur-xl border border-[color:var(--glass-border)] rounded-2xl shadow-[var(--shadow-elev)]'",
-    "hero_cta_group": "'flex flex-col sm:flex-row gap-3 items-stretch sm:items-center'"
+    "hero_section": "<section className=\"py-12 md:py-20 bg-[#F7FAFC]\" data-testid=\"hero-section\"><div className=\"mx-auto max-w-[1200px] px-4\"><h1 className=\"text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900\">Analyze your website with AI</h1><p className=\"mt-4 text-slate-600 max-w-2xl\">Get a professional-grade audit across UX, SEO, and funnel performance.</p><div className=\"mt-6 flex flex-col sm:flex-row gap-3\"><Input data-testid=\"url-input-field\" type=\"url\" placeholder=\"https://yourdomain.com\" className=\"h-12\" /><Button data-testid=\"analyze-cta-button\" className=\"h-12\">Analyze Website</Button></div></div></section>",
+    "score_card": "<Card className=\"p-6\" data-testid=\"score-card-uiux\"><div className=\"flex items-center justify-between\"><span className=\"text-slate-500 text-sm\">UI/UX</span><Badge variant=\"secondary\">Business: SaaS</Badge></div><div className=\"mt-4 flex items-center gap-6\"><div className=\"score-ring\" style={{ ['--value'] : score }}><span><CountUp end={score} duration={1.2} /></span></div><p className=\"text-slate-600\">Improve spacing, emphasize primary CTA, and streamline forms.</p></div></Card>",
+    "recharts_line": "<ResponsiveContainer width=\"100%\" height={320}><LineChart data={data}><CartesianGrid stroke=\"#EDF2F7\" strokeDasharray=\"3 3\" /><XAxis dataKey=\"label\" tick={{ fill: '#718096' }} /><YAxis tick={{ fill: '#718096' }} /><Tooltip wrapperStyle={{ outline: 'none' }} /><Legend /><Line type=\"monotone\" dataKey=\"traffic\" stroke=\"#12A8FF\" strokeWidth={3} dot={false} /></LineChart></ResponsiveContainer>",
+    "before_after": "<div className=\"p-4 bg-white rounded-xl border\" data-testid=\"before-after\"><ReactCompareSlider itemOne={<img src=\"/before.png\" alt=\"Current Site\" />} itemTwo={<img src=\"/after.png\" alt=\"Recommended Design\" />} className=\"rounded-lg\" data-testid=\"before-after-slider\" /></div>",
+    "lead_form": "<Card className=\"p-6\" data-testid=\"consultation-form\"><form className=\"grid grid-cols-1 sm:grid-cols-2 gap-4\"><div className=\"col-span-1\"><Label htmlFor=\"name\">Full Name</Label><Input id=\"name\" data-testid=\"name-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"email\">Work Email</Label><Input id=\"email\" type=\"email\" data-testid=\"email-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"company\">Company</Label><Input id=\"company\" data-testid=\"company-input\" /></div><div className=\"col-span-1\"><Label htmlFor=\"url\">Website URL</Label><Input id=\"url\" type=\"url\" data-testid=\"website-input\" /></div><div className=\"col-span-2\"><Label htmlFor=\"message\">Message</Label><Textarea id=\"message\" rows=\"4\" data-testid=\"message-input\" /></div><div className=\"col-span-2\"><Button className=\"h-11\" data-testid=\"request-consultation-button\">Request Consultation</Button></div></form></Card>"
   },
-  "library_integrations": {
-    "packages": [
-      "framer-motion",
-      "@react-three/fiber",
-      "@react-three/drei",
-      "three-stdlib",
-      "maath",
-      "lottie-react",
-      "recharts"
+  "instructions_to_main_agent": [
+    "Replace sci-fi styling by removing ./src/App.css references where possible; rely on Tailwind + tokens in index.css",
+    "Inject Google Fonts link in index.html head for Inter and Space Grotesk",
+    "Set CSS variables (color_system.css_variables_hsl) in :root (you can extend ./src/index.css base tokens)",
+    "Use shadcn/ui components listed in component_path only; avoid raw HTML for complex components",
+    "For charts use Recharts per data_viz; wrap with Card containers",
+    "Use react-compare-slider for Before/After; ensure keyboard focus ring",
+    "Every interactive and key informational element MUST include data-testid (see testing_attributes)",
+    "Transitions: never use transition-all; restrict to specific properties",
+    "Mobile-first: stack everything; upgrade to grid on md+",
+    "Keep gradients to section backgrounds only and under 20% viewport coverage"
+  ],
+  "inspiration_references": {
+    "stripe_linear_notion_notes": [
+      "Stripe-like scannability: clear type ladder, generous whitespace",
+      "Linear-like calm surfaces and unobtrusive motion",
+      "Notion-like focus on content with minimal chrome"
     ],
-    "install": "npm i framer-motion @react-three/fiber @react-three/drei three-stdlib maath lottie-react recharts",
-    "usage_snippets_js": {
-      "motion_button": "import { motion } from 'framer-motion';\nexport function NeonCTA({ children, onClick }) {\n  return (\n    <motion.button data-testid=\"primary-cta-button\" className=\"rounded-md px-5 py-3 bg-[--primary] text-[#001A1F] font-semibold shadow-[var(--shadow-neon)] hover:bg-[#12D7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--ring] transition-colors\" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={onClick}>\n      {children}\n    </motion.button>\n  );\n}",
-      "r3f_canvas": "import { Canvas } from '@react-three/fiber';\nimport { OrbitControls, Grid } from '@react-three/drei';\nexport default function HologramCanvas() {\n  return (\n    <div className=\"relative rounded-2xl overflow-hidden\" data-testid=\"hologram-canvas\">\n      <Canvas gl={{ powerPreference: 'high-performance' }} dpr={[1,2]}>\n        <ambientLight intensity={0.05} />\n        <pointLight color=\"#00E5FF\" intensity={1.2} position={[3,3,3]} />\n        <Grid args={[10,10]} cellColor=\"#00E5FF\" cellSize={0.8} cellThickness={0.25} fade={1} position={[0,-1,0]} />\n        <OrbitControls enablePan={false} minDistance={1.6} maxDistance={6} />\n      </Canvas>\n    </div>\n  );\n}"
-    }
-  },
-  "images_urls": [
-    {
-      "url": "https://images.unsplash.com/photo-1550176593-d107c56ca211?crop=entropy&cs=srgb&fm=jpg&q=85",
-      "description": "Silhouettes at futuristic cyan neon frame",
-      "category": "hero background accent (masked overlay, low opacity 0.15)"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1556607356-d6a622ea735f?crop=entropy&cs=srgb&fm=jpg&q=85",
-      "description": "Gesture neon signage",
-      "category": "services backdrop slice (right edge decoration)"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1531113165519-5eb0816d7e02?crop=entropy&cs=srgb&fm=jpg&q=85",
-      "description": "Night city neon scene",
-      "category": "portfolio section divider background (blurred 10px)"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1766389088588-21e13679ffa3?crop=entropy&cs=srgb&fm=jpg&q=85",
-      "description": "UV light outlined subject in neon green",
-      "category": "team intro banner strip (masked gradient)"
-    }
-  ],
-  "iconography": {
-    "library": "lucide-react (primary). Font Awesome CDN allowed if needed",
-    "stroke": 1.5,
-    "treatment": "Embed inside circular glass buttons with cyan focus ring"
-  },
-  "content_rules": {
-    "hero_copy": "Short, declarative. Max 14 words. Emphasize outcomes (ship AI faster, safer).",
-    "services_cards": "3 bullets max, 1 live micro-demo if possible (slider/progress/code block)",
-    "portfolio": "Show measurable results badges (conversion %, build time)"
-  },
-  "performance": {
-    "lazyload": "Intersection-based mount for Arena and Hologram sections",
-    "images": "next-gen formats + width srcset; use 0.6-0.8 quality",
-    "scripts": "Defer Three.js scenes, use requestIdleCallback for non-critical"
-  },
-  "instructions_to_main_agent": {
-    "must_use": "shadcn/ui components from ./components/ui/*.jsx for dropdown, calendar, menu, toasts, etc. No raw HTML widgets.",
-    "data_testid": "Apply to every interactive and key informational element using kebab-case and role-based naming.",
-    "gradients": "Only on section wrappers or hero background; keep under 20% viewport coverage.",
-    "ai_chat_voice": "Remove purple accents inside chat/voice UI; use cyan/ocean hues.",
-    "micro_interactions": "Every button/link/cta has hover + focus + press; specify exact transition properties only.",
-    "parallax_and_3d": "Enable subtle parallax on hero imagery; 3D canvases pause when offscreen.",
-    "accessibility": "Enforce focus states and motion-reduce fallbacks.",
-    "testing": "Follow data-testid scheme strictly for E2E.",
-    "files_to_create": [
-      "src/components/AvatarDock.js",
-      "src/components/BattleArena.js",
-      "src/components/HologramShowcase.js",
-      "src/components/PortfolioGeneratorForm.js",
-      "src/components/VoiceHUD.js",
-      "src/components/RoadmapTimeline.js",
-      "src/components/TeamGrid.js",
-      "src/components/ContactAIForm.js",
-      "src/components/NeuralBackgroundCanvas.js"
+    "citations": [
+      "https://www.illustration.app/blog/stripe-payment-ux-gold-standard",
+      "https://react-compare-slider.vercel.app"
     ]
-  },
-  "section_specific_specs": {
-    "services": {
-      "card": "class: bg-[--glass] border border-[color:var(--glass-border)] rounded-2xl p-6 hover:shadow-[0_0_0_1px_rgba(0,229,255,0.25),0_0_24px_rgba(0,229,255,0.20)] transition-shadow",
-      "icon": "lucide-react icons at 28px, cyan stroke",
-      "cta": "Secondary glass variant"
-    },
-    "portfolio": {
-      "hologram": "use R3F as above; rotate on hover; CTA 'Rotate Project' with data-testid='hologram-rotate-cta'",
-      "cards": "carousel of case studies using shadcn carousel"
-    },
-    "battle_arena": {
-      "structure": "Tabs: Claude, GPT, Gemini; each with stream transcript area and input at bottom",
-      "input": "shadcn input + send button; cyan ring; data-testid='arena-input'",
-      "note": "No purple in chat UI"
-    },
-    "team": {
-      "card": "avatar with neon ring: drop-shadow(0 0 16px rgba(0,229,255,0.35))",
-      "hover": "slight tilt (rotate-1) + lift (translate-y-[-4px])"
-    },
-    "roadmap": {
-      "timeline": "border-l md:border-l-0 md:border-t with cyan markers; progress via shadcn progress"
-    },
-    "contact": {
-      "form": "shadcn form + validation; toasts via Sonner",
-      "assistant": "chips that suggest fields; each chip is a ghost button"
-    }
-  },
-  "security_and_privacy": {
-    "forms": "Mask sensitive inputs; provide explicit consent checkbox (data-testid='consent-checkbox')",
-    "analytics": "Delay non-essential analytics until user interaction"
-  },
-  "websearch_inspirations": [
-    {
-      "source": "Behance - AI website design",
-      "url": "https://www.behance.net/search/projects/ai%20website%20design?locale=en_US",
-      "notes": "Dark futuristic compositions, glass + neon cyan highlights"
-    },
-    {
-      "source": "3D websites examples",
-      "url": "https://htmlburger.com/blog/3d-websites-examples/",
-      "notes": "R3F/WebGL and scroll interactions inspiration"
-    }
-  ],
-  "general_ui_ux_design_guidelines": "- You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms\n    - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text\n   - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json\n\n **GRADIENT RESTRICTION RULE**\nNEVER use dark/saturated gradient combos (e.g., purple/pink) on any UI element.  Prohibited gradients: blue-500 to purple 600, purple 500 to pink-500, green-500 to blue-500, red to pink etc\nNEVER use dark gradients for logo, testimonial, footer etc\nNEVER let gradients cover more than 20% of the viewport.\nNEVER apply gradients to text-heavy content or reading areas.\nNEVER use gradients on small UI elements (<100px width).\nNEVER stack multiple gradient layers in the same viewport.\n\n**ENFORCEMENT RULE:**\n    • Id gradient area exceeds 20% of viewport OR affects readability, **THEN** use solid colors\n\n**How and where to use:**\n   • Section backgrounds (not content backgrounds)\n   • Hero section header content. Eg: dark to light to dark color\n   • Decorative overlays and accent elements only\n   • Hero section with 2-3 mild color\n   • Gradients creation can be done for any angle say horizontal, vertical or diagonal\n\n- For AI chat, voice application, **do not use purple color. Use color like light green, ocean blue, peach orange etc**\n\n</Font Guidelines>\n\n- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead. \n   \n- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.\n\n- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.\n   \n- Before generating UI, infer the visual style from the problem statement (palette, contrast, mood, motion) and immediately instantiate it by setting global design tokens (primary, secondary/accent, background, foreground, ring, state colors), rather than relying on any library defaults. Don't make the background dark as a default step, always understand problem first and define colors accordingly\n    Eg: - if it implies playful/energetic, choose a colorful scheme\n           - if it implies monochrome/minimal, choose a black–white/neutral scheme\n\n**Component Reuse:**\n\t- Prioritize using pre-existing components from src/components/ui when applicable\n\t- Create new components that match the style and conventions of existing components when needed\n\t- Examine existing components to understand the project's component patterns before creating new ones\n\n**IMPORTANT**: Do not use HTML based component like dropdown, calendar, toast etc. You **MUST** always use `/app/frontend/src/components/ui/ ` only as a primary components as these are modern and stylish component\n\n**Best Practices:**\n\t- Use Shadcn/UI as the primary component library for consistency and accessibility\n\t- Import path: ./components/[component-name]\n\n**Export Conventions:**\n\t- Components MUST use named exports (export const ComponentName = ...)\n\t- Pages MUST use default exports (export default function PageName() {...})\n\n**Toasts:**\n  - Use `sonner` for toasts"\n  - Sonner component are located in `/app/src/components/ui/sonner.tsx`\n\nUse 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals."
+  }
 }
+
+
+General UI UX Design Guidelines  
+    - You must **not** apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms
+    - You must **not** center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text
+   - NEVER: use AI assistant Emoji characters like`🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons. Always use **FontAwesome cdn** or **lucid-react** library already installed in the package.json
+
+ **GRADIENT RESTRICTION RULE**
+NEVER use dark/saturated gradient combos (e.g., purple/pink) on any UI element.  Prohibited gradients: blue-500 to purple 600, purple 500 to pink-500, green-500 to blue-500, red to pink etc
+NEVER use dark gradients for logo, testimonial, footer etc
+NEVER let gradients cover more than 20% of the viewport.
+NEVER apply gradients to text-heavy content or reading areas.
+NEVER use gradients on small UI elements (<100px width).
+NEVER stack multiple gradient layers in the same viewport.
+
+**ENFORCEMENT RULE:**
+    • Id gradient area exceeds 20% of viewport OR affects readability, **THEN** use solid colors
+
+**How and where to use:**
+   • Section backgrounds (not content backgrounds)
+   • Hero section header content. Eg: dark to light to dark color
+   • Decorative overlays and accent elements only
+   • Hero section with 2-3 mild color
+   • Gradients creation can be done for any angle say horizontal, vertical or diagonal
+
+- For AI chat, voice application, **do not use purple color. Use color like light green, ocean blue, peach orange etc**
+
+</Font Guidelines>
+
+- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead. 
+   
+- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.
+
+- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.
+   
+- Before generating UI, infer the visual style from the problem statement (palette, contrast, mood, motion) and immediately instantiate it by setting global design tokens (primary, secondary/accent, background, foreground, ring, state colors), rather than relying on any library defaults. Don't make the background dark as a default step, always understand problem first and define colors accordingly
+    Eg: - if it implies playful/energetic, choose a colorful scheme
+           - if it implies monochrome/minimal, choose a black–white/neutral scheme
+
+**Component Reuse:**
+	- Prioritize using pre-existing components from src/components/ui when applicable
+	- Create new components that match the style and conventions of existing components when needed
+	- Examine existing components to understand the project's component patterns before creating new ones
+
+**IMPORTANT**: Do not use HTML based component like dropdown, calendar, toast etc. You **MUST** always use `/app/frontend/src/components/ui/ ` only as a primary components as these are modern and stylish component
+
+**Best Practices:**
+	- Use Shadcn/UI as the primary component library for consistency and accessibility
+	- Import path: ./components/[component-name]
+
+**Export Conventions:**
+	- Components MUST use named exports (export const ComponentName = ...)
+	- Pages MUST use default exports (export default function PageName() {...})
+
+**Toasts:**
+  - Use `sonner` for toasts"
+  - Sonner component are located in `/app/src/components/ui/sonner.tsx`
+
+Use 2–4 color gradients, subtle textures/noise overlays, or CSS-based noise to avoid flat visuals.
