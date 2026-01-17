@@ -487,8 +487,8 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
         </span>
       </div>
       
-      {/* Content */}
-      <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-28' : 'h-24'}`}>
+      {/* Content - BIGGER SCREENSHOTS */}
+      <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-44' : 'h-36'}`}>
         {!imageLoaded ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
             <motion.div
