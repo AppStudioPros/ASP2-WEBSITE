@@ -1,124 +1,171 @@
 import { motion } from 'framer-motion';
 
-export const FireAnimation = ({ className = '' }) => {
+export const FireAnimation = ({ className = '', size = 'md' }) => {
+  const sizes = {
+    sm: { width: 24, height: 32 },
+    md: { width: 36, height: 48 },
+    lg: { width: 48, height: 64 }
+  };
+  
+  const { width, height } = sizes[size] || sizes.md;
+
   return (
-    <div className={`relative inline-flex items-center justify-center ${className}`} data-testid="fire-animation">
-      {/* Main fire container */}
-      <div className="relative w-10 h-12">
-        {/* Glow effect */}
-        <div 
-          className="absolute inset-0 rounded-full bg-gradient-to-t from-orange-600 via-orange-500 to-yellow-400 opacity-50 blur-lg animate-fire-glow"
-          style={{ transform: 'scale(1.5)' }}
-        />
-        
-        {/* Main flame */}
+    <div 
+      className={`relative inline-flex items-end justify-center ${className}`} 
+      style={{ width, height }}
+      data-testid="fire-animation"
+    >
+      {/* Base glow */}
+      <div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full"
+        style={{
+          width: width * 1.5,
+          height: height * 0.6,
+          background: 'radial-gradient(ellipse at center bottom, rgba(255,100,0,0.4) 0%, rgba(255,60,0,0.2) 40%, transparent 70%)',
+          filter: 'blur(8px)',
+        }}
+      />
+
+      {/* Fire container */}
+      <div className="relative" style={{ width, height }}>
+        {/* Outer flame layer - red/dark orange */}
         <motion.div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2"
+          className="absolute bottom-0 left-1/2 origin-bottom"
+          style={{
+            width: width * 0.9,
+            height: height * 0.95,
+            marginLeft: -width * 0.45,
+            background: 'linear-gradient(to top, #ff4500 0%, #ff6a00 30%, #ff8c00 60%, rgba(255,140,0,0) 100%)',
+            borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+            filter: 'blur(1px)',
+          }}
           animate={{
-            scaleY: [1, 1.1, 0.95, 1.05, 1],
-            scaleX: [1, 0.95, 1.05, 0.98, 1],
+            scaleX: [1, 0.92, 1.05, 0.95, 1],
+            scaleY: [1, 1.08, 0.94, 1.04, 1],
+            skewX: [0, 2, -3, 1, 0],
           }}
           transition={{
-            duration: 0.6,
+            duration: 0.4,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
-        >
-          <svg viewBox="0 0 40 50" className="w-10 h-12" fill="none">
-            {/* Outer flame */}
-            <motion.path
-              d="M20 2C20 2 8 18 8 30C8 38 13 46 20 48C27 46 32 38 32 30C32 18 20 2 20 2Z"
-              fill="url(#fireGradient1)"
-              animate={{
-                d: [
-                  "M20 2C20 2 8 18 8 30C8 38 13 46 20 48C27 46 32 38 32 30C32 18 20 2 20 2Z",
-                  "M20 4C20 4 6 16 6 28C6 36 12 44 20 46C28 44 34 36 34 28C34 16 20 4 20 4Z",
-                  "M20 2C20 2 8 18 8 30C8 38 13 46 20 48C27 46 32 38 32 30C32 18 20 2 20 2Z",
-                ]
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            {/* Inner flame */}
-            <motion.path
-              d="M20 12C20 12 14 22 14 32C14 38 17 42 20 44C23 42 26 38 26 32C26 22 20 12 20 12Z"
-              fill="url(#fireGradient2)"
-              animate={{
-                d: [
-                  "M20 12C20 12 14 22 14 32C14 38 17 42 20 44C23 42 26 38 26 32C26 22 20 12 20 12Z",
-                  "M20 14C20 14 12 24 12 34C12 40 16 44 20 46C24 44 28 40 28 34C28 24 20 14 20 14Z",
-                  "M20 12C20 12 14 22 14 32C14 38 17 42 20 44C23 42 26 38 26 32C26 22 20 12 20 12Z",
-                ]
-              }}
-              transition={{
-                duration: 0.6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.1
-              }}
-            />
-            {/* Core flame */}
-            <motion.path
-              d="M20 22C20 22 17 28 17 34C17 38 18 40 20 42C22 40 23 38 23 34C23 28 20 22 20 22Z"
-              fill="url(#fireGradient3)"
-              animate={{
-                opacity: [0.9, 1, 0.9],
-                scale: [1, 1.05, 1]
-              }}
-              transition={{
-                duration: 0.4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            
-            {/* Gradients */}
-            <defs>
-              <linearGradient id="fireGradient1" x1="20" y1="2" x2="20" y2="48" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FF6B00" />
-                <stop offset="50%" stopColor="#FF4500" />
-                <stop offset="100%" stopColor="#DC2626" />
-              </linearGradient>
-              <linearGradient id="fireGradient2" x1="20" y1="12" x2="20" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFA500" />
-                <stop offset="50%" stopColor="#FF6B00" />
-                <stop offset="100%" stopColor="#FF4500" />
-              </linearGradient>
-              <linearGradient id="fireGradient3" x1="20" y1="22" x2="20" y2="42" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFEB3B" />
-                <stop offset="50%" stopColor="#FFC107" />
-                <stop offset="100%" stopColor="#FFA500" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </motion.div>
-        
-        {/* Sparks/embers */}
-        {[...Array(5)].map((_, i) => (
+        />
+
+        {/* Middle flame layer - orange */}
+        <motion.div
+          className="absolute bottom-0 left-1/2 origin-bottom"
+          style={{
+            width: width * 0.7,
+            height: height * 0.85,
+            marginLeft: -width * 0.35,
+            background: 'linear-gradient(to top, #ff6a00 0%, #ffa500 40%, #ffcc00 70%, rgba(255,200,0,0) 100%)',
+            borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+            filter: 'blur(0.5px)',
+          }}
+          animate={{
+            scaleX: [1, 1.08, 0.9, 1.04, 1],
+            scaleY: [1, 0.92, 1.1, 0.96, 1],
+            skewX: [0, -3, 2, -1, 0],
+          }}
+          transition={{
+            duration: 0.35,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.05,
+          }}
+        />
+
+        {/* Inner flame layer - yellow/white core */}
+        <motion.div
+          className="absolute bottom-0 left-1/2 origin-bottom"
+          style={{
+            width: width * 0.45,
+            height: height * 0.65,
+            marginLeft: -width * 0.225,
+            background: 'linear-gradient(to top, #ffcc00 0%, #ffeb3b 30%, #fff9c4 60%, rgba(255,255,255,0) 100%)',
+            borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+          }}
+          animate={{
+            scaleX: [1, 0.88, 1.12, 0.94, 1],
+            scaleY: [1, 1.15, 0.88, 1.06, 1],
+            skewX: [0, 3, -2, 1, 0],
+          }}
+          transition={{
+            duration: 0.3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.08,
+          }}
+        />
+
+        {/* White hot core */}
+        <motion.div
+          className="absolute bottom-0 left-1/2 origin-bottom"
+          style={{
+            width: width * 0.2,
+            height: height * 0.35,
+            marginLeft: -width * 0.1,
+            background: 'linear-gradient(to top, #fff9c4 0%, #ffffff 50%, rgba(255,255,255,0) 100%)',
+            borderRadius: '50% 50% 50% 50% / 70% 70% 30% 30%',
+          }}
+          animate={{
+            scaleY: [1, 1.2, 0.9, 1.1, 1],
+            opacity: [0.9, 1, 0.85, 1, 0.9],
+          }}
+          transition={{
+            duration: 0.25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Sparks */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-orange-400"
+            className="absolute rounded-full"
             style={{
-              left: `${40 + (i - 2) * 8}%`,
-              bottom: '60%'
+              width: 2 + Math.random() * 2,
+              height: 2 + Math.random() * 2,
+              left: `${35 + (i - 2.5) * 10}%`,
+              bottom: '50%',
+              background: i % 2 === 0 ? '#ffcc00' : '#ff6a00',
+              boxShadow: '0 0 3px #ff6a00',
             }}
             animate={{
-              y: [-5, -25],
-              x: [(i - 2) * 3, (i - 2) * 8],
+              y: [0, -height * (0.5 + Math.random() * 0.5)],
+              x: [(i - 2.5) * 2, (i - 2.5) * (8 + Math.random() * 8)],
               opacity: [1, 0],
-              scale: [1, 0.3]
+              scale: [1, 0.2],
             }}
             transition={{
-              duration: 0.8 + i * 0.1,
+              duration: 0.6 + Math.random() * 0.4,
               repeat: Infinity,
-              delay: i * 0.15,
-              ease: "easeOut"
+              delay: i * 0.12,
+              ease: "easeOut",
             }}
           />
         ))}
+
+        {/* Flicker highlights */}
+        <motion.div
+          className="absolute bottom-1/4 left-1/2 -translate-x-1/2"
+          style={{
+            width: width * 0.3,
+            height: width * 0.3,
+            background: 'radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%)',
+            borderRadius: '50%',
+          }}
+          animate={{
+            opacity: [0.3, 0.6, 0.2, 0.5, 0.3],
+            scale: [1, 1.2, 0.9, 1.1, 1],
+          }}
+          transition={{
+            duration: 0.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
     </div>
   );
