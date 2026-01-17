@@ -237,7 +237,7 @@ async def battle_stream(request: BattleRequest):
             }
             
             # Save to database
-            if db:
+            if db is not None:
                 valid_responses = [
                     {"model": m, "response": r}
                     for m, r in zip(models, responses)
