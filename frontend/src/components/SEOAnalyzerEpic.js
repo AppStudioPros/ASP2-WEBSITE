@@ -914,7 +914,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
               {/* Screenshots Row */}
               <div>
                 <h4 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 flex items-center gap-2">
-                  <Monitor className="w-4 h-4" /> Site Captures
+                  <Monitor className="w-4 h-4" /> Live Site Captures
                 </h4>
                 <div className="flex gap-2">
                   {screenshotConfigs.map((config, i) => (
