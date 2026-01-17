@@ -129,7 +129,8 @@ class BackendAPITester:
                 "prompt": "What is AI? Answer in 10 words.",
                 "session_id": f"battle-test-{datetime.now().strftime('%H%M%S')}"
             },
-            is_sse=True
+            is_sse=True,
+            timeout=30  # Longer timeout for 3 models
         )
         return success
 
