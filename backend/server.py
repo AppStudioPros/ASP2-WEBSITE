@@ -95,7 +95,7 @@ async def root():
 # Health check
 @app.get("/api/health")
 async def health():
-    return {"status": "healthy", "database": "connected" if db else "disconnected"}
+    return {"status": "healthy", "database": "connected" if db is not None else "disconnected"}
 
 # Claude Streaming Endpoint
 @app.post("/api/ai/claude/stream")
