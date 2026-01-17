@@ -346,43 +346,6 @@ function App() {
         </div>
       </section>
 
-      {/* AI Website Scanner Section */}
-      <section 
-        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
-        data-testid="seo-analyzer-section"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,229,255,0.06),transparent_60%)] pointer-events-none" />
-        
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
-          <motion.div 
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Search className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">FREE_TOOL</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              <GlitchText className="gradient-text-brand">AI Website Scanner</GlitchText>
-            </h2>
-            <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
-              See what our AI sees. Watch the analysis happen in real-time.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
-            <SEOAnalyzerEpic />
-          </motion.div>
-        </div>
-      </section>
-
       {/* Proof Section */}
       <section 
         className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
