@@ -816,7 +816,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
         setScreenshotsLoaded(true);
         setLogs(prev => [...prev, {
           time: new Date().toLocaleTimeString(),
-          text: '→ Captured 3 viewport snapshots',
+          text: 'Captured 3 viewport snapshots',
           type: 'detail'
         }]);
       }
