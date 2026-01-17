@@ -392,16 +392,26 @@ const ScoreCard = ({ score, label, color, icon: Icon, description }) => {
   );
 };
 
-// Screenshot Window Component - FIXED
-const ScreenshotWindow = ({ screenshot, isLoaded, delay = 0 }) => {
+// Screenshot Window Component - REAL SCREENSHOTS
+const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  
+  // Generate real screenshot URL
+  const screenshotUrl = url ? getScreenshotUrl(url, config.width, config.height) : '';
   
   useEffect(() => {
-    if (isLoaded) {
-      const timer = setTimeout(() => setImageLoaded(true), delay);
+    if (isLoaded && url) {
+      const timer = setTimeout(() => {
+        // Pre-load image
+        const img = new Image();
+        img.onload = () => setImageLoaded(true);
+        img.onerror = () => setImageError(true);
+        img.src = screenshotUrl;
+      }, delay);
       return () => clearTimeout(timer);
     }
-  }, [isLoaded, delay]);
+  }, [isLoaded, delay, screenshotUrl, url]);
 
   return (
     <motion.div
@@ -409,7 +419,7 @@ const ScreenshotWindow = ({ screenshot, isLoaded, delay = 0 }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: delay / 1000 }}
       className={`relative rounded-lg overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${
-        screenshot.position === 'mobile' ? 'w-16 flex-shrink-0' : 'flex-1'
+        config.position === 'mobile' ? 'w-16 flex-shrink-0' : 'flex-1'
       }`}
     >
       {/* Window header */}
@@ -418,42 +428,46 @@ const ScreenshotWindow = ({ screenshot, isLoaded, delay = 0 }) => {
         <div className="w-1.5 h-1.5 rounded-full bg-[#febc2e]" />
         <div className="w-1.5 h-1.5 rounded-full bg-[#28c840]" />
         <span className="text-[8px] text-[hsl(var(--muted-foreground))] ml-1 truncate">
-          {screenshot.label}
+          {config.label}
         </span>
       </div>
       
       {/* Content */}
-      <div className={`relative bg-gray-900 ${screenshot.position === 'mobile' ? 'h-28' : 'h-24'}`}>
-        {!imageLoaded ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+      <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-28' : 'h-24'}`}>
+        {!imageLoaded && !imageError ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
             <motion.div
               className="w-5 h-5 border-2 border-[#00E5FF] border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
+            <span className="text-[8px] text-[hsl(var(--muted-foreground))] mt-1">Loading...</span>
+          </div>
+        ) : imageError ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+            <span className="text-[8px] text-[hsl(var(--muted-foreground))]">Preview unavailable</span>
           </div>
         ) : (
           <>
             <img
-              src={screenshot.image}
-              alt={screenshot.label}
-              className="w-full h-full object-cover"
-              onLoad={() => setImageLoaded(true)}
+              src={screenshotUrl}
+              alt={config.label}
+              className="w-full h-full object-cover object-top"
             />
             {/* Scan overlay animation */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/30 to-transparent"
               initial={{ y: '-100%' }}
               animate={{ y: '200%' }}
-              transition={{ duration: 1, repeat: 2 }}
+              transition={{ duration: 1.5, repeat: 2 }}
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.5 }}
               className="absolute top-1 right-1 px-1 py-0.5 rounded bg-[#00E5FF] text-black text-[6px] font-bold"
             >
-              ✓
+              LIVE ✓
             </motion.div>
           </>
         )}
