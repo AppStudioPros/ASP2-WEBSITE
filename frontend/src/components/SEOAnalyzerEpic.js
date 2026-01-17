@@ -81,11 +81,39 @@ const scanPhases = [
   { id: 'complete', text: 'Analysis complete!', duration: 750 },
 ];
 
-// Generate REAL screenshot URLs using free screenshot API
-const getScreenshotUrl = (url, width = 600, height = 400) => {
-  // Using thum.io - free screenshot service, no API key needed
-  const encodedUrl = encodeURIComponent(url);
-  return `https://image.thum.io/get/width/${width}/crop/${height}/noanimate/${encodedUrl}`;
+// Generate REAL screenshot URLs using multiple fallback services
+const getScreenshotUrl = (url, width = 600, height = 400, isMobile = false) => {
+  // Clean the URL
+  const cleanUrl = url.replace(/^https?:\/\//, '');
+  
+  // Using microlink.io screenshot API - more reliable
+  // Format: https://api.microlink.io/?url=URL&screenshot=true&meta=false&embed=screenshot.url
+  const params = new URLSearchParams({
+    url: url,
+    screenshot: 'true',
+    meta: 'false',
+    embed: 'screenshot.url',
+    waitForTimeout: '3000',
+    ...(isMobile ? { 
+      'viewport.width': '375',
+      'viewport.height': '667',
+      'viewport.isMobile': 'true'
+    } : {
+      'viewport.width': String(width),
+      'viewport.height': String(height),
+    })
+  });
+  
+  return `https://api.microlink.io/?${params.toString()}`;
+};
+
+// Alternative: Use a simple placeholder with site name if API fails
+const getFallbackImage = (url, isMobile = false) => {
+  const domain = url.replace(/^https?:\/\//, '').split('/')[0];
+  // Use placeholder service with domain text
+  return isMobile 
+    ? `https://placehold.co/375x667/1a1a2e/00E5FF?text=${encodeURIComponent(domain)}%0A(Mobile)`
+    : `https://placehold.co/600x400/1a1a2e/00E5FF?text=${encodeURIComponent(domain)}`;
 };
 
 // Screenshot configurations for different views
