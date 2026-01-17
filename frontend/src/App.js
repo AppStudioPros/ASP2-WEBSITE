@@ -7,7 +7,7 @@ import { FireAnimation } from './components/FireAnimation';
 import { LiveBuildCounter } from './components/AnimatedCounter';
 import { ActivityHeatmap } from './components/ActivityHeatmap';
 import { CodePoetry } from './components/CodePoetry';
-import { SEOAnalyzer } from './components/SEOAnalyzer';
+import { SEOAnalyzerEpic } from './components/SEOAnalyzerEpic';
 import { LiveSessionShowcase } from './components/LiveSessionShowcase';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
@@ -242,7 +242,7 @@ function App() {
         </div>
       </section>
 
-      {/* SEO Analyzer Section */}
+      {/* EPIC SEO Analyzer Section */}
       <section 
         className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
         data-testid="seo-analyzer-section"
@@ -261,25 +261,25 @@ function App() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
               <Search className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[hsl(var(--muted-foreground))]">Free Tool</span>
+              <span className="text-sm text-[hsl(var(--muted-foreground))]">Free AI Analysis</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              <span className="gradient-text-brand">AI Website Analyzer</span>
+              <span className="gradient-text-brand">AI Website Scanner</span>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
-              See what our AI can do. Drop your URL and watch the magic happen.
+              Watch our neural network analyze your site in real-time. See what's possible.
             </p>
           </motion.div>
 
-          {/* Analyzer Component */}
+          {/* EPIC Analyzer Component */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
-            <SEOAnalyzer />
+            <SEOAnalyzerEpic />
           </motion.div>
         </div>
       </section>
