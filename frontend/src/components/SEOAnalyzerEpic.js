@@ -81,46 +81,19 @@ const scanPhases = [
   { id: 'complete', text: 'Analysis complete!', duration: 750 },
 ];
 
-// Generate REAL screenshot URLs using multiple fallback services
-const getScreenshotUrl = (url, width = 600, height = 400, isMobile = false) => {
-  // Clean the URL
-  const cleanUrl = url.replace(/^https?:\/\//, '');
-  
-  // Using microlink.io screenshot API - more reliable
-  // Format: https://api.microlink.io/?url=URL&screenshot=true&meta=false&embed=screenshot.url
-  const params = new URLSearchParams({
-    url: url,
-    screenshot: 'true',
-    meta: 'false',
-    embed: 'screenshot.url',
-    waitForTimeout: '3000',
-    ...(isMobile ? { 
-      'viewport.width': '375',
-      'viewport.height': '667',
-      'viewport.isMobile': 'true'
-    } : {
-      'viewport.width': String(width),
-      'viewport.height': String(height),
-    })
-  });
-  
-  return `https://api.microlink.io/?${params.toString()}`;
-};
-
-// Alternative: Use a simple placeholder with site name if API fails
-const getFallbackImage = (url, isMobile = false) => {
-  const domain = url.replace(/^https?:\/\//, '').split('/')[0];
-  // Use placeholder service with domain text
-  return isMobile 
-    ? `https://placehold.co/375x667/1a1a2e/00E5FF?text=${encodeURIComponent(domain)}%0A(Mobile)`
-    : `https://placehold.co/600x400/1a1a2e/00E5FF?text=${encodeURIComponent(domain)}`;
+// Generate REAL screenshot URLs using WordPress mshots - most reliable free service
+const getScreenshotUrl = (url, width = 600, height = 400) => {
+  // WordPress mshots service - reliable and free
+  // Format: https://s.wordpress.com/mshots/v1/URL?w=WIDTH&h=HEIGHT
+  const encodedUrl = encodeURIComponent(url);
+  return `https://s.wordpress.com/mshots/v1/${encodedUrl}?w=${width}&h=${height}`;
 };
 
 // Screenshot configurations for different views
 const screenshotConfigs = [
-  { id: 'hero', label: 'Homepage', position: 'desktop', width: 600, height: 400 },
-  { id: 'mobile', label: 'Mobile', position: 'mobile', width: 375, height: 667 },
-  { id: 'scroll', label: 'Full Page', position: 'desktop', width: 600, height: 400 },
+  { id: 'hero', label: 'Homepage', position: 'desktop', width: 800, height: 600 },
+  { id: 'tablet', label: 'Tablet View', position: 'desktop', width: 768, height: 1024 },
+  { id: 'mobile', label: 'Mobile', position: 'mobile', width: 400, height: 800 },
 ];
 
 // Tech stack detection - NO EMOJIS
