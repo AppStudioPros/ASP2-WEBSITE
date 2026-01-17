@@ -193,31 +193,31 @@ const opportunities = [
   },
 ];
 
-// AI Generated Vision Samples - More realistic redesign concepts
+// AI Generated Vision Samples - Real website redesign examples
 const visionSamples = [
   {
     id: 1,
-    title: "Dark Professional Theme",
-    description: "Modern dark mode with high contrast CTAs and trust indicators",
-    beforeImage: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop&q=80",
-    afterImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop&q=80",
-    improvements: ["40% better readability", "3x larger CTAs", "Trust badges added"]
+    title: "Modern SaaS Dashboard",
+    description: "Clean dark interface with improved data visualization and user flow",
+    beforeImage: "https://cdn.dribbble.com/users/1615584/screenshots/15378931/media/f9ac8fe97e26e41e0507c77f7c6b4850.jpg?compress=1&resize=800x600",
+    afterImage: "https://cdn.dribbble.com/users/2399102/screenshots/17490186/media/a45d6a39c540f6e40e3d14e93e38c1d7.png?compress=1&resize=800x600",
+    improvements: ["40% better readability", "Intuitive navigation", "Real-time data widgets"]
   },
   {
     id: 2,
-    title: "Conversion-Focused Layout",
-    description: "Reorganized hierarchy with clear value proposition above the fold",
-    beforeImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&q=80",
-    afterImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&q=80",
-    improvements: ["Social proof section", "Benefit-driven copy", "Reduced bounce rate"]
+    title: "E-Commerce Conversion Boost",
+    description: "Streamlined checkout flow with trust indicators and social proof",
+    beforeImage: "https://cdn.dribbble.com/users/1998175/screenshots/15459384/media/52da5e0067c3d57c6a8aa1d5d9b27f36.jpg?compress=1&resize=800x600",
+    afterImage: "https://cdn.dribbble.com/users/1254731/screenshots/17437085/media/65afb8e79a6c3e1b4a4a4d2c3bd44982.png?compress=1&resize=800x600",
+    improvements: ["Simplified checkout", "Trust badges added", "Mobile-optimized cart"]
   },
   {
     id: 3,
-    title: "Mobile-First Responsive",
-    description: "Optimized for thumb navigation with sticky CTAs",
-    beforeImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop&q=80",
-    afterImage: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=600&fit=crop&q=80",
-    improvements: ["50% faster mobile load", "Touch-optimized buttons", "Simplified navigation"]
+    title: "Landing Page Transformation",
+    description: "Hero section redesign with clear value proposition and strong CTAs",
+    beforeImage: "https://cdn.dribbble.com/users/2742725/screenshots/16284678/media/59e4298e3ec1e9b8e8f8c5e36e5a1e1f.png?compress=1&resize=800x600",
+    afterImage: "https://cdn.dribbble.com/users/1615584/screenshots/16005957/media/a3f9e7f8d8e3a0f8e9e3e4e5e6e7e8e9.jpg?compress=1&resize=800x600",
+    improvements: ["3x larger CTAs", "Benefit-focused copy", "Video testimonials"]
   }
 ];
 
