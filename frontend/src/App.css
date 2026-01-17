@@ -1,165 +1,46 @@
-/* Professional Corporate Design - AI Website Analyzer */
+/* App-specific styles */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #FFFFFF;
-  color: #2D3748;
-  line-height: 1.6;
+/* Selection styling */
+::selection {
+  background-color: hsl(24 100% 52% / 0.3);
+  color: hsl(210 15% 96%);
 }
 
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.nav-bar {
-  background: #FFFFFF;
-  border-bottom: 1px solid #E2E8F0;
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+::-webkit-scrollbar-track {
+  background: hsl(210 15% 6%);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+::-webkit-scrollbar-thumb {
+  background: hsl(210 10% 22%);
+  border-radius: 4px;
 }
 
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(210 10% 30%);
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #667eea;
-  margin: 0;
+/* Focus visible styles */
+*:focus-visible {
+  outline: 2px solid hsl(24 95% 56%);
+  outline-offset: 2px;
 }
 
-.nav-subtitle {
-  font-size: 0.875rem;
-  color: #718096;
-  font-weight: 500;
-}
-
-.hero-section {
-  flex: 1;
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #F7FAFC 0%, #FFFFFF 100%);
-}
-
-.hero-content {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 900;
-  color: #2D3748;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-description {
-  font-size: 1.125rem;
-  color: #4A5568;
-  margin-bottom: 2.5rem;
-  line-height: 1.8;
-}
-
-.loading-section {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 0;
-}
-
-.loading-content {
-  text-align: center;
-}
-
-.loader {
-  width: 60px;
-  height: 60px;
-  border: 4px solid #E2E8F0;
-  border-top-color: #667eea;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 2rem;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.loading-content h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #2D3748;
-  margin-bottom: 0.5rem;
-}
-
-.loading-content p {
-  font-size: 1rem;
-  color: #718096;
-  margin-bottom: 0.5rem;
-}
-
-.loading-subtext {
-  font-size: 0.875rem;
-  color: #A0AEC0;
-}
-
-.card {
-  background: #FFFFFF;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #E2E8F0;
-}
-
-.footer {
-  background: #F7FAFC;
-  border-top: 1px solid #E2E8F0;
-  padding: 2rem 0;
-  text-align: center;
-  color: #718096;
-  font-size: 0.875rem;
-  margin-top: auto;
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-description {
-    font-size: 1rem;
-  }
-  
-  .container {
-    padding: 0 1rem;
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
