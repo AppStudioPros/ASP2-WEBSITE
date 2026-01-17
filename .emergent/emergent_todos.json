@@ -1,34 +1,42 @@
 [
   {
-    "content": "Phase 2 EPIC: Fix Unicode/emoji issues in components",
-    "status": "completed"
+    "content": "Phase 1 POC: Install additional dependencies (beautifulsoup4, pillow)",
+    "status": "in_progress"
   },
   {
-    "content": "Phase 2 EPIC: Test hero section with realistic avatar",
-    "status": "completed"
+    "content": "Phase 1 POC: Create web scraper module for URL analysis",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Test epic battle arena with full fight sequence",
-    "status": "completed"
+    "content": "Phase 1 POC: Integrate Claude for business detection and scoring",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Verify sound effects working",
-    "status": "completed"
+    "content": "Phase 1 POC: Integrate OpenAI image generation for mockups",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Verify health bars and scoring system",
-    "status": "completed"
+    "content": "Phase 1 POC: Create test_core_analyzer.py and verify all integrations",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Verify winner announcement",
-    "status": "completed"
+    "content": "Phase 1 POC: Fix until all tests pass",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Take comprehensive screenshots for report",
-    "status": "completed"
+    "content": "Phase 2: Get professional design guidelines (70% more corporate)",
+    "status": "pending"
   },
   {
-    "content": "Phase 2 EPIC: Create final test report",
-    "status": "completed"
+    "content": "Phase 2: Build complete backend with all endpoints",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Build professional React frontend",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Test end-to-end with testing agent",
+    "status": "pending"
   }
 ]
