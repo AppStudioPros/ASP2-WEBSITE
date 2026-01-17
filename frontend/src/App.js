@@ -1,69 +1,80 @@
 import React, { useState } from 'react';
 import './App.css';
-import NeuralBackground from './components/NeuralBackground';
-import AIAvatarRealistic from './components/AIAvatarRealistic';
-import BattleArenaEpic from './components/BattleArenaEpic';
+import AnalyzerForm from './components/AnalyzerForm';
+import ResultsDashboard from './components/ResultsDashboard';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('hero');
+  const [results, setResults] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleAnalysisComplete = (analysisResults) => {
+    setResults(analysisResults);
+    setLoading(false);
+  };
+
+  const handleAnalysisStart = () => {
+    setLoading(true);
+  };
+
+  const handleReset = () => {
+    setResults(null);
+    setLoading(false);
+  };
 
   return (
     <div className="App">
-      <NeuralBackground />
-      
-      <div className="content-wrapper">
-        <nav className="nav-bar">
-          <div className="nav-logo">APP STUDIO PRO</div>
-          <div className="nav-links">
-            <button 
-              className={activeSection === 'hero' ? 'active' : ''}
-              onClick={() => setActiveSection('hero')}
-              data-testid="nav-hero"
-            >
-              AI Avatar
-            </button>
-            <button 
-              className={activeSection === 'battle' ? 'active' : ''}
-              onClick={() => setActiveSection('battle')}
-              data-testid="nav-battle"
-            >
-              Epic Battle
-            </button>
+      <nav className="nav-bar">
+        <div className="container">
+          <div className="nav-content">
+            <h1 className="logo">App Studio Pro</h1>
+            <div className="nav-subtitle">AI Website Analyzer</div>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        {activeSection === 'hero' && (
-          <section className="hero-section" data-testid="hero-section">
+      {!results && !loading && (
+        <section className="hero-section">
+          <div className="container">
             <div className="hero-content">
               <h1 className="hero-title">
-                <span className="gradient-text">THE FUTURE OF AI</span>
-                <br />
-                <span className="sub-title">IS HERE</span>
+                Discover Your Website's
+                <span className="gradient-text"> True Potential</span>
               </h1>
               <p className="hero-description">
-                Experience cutting-edge AI interactions with realistic avatars, voice control, and epic battles
+                Get a comprehensive AI-powered analysis of your website's design, UX, SEO, and growth opportunities.
+                Receive actionable insights and a professional redesign mockup in minutes.
               </p>
+              <AnalyzerForm 
+                onAnalysisComplete={handleAnalysisComplete}
+                onAnalysisStart={handleAnalysisStart}
+              />
             </div>
-            <AIAvatarRealistic />
-          </section>
-        )}
+          </div>
+        </section>
+      )}
 
-        {activeSection === 'battle' && (
-          <section className="battle-section" data-testid="battle-section">
-            <h2 className="section-title">
-              <span className="gradient-text">EPIC AI BATTLE ARENA</span>
-            </h2>
-            <p className="section-description">
-              Watch Claude, GPT, and Gemini fight in Street Fighter style battles!
-            </p>
-            <BattleArenaEpic />
-          </section>
-        )}
+      {loading && (
+        <section className="loading-section">
+          <div className="container">
+            <div className="loading-content">
+              <div className="loader"></div>
+              <h2>Analyzing Your Website...</h2>
+              <p>Our AI is examining design, UX, SEO, and generating recommendations.</p>
+              <p className="loading-subtext">This usually takes 30-60 seconds</p>
+            </div>
+          </div>
+        </section>
+      )}
 
-        <footer className="footer">
-          <p>App Studio Pro - Kings of AI - EPIC Edition</p>
-        </footer>
-      </div>
+      {results && (
+        <ResultsDashboard results={results} onReset={handleReset} />
+      )}
+
+      <footer className="footer">
+        <div className="container">
+          <p>Powered by App Studio Pro | AI-Driven Website Analysis</p>
+        </div>
+      </footer>
     </div>
   );
 }
