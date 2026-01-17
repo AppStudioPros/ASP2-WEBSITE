@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Flame, Code2, Rocket, Zap } from 'lucide-react';
+import { ArrowRight, Code2, Rocket, Zap } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { HeroParticles } from './components/HeroParticles';
 import { TruthBomb } from './components/TruthBomb';
+import { FireAnimation } from './components/FireAnimation';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
+
+// ASP Logo Component
+const ASPLogo = ({ className = '' }) => (
+  <img 
+    src="https://customer-assets.emergentagent.com/job_truthbomb/artifacts/s6r33gbn_AppStudioPro.png" 
+    alt="App Studio Pro"
+    className={`h-8 w-auto ${className}`}
+    data-testid="asp-logo"
+  />
+);
 
 function App() {
   return (
@@ -16,15 +27,12 @@ function App() {
         <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px]">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2" data-testid="nav-logo">
-              <Flame className="w-7 h-7 text-[hsl(var(--accent-ember))]" />
-              <span className="font-bold text-lg tracking-tight">
-                App Studio <span className="text-[hsl(var(--accent-ember))]">Pro</span>
-              </span>
+              <ASPLogo />
             </div>
             <Button 
               variant="outline" 
               size="sm"
-              className="border-[hsl(var(--accent-ember))] text-[hsl(var(--accent-ember))] hover:bg-[hsl(var(--accent-ember))] hover:text-black transition-colors duration-200"
+              className="border-[#00E5FF] text-[#00E5FF] hover:bg-[#00E5FF] hover:text-black transition-colors duration-200"
               data-testid="nav-cta-button"
             >
               Let's Build
@@ -38,9 +46,9 @@ function App() {
         className="relative min-h-screen flex items-center overflow-hidden pt-16"
         data-testid="hero-section"
       >
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(255,106,0,0.14),rgba(0,0,0,0)_60%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[conic-gradient(from_200deg_at_70%_30%,rgba(0,240,255,0.08),rgba(0,0,0,0)_40%)] pointer-events-none" />
+        {/* Gradient Overlays - Brand cyan/blue */}
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(0,229,255,0.12),rgba(0,0,0,0)_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[conic-gradient(from_200deg_at_70%_30%,rgba(33,150,243,0.08),rgba(0,0,0,0)_40%)] pointer-events-none" />
         
         {/* Particles */}
         <HeroParticles />
@@ -56,7 +64,7 @@ function App() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6"
               data-testid="hero-badge"
             >
-              <Zap className="w-4 h-4 text-[hsl(var(--accent-ember))]" />
+              <Zap className="w-4 h-4 text-[#00E5FF]" />
               <span className="text-sm text-[hsl(var(--muted-foreground))]">Custom AI Engineering</span>
             </motion.div>
 
@@ -70,7 +78,11 @@ function App() {
             >
               We Don't Do <span className="text-[hsl(var(--muted-foreground))] line-through">Templates</span>
               <br />
-              <span className="text-[hsl(var(--accent-ember))]">We Build Fire</span>
+              <span className="inline-flex items-center gap-2">
+                <span className="gradient-text-brand">We Build</span>
+                <span className="text-[#FF6A00]">Fire</span>
+                <FireAnimation className="-ml-1" />
+              </span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -94,7 +106,7 @@ function App() {
             >
               <Button 
                 size="lg"
-                className="bg-[hsl(var(--accent-ember))] text-black hover:bg-[hsl(var(--accent-ember-2))] font-semibold px-8 h-12 text-base transition-colors duration-200"
+                className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8 h-12 text-base transition-all duration-200"
                 data-testid="hero-primary-cta"
               >
                 Start Building <ArrowRight className="w-5 h-5 ml-2" />
@@ -118,11 +130,11 @@ function App() {
               data-testid="hero-stats"
             >
               <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[hsl(var(--accent-ember))] font-mono">47+</div>
+                <div className="text-3xl font-bold text-[#00E5FF] font-mono">47+</div>
                 <div className="text-sm text-[hsl(var(--muted-foreground))]">AI Apps<br/>Shipped</div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[hsl(var(--accent-electric))] font-mono">3x</div>
+                <div className="text-3xl font-bold text-[#2196F3] font-mono">3x</div>
                 <div className="text-sm text-[hsl(var(--muted-foreground))]">Faster<br/>Than In-House</div>
               </div>
               <div className="flex items-center gap-3">
@@ -150,7 +162,7 @@ function App() {
               <motion.div
                 animate={{ opacity: [0.3, 1, 0.3] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--accent-ember))]"
+                className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]"
               />
             </motion.div>
           </div>
@@ -164,7 +176,7 @@ function App() {
       <section className="py-16 sm:py-24 lg:py-32 border-t border-[hsl(var(--border))]">
         <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-            <Rocket className="w-4 h-4 text-[hsl(var(--accent-electric))]" />
+            <Rocket className="w-4 h-4 text-[#2196F3]" />
             <span className="text-sm text-[hsl(var(--muted-foreground))]">More Tech Theater coming soon...</span>
           </div>
         </div>
@@ -174,14 +186,14 @@ function App() {
       <footer className="py-8 border-t border-[hsl(var(--border))]">
         <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px]">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-[hsl(var(--accent-ember))]" />
+            <div className="flex items-center gap-3">
+              <ASPLogo className="h-6" />
               <span className="text-sm text-[hsl(var(--muted-foreground))]">
-                App Studio Pro © 2025
+                © 2025
               </span>
             </div>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
-              Built with fire. Shipped with love.
+              Built with <span className="text-[#FF6A00]">fire</span>. Shipped with love.
             </p>
           </div>
         </div>

@@ -41,8 +41,8 @@ export const TruthBomb = () => {
       className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
       data-testid="truth-bomb-section"
     >
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,106,0,0.06),transparent_70%)] pointer-events-none" />
+      {/* Background accent - brand cyan glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.06),transparent_70%)] pointer-events-none" />
       
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
         {/* Section Header */}
@@ -54,7 +54,7 @@ export const TruthBomb = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            The <span className="text-[hsl(var(--accent-ember))]">Truth Bomb</span>
+            The <span className="gradient-text-brand">Truth Bomb</span>
           </h2>
           <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
             Everyone's selling the dream. Here's what actually works.
@@ -103,9 +103,9 @@ export const TruthBomb = () => {
             </div>
           </motion.div>
 
-          {/* Right Panel - What You Actually Need (Vibrant) */}
+          {/* Right Panel - What You Actually Need (Vibrant with brand colors) */}
           <motion.div
-            className="relative rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 sm:p-10 ring-1 ring-[hsl(var(--accent-ember))] ember-glow"
+            className="relative rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 sm:p-10 ring-1 ring-[hsl(var(--asp-cyan))] cyan-glow"
             data-testid="truth-bomb-right-panel"
             variants={containerVariants}
             initial="hidden"
@@ -119,7 +119,7 @@ export const TruthBomb = () => {
             
             <h3 className="text-xl sm:text-2xl font-semibold text-[hsl(var(--foreground))] mb-6 flex items-center gap-2">
               What You Actually Need
-              <Sparkles className="w-5 h-5 text-[hsl(var(--accent-ember))]" />
+              <Sparkles className="w-5 h-5 text-[#00E5FF]" />
             </h3>
             
             <ul className="space-y-4" data-testid="truth-bomb-right-proof-list">
@@ -129,7 +129,7 @@ export const TruthBomb = () => {
                   variants={itemVariants}
                   className="flex items-start gap-3 text-[hsl(var(--foreground))]"
                 >
-                  <reality.icon className="w-5 h-5 mt-0.5 text-[hsl(var(--accent-ember))] flex-shrink-0" />
+                  <reality.icon className="w-5 h-5 mt-0.5 text-[#00E5FF] flex-shrink-0" />
                   <span className="text-sm sm:text-base">
                     {reality.text}
                   </span>
@@ -138,7 +138,7 @@ export const TruthBomb = () => {
             </ul>
 
             <div className="mt-8 pt-6 border-t border-[hsl(var(--border))]">
-              <p className="text-sm text-[hsl(var(--accent-electric))] font-medium">
+              <p className="text-sm text-[#2196F3] font-medium">
                 Real engineering. Real results. Real fast.
               </p>
             </div>

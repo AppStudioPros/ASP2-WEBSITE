@@ -7,6 +7,7 @@ export const HeroParticles = () => {
     await loadSlim(engine);
   }, []);
 
+  // ASP brand colors: cyan/blue with some fire accents
   const options = useMemo(() => ({
     background: { color: 'transparent' },
     fullScreen: { enable: false },
@@ -16,9 +17,9 @@ export const HeroParticles = () => {
         value: 80, 
         density: { enable: true, area: 900 } 
       },
-      color: { value: ['#FF6A00', '#FF9500', '#33E6FF'] },
+      color: { value: ['#00E5FF', '#2196F3', '#00B8D4', '#FF6A00'] },
       opacity: { 
-        value: { min: 0.1, max: 0.4 },
+        value: { min: 0.1, max: 0.5 },
         animation: {
           enable: true,
           speed: 0.5,
@@ -57,7 +58,7 @@ export const HeroParticles = () => {
           distance: 140,
           links: {
             opacity: 0.3,
-            color: '#FF6A00'
+            color: '#00E5FF'
           }
         }
       }
