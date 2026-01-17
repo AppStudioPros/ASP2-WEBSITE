@@ -800,7 +800,7 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
         if (q > 0 && phaseQuestions[q].includes('?')) {
           setLogs(prev => [...prev, {
             time: new Date().toLocaleTimeString(),
-            text: `🧠 ${phaseQuestions[q]}`,
+            text: `AI: ${phaseQuestions[q]}`,
             type: 'thought'
           }]);
         }
