@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Loader2, CheckCircle, AlertTriangle, TrendingUp, Globe, Zap, Eye, Shield } from 'lucide-react';
 import { Button } from './ui/button';
