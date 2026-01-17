@@ -521,7 +521,7 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
               transition={{ delay: 0.5 }}
               className="absolute top-1 right-1 px-1 py-0.5 rounded bg-[#00E5FF] text-black text-[6px] font-bold"
             >
-              {useFallback ? '✓' : 'LIVE ✓'}
+              {useFallback ? 'OK' : 'LIVE'}
             </motion.div>
           </>
         )}
