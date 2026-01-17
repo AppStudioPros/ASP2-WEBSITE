@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Code2, Rocket, Zap, Terminal, Activity, Cpu } from 'lucide-react';
+import { ArrowRight, Code2, Rocket, Zap, Terminal, Video, Search } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { HeroParticles } from './components/HeroParticles';
 import { TruthBomb } from './components/TruthBomb';
@@ -7,6 +7,8 @@ import { FireAnimation } from './components/FireAnimation';
 import { LiveBuildCounter } from './components/AnimatedCounter';
 import { ActivityHeatmap } from './components/ActivityHeatmap';
 import { CodePoetry } from './components/CodePoetry';
+import { SEOAnalyzer } from './components/SEOAnalyzer';
+import { LiveSessionShowcase } from './components/LiveSessionShowcase';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
 
@@ -237,25 +239,82 @@ function App() {
               <CodePoetry />
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* Bottom CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+      {/* SEO Analyzer Section */}
+      <section 
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
+        data-testid="seo-analyzer-section"
+      >
+        {/* Background accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,229,255,0.06),transparent_60%)] pointer-events-none" />
+        
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+          {/* Section Header */}
+          <motion.div 
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-center mt-12"
+            transition={{ duration: 0.6 }}
           >
-            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">
-              This isn't a demo. This is how we actually work.
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
+              <Search className="w-4 h-4 text-[#00E5FF]" />
+              <span className="text-sm text-[hsl(var(--muted-foreground))]">Free Tool</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <span className="gradient-text-brand">AI Website Analyzer</span>
+            </h2>
+            <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
+              See what our AI can do. Drop your URL and watch the magic happen.
             </p>
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold"
-            >
-              <Cpu className="w-5 h-5 mr-2" /> See How We Build
-            </Button>
           </motion.div>
+
+          {/* Analyzer Component */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <SEOAnalyzer />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Live Sessions Section */}
+      <section 
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
+        data-testid="live-sessions-section"
+      >
+        {/* Background accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,106,0,0.04),transparent_60%)] pointer-events-none" />
+        
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+          {/* Section Header */}
+          <motion.div 
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
+              <Video className="w-4 h-4 text-[#FF6A00]" />
+              <span className="text-sm text-[hsl(var(--muted-foreground))]">Behind the Scenes</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <span className="text-[#FF6A00]">Live</span> Co-Build Sessions
+            </h2>
+            <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
+              Watch us build real projects with real clients. No scripts, no edits.
+            </p>
+          </motion.div>
+
+          {/* Sessions Grid */}
+          <LiveSessionShowcase />
         </div>
       </section>
 
