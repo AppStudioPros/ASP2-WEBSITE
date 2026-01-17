@@ -5,35 +5,32 @@ Rebrand App Studio Pro with a dark, high-tech "dumpster fire lighting" website (
 
 ## Design Theme
 - **Base:** Dark charcoal/black (#0d1117)
-- **Primary Accent:** Ember/Fire (orange #FF6A00)
-- **Secondary Accent:** Electric (cyan #33E6FF)
+- **Primary Accent:** ASP Brand Cyan (#00E5FF)
+- **Secondary Accent:** ASP Brand Blue (#2196F3)
+- **Fire Accent:** Orange (#FF6A00) for "Build Fire" emphasis
 - **Typography:** Space Grotesk (headings), Chivo (body), Source Code Pro (code)
 
 ---
 
-## Phase 1: POC - Hero + Truth Bomb (Status: IN PROGRESS)
+## Phase 1: POC - Hero + Truth Bomb (Status: COMPLETED ✅)
 
-### Completed
 - [x] New design guidelines created (dark/fire theme)
 - [x] Updated index.html with new fonts and dark class
-- [x] Created new CSS tokens in index.css
-- [x] Built HeroParticles component with tsparticles
+- [x] Created new CSS tokens in index.css with ASP brand colors
+- [x] Built HeroParticles component with tsparticles (cyan/blue particles)
 - [x] Built TruthBomb split-screen comparison component
 - [x] Created new App.js with Hero + TruthBomb sections
-- [x] Installed required dependencies (tsparticles, framer-motion)
-
-### Pending
-- [ ] Verify POC renders correctly
-- [ ] Get user feedback on vibe
-- [ ] Fix any visual/functional issues
+- [x] Realistic fire animation next to "Fire" headline
+- [x] ASP logo integrated into navbar and footer
 
 ---
 
-## Phase 2: Tech Theater Widgets (Status: NOT STARTED)
+## Phase 2: Tech Theater Widgets (Status: COMPLETED ✅)
 
-- [ ] AnimatedCounter - Real-time build counter with odometer digits
-- [ ] ActivityHeatmap - GitHub-style developer activity grid
-- [ ] CodePoetry - Animated syntax-highlighted code display
+- [x] AnimatedCounter - Real-time build counter with odometer digits (247+)
+- [x] ActivityHeatmap - GitHub-style developer activity grid (cyan gradient)
+- [x] CodePoetry - Animated syntax-highlighted code display (Python, JS, TS snippets)
+- [x] Tech Theater section layout with "Live Dashboard" badge
 
 ---
 
@@ -56,15 +53,26 @@ Rebrand App Studio Pro with a dark, high-tech "dumpster fire lighting" website (
 
 ---
 
+## Key Components Built
+
+### `/app/frontend/src/components/`
+- `HeroParticles.js` - Animated particle background
+- `TruthBomb.js` - Split-screen comparison section
+- `FireAnimation.js` - Realistic animated fire effect
+- `AnimatedCounter.js` - Odometer-style number counter
+- `ActivityHeatmap.js` - GitHub-style contribution grid
+- `CodePoetry.js` - Animated code snippet display
+
+---
+
 ## Key Decisions
-- **Mocking approved:** Build counters, heat maps, video embeds
-- **AI Integrations:** Repurpose existing Claude/OpenAI analyzer logic
-- **Design System:** Full dark theme with ember/electric accents
+- **Brand Colors:** ASP cyan/blue gradient with fire orange accent
+- **Mocking approved:** Build counters (semi-mocked), heat maps (mocked data)
+- **Fire Animation:** CSS/Framer Motion based realistic flames
+- **Code Snippets:** Python AI Agent, JavaScript Sync Engine, TypeScript API Layer
 
 ## Files Modified
 - `/app/frontend/public/index.html` - Dark mode, new fonts
-- `/app/frontend/src/index.css` - Dark theme CSS tokens
-- `/app/frontend/src/App.js` - New Hero + TruthBomb layout
+- `/app/frontend/src/index.css` - Dark theme CSS tokens with ASP brand
+- `/app/frontend/src/App.js` - Complete page layout
 - `/app/frontend/src/App.css` - Custom app styles
-- `/app/frontend/src/components/HeroParticles.js` - NEW
-- `/app/frontend/src/components/TruthBomb.js` - NEW
