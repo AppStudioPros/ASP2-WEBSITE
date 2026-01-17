@@ -424,22 +424,46 @@ const ScoreCard = ({ score, label, color, icon: Icon, description }) => {
 const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
+  
+  const isMobile = config.position === 'mobile';
   
   // Generate real screenshot URL
-  const screenshotUrl = url ? getScreenshotUrl(url, config.width, config.height) : '';
+  const screenshotUrl = url ? getScreenshotUrl(url, config.width, config.height, isMobile) : '';
+  const fallbackUrl = url ? getFallbackImage(url, isMobile) : '';
   
   useEffect(() => {
     if (isLoaded && url) {
+      setImageLoaded(false);
+      setImageError(false);
+      setUseFallback(false);
+      
       const timer = setTimeout(() => {
         // Pre-load image
         const img = new Image();
-        img.onload = () => setImageLoaded(true);
-        img.onerror = () => setImageError(true);
+        img.onload = () => {
+          setImageLoaded(true);
+        };
+        img.onerror = () => {
+          // Try fallback
+          setUseFallback(true);
+          setImageLoaded(true);
+        };
         img.src = screenshotUrl;
+        
+        // Timeout fallback after 8 seconds
+        setTimeout(() => {
+          if (!imageLoaded) {
+            setUseFallback(true);
+            setImageLoaded(true);
+          }
+        }, 8000);
       }, delay);
       return () => clearTimeout(timer);
     }
-  }, [isLoaded, delay, screenshotUrl, url]);
+  }, [isLoaded, delay, url]);
+
+  const displayUrl = useFallback ? fallbackUrl : screenshotUrl;
 
   return (
     <motion.div
@@ -462,25 +486,24 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
       
       {/* Content */}
       <div className={`relative bg-gray-900 ${config.position === 'mobile' ? 'h-28' : 'h-24'}`}>
-        {!imageLoaded && !imageError ? (
+        {!imageLoaded ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
             <motion.div
               className="w-5 h-5 border-2 border-[#00E5FF] border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
-            <span className="text-[8px] text-[hsl(var(--muted-foreground))] mt-1">Loading...</span>
-          </div>
-        ) : imageError ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-            <span className="text-[8px] text-[hsl(var(--muted-foreground))]">Preview unavailable</span>
+            <span className="text-[8px] text-[hsl(var(--muted-foreground))] mt-1">Capturing...</span>
           </div>
         ) : (
           <>
             <img
-              src={screenshotUrl}
+              src={displayUrl}
               alt={config.label}
               className="w-full h-full object-cover object-top"
+              onError={() => {
+                setUseFallback(true);
+              }}
             />
             {/* Scan overlay animation */}
             <motion.div
@@ -495,7 +518,7 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
               transition={{ delay: 0.5 }}
               className="absolute top-1 right-1 px-1 py-0.5 rounded bg-[#00E5FF] text-black text-[6px] font-bold"
             >
-              LIVE ✓
+              {useFallback ? '✓' : 'LIVE ✓'}
             </motion.div>
           </>
         )}
