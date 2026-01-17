@@ -474,7 +474,7 @@ const ScreenshotWindow = ({ config, url, isLoaded, delay = 0 }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: delay / 1000 }}
       className={`relative rounded-lg overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${
-        config.position === 'mobile' ? 'w-16 flex-shrink-0' : 'flex-1'
+        config.position === 'mobile' ? 'w-24 flex-shrink-0' : 'flex-1'
       }`}
     >
       {/* Window header */}
