@@ -263,7 +263,7 @@ async def battle_stream(request: BattleRequest):
 @app.get("/api/chats")
 async def get_chats(limit: int = 5):
     """Get recent chat history"""
-    if not db:
+    if db is None:
         raise HTTPException(status_code=500, detail="Database not connected")
     
     chats = await db.chats.find().sort("created_at", -1).limit(limit).to_list(length=limit)
