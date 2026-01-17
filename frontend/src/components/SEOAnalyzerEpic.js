@@ -917,10 +917,11 @@ export const SEOAnalyzerEpic = ({ className = '' }) => {
                   <Monitor className="w-4 h-4" /> Site Captures
                 </h4>
                 <div className="flex gap-2">
-                  {mockScreenshots.map((ss, i) => (
+                  {screenshotConfigs.map((config, i) => (
                     <ScreenshotWindow
-                      key={ss.id}
-                      screenshot={ss}
+                      key={config.id}
+                      config={config}
+                      url={url}
                       isLoaded={true}
                       delay={0}
                     />
