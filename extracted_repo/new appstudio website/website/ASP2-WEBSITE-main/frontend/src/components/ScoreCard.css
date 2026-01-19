@@ -1,0 +1,42 @@
+.score-card {
+  text-align: center;
+}
+
+.score-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2D3748;
+  margin-bottom: 1.5rem;
+}
+
+.score-display {
+  position: relative;
+  display: inline-block;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: #E2E8F0;
+  stroke-width: 8;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease;
+}
+
+.score-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+}
