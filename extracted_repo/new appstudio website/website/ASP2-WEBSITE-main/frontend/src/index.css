@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark base with ASP brand cyan/blue accents */
+    --background: 210 15% 6%;
+    --foreground: 210 15% 96%;
+    --card: 210 14% 8%;
+    --card-foreground: 210 12% 94%;
+    --popover: 210 14% 8%;
+    --popover-foreground: 210 12% 94%;
+    
+    /* Primary: ASP Cyan */
+    --primary: 187 100% 45%;
+    --primary-foreground: 0 0% 0%;
+    
+    /* Secondary */
+    --secondary: 210 10% 22%;
+    --secondary-foreground: 210 15% 96%;
+    --muted: 210 10% 22%;
+    --muted-foreground: 210 7% 62%;
+    
+    /* Accent: ASP Blue */
+    --accent: 207 90% 54%;
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 210 15% 96%;
+    --border: 210 10% 16%;
+    --input: 210 10% 18%;
+    --ring: 187 100% 50%;
+    
+    /* Custom ASP Brand Colors */
+    --asp-cyan: 187 100% 50%;
+    --asp-cyan-dark: 187 100% 40%;
+    --asp-blue: 207 90% 54%;
+    --asp-blue-dark: 207 90% 44%;
+    --asp-gradient-start: 180 100% 50%;
+    --asp-gradient-end: 207 100% 50%;
+    
+    /* Keep fire accents for "Build Fire" energy */
+    --accent-ember: 24 100% 52%;
+    --accent-ember-2: 40 100% 52%;
+    --accent-lava: 358 92% 56%;
+    
+    --success: 162 72% 45%;
+    --warning: 40 100% 52%;
+    --chart-1: 187 100% 50%;
+    --chart-2: 207 90% 54%;
+    --chart-3: 24 100% 52%;
+    --chart-4: 162 72% 45%;
+    --chart-5: 210 10% 62%;
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 210 15% 6%;
+    --foreground: 210 15% 96%;
+    --card: 210 14% 8%;
+    --card-foreground: 210 12% 94%;
+    --popover: 210 14% 8%;
+    --popover-foreground: 210 12% 94%;
+    --primary: 187 100% 45%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 210 10% 22%;
+    --secondary-foreground: 210 15% 96%;
+    --muted: 210 10% 22%;
+    --muted-foreground: 210 7% 62%;
+    --accent: 207 90% 54%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 210 15% 96%;
+    --border: 210 10% 16%;
+    --input: 210 10% 18%;
+    --ring: 187 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Chivo', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  }
+  code, pre {
+    font-family: 'Source Code Pro', ui-monospace, monospace;
+  }
+}
+
+@layer base {
+  [data-debug-wrapper="true"] {
+    display: contents !important;
+  }
+}
+
+/* Brand Glow effects */
+.cyan-glow {
+  box-shadow: 0 0 60px rgba(0, 229, 255, 0.2);
+}
+
+.blue-glow {
+  box-shadow: 0 0 70px rgba(33, 150, 243, 0.2);
+}
+
+.ember-glow {
+  box-shadow: 0 0 60px rgba(255, 106, 0, 0.15);
+}
+
+/* Fire Animation */
+@keyframes fireFlicker {
+  0%, 100% { 
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+  }
+  25% { 
+    transform: scaleY(1.05) scaleX(0.98);
+    filter: brightness(1.1);
+  }
+  50% { 
+    transform: scaleY(0.95) scaleX(1.02);
+    filter: brightness(0.95);
+  }
+  75% { 
+    transform: scaleY(1.02) scaleX(0.97);
+    filter: brightness(1.05);
+  }
+}
+
+@keyframes fireGlow {
+  0%, 100% { 
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  50% { 
+    opacity: 1;
+    filter: blur(3px);
+  }
+}
+
+@keyframes emberRise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) scale(0);
+    opacity: 0;
+  }
+}
+
+.animate-fire {
+  animation: fireFlicker 0.5s ease-in-out infinite;
+}
+
+.animate-fire-glow {
+  animation: fireGlow 1.5s ease-in-out infinite;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradient text for brand */
+.gradient-text-brand {
+  background: linear-gradient(135deg, #00E5FF 0%, #2196F3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
