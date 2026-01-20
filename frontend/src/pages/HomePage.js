@@ -380,7 +380,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              The <GlitchText className="text-[#FF6A00]">Honest</GlitchText> Truth
+              The <GlitchText className="gradient-text-brand">Honest</GlitchText> Truth
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               We're not going to tell you what you want to hear. 
