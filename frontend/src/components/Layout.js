@@ -159,7 +159,7 @@ export const Layout = ({ children }) => {
             <div>
               <h3 className="font-semibold mb-4 text-[hsl(var(--foreground))]">Contact</h3>
               <ul className="space-y-2 text-sm text-[hsl(var(--muted-foreground))]">
-                <li><a href="tel:720-276-0797" className="hover:text-[#00E5FF] transition-colors">720-276-0797</a></li>
+                <li><a href="tel:+17202760797" className="hover:text-[#00E5FF] transition-colors">+1 720-276-0797</a></li>
                 <li><a href="mailto:info@appstudiopro.com" className="hover:text-[#00E5FF] transition-colors">info@appstudiopro.com</a></li>
                 <li><Link to="/privacy" className="hover:text-[#00E5FF] transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms" className="hover:text-[#00E5FF] transition-colors">Terms of Service</Link></li>
