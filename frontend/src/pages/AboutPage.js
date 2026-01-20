@@ -71,7 +71,7 @@ const AboutPage = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <TerminalBadge command="about_us" color="#00E5FF" variant="inverted" />
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
               <GlitchText className="gradient-text-brand">35+ Years</GlitchText> of
               <br />Digital Excellence
             </h1>
@@ -124,7 +124,7 @@ const AboutPage = () => {
               viewport={{ once: true }}
             >
               <TerminalBadge command="our_story" color="#FF6A00" variant="inverted" />
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 mt-6">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
                 From Garage to <GlitchText className="text-[#00E5FF]">Global</GlitchText>
               </h2>
               <div className="space-y-4 text-[hsl(var(--muted-foreground))]">
@@ -230,7 +230,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="core_values" color="#4CAF50" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               What Drives <GlitchText className="gradient-text-brand">Us</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
@@ -270,7 +270,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="leadership" color="#00E5FF" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               Meet the <GlitchText className="text-[#FF6A00]">Founders</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
