@@ -59,7 +59,7 @@ const HomePage = () => {
             >
               <span className="text-[hsl(var(--muted-foreground))]">The future isn't coming.</span>
               <br />
-              <GlitchText className="gradient-text-brand">We're building it now.</GlitchText>
+              <GlitchText className="gradient-text-brand" pattern={0}>We're building it now.</GlitchText>
             </motion.h1>
 
             {/* Sub-taglines */}
@@ -170,7 +170,7 @@ const HomePage = () => {
           >
             <TerminalBadge command="free_tool" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              <GlitchText className="gradient-text-brand">AI Website Scanner</GlitchText>
+              <GlitchText className="gradient-text-brand" pattern={1}>AI Website Scanner</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               See what our AI sees. Watch the analysis happen in real-time.
@@ -204,7 +204,7 @@ const HomePage = () => {
           >
             <TerminalBadge command="live_dashboard" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              The <GlitchText className="text-[#FF6A00]">Tech Theater</GlitchText>
+              The <GlitchText className="text-[#FF6A00]" pattern={2}>Tech Theater</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               Real engineering. Real-time. No smoke, no mirrors.
@@ -269,7 +269,7 @@ const HomePage = () => {
             >
               <TerminalBadge command="transparent_pricing" color="#FF6A00" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-                Your Budget <GlitchText className="text-[#FF6A00]">Works</GlitchText>
+                Your Budget <GlitchText className="text-[#FF6A00]" pattern={3}>Works</GlitchText>
               </h2>
               <p className="text-[hsl(var(--muted-foreground))] mb-6">
                 From MVP to enterprise. From $5K to $500K+. We flex to fit your reality, 
@@ -327,7 +327,7 @@ const HomePage = () => {
           >
             <TerminalBadge command="verified_results" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              Proof, Not <GlitchText className="text-[#FF6A00]">Promises</GlitchText>
+              Proof, Not <GlitchText className="text-[#FF6A00]" pattern={0}>Promises</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               Real numbers. Real clients. Real results.
@@ -354,7 +354,7 @@ const HomePage = () => {
           >
             <TerminalBadge command="live_sessions" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              Built <GlitchText className="text-[#FF6A00]">WITH</GlitchText> You
+              Built <GlitchText className="text-[#FF6A00]" pattern={1}>WITH</GlitchText> You
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               Watch us build real projects with real clients. No scripts, no edits.
@@ -380,7 +380,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              The <GlitchText className="gradient-text-brand">Honest</GlitchText> Truth
+              The <GlitchText className="gradient-text-brand" pattern={2}>Honest</GlitchText> Truth
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               We're not going to tell you what you want to hear. 
@@ -405,7 +405,7 @@ const HomePage = () => {
             className="text-center"
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              The only limit is your <GlitchText className="gradient-text-brand">imagination</GlitchText>
+              The only limit is your <GlitchText className="gradient-text-brand" pattern={3}>imagination</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] mb-8 max-w-xl mx-auto">
               Everything else? We've got it covered.
