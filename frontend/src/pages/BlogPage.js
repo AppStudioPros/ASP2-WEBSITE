@@ -99,7 +99,7 @@ const BlogPage = () => {
           >
             <TerminalBadge command="blog" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Insights & <GlitchText className="gradient-text-brand">Ideas</GlitchText>
+              Insights & <GlitchText className="gradient-text-brand" pattern={0}>Ideas</GlitchText>
             </h1>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8">
               Thoughts on technology, design, and building great digital products. 
@@ -267,7 +267,7 @@ const BlogPage = () => {
             className="text-center max-w-2xl mx-auto"
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Stay <GlitchText className="text-[#00E5FF]">Updated</GlitchText>
+              Stay <GlitchText className="gradient-text-brand" pattern={1}>Updated</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] mb-8">
               Get the latest insights delivered to your inbox. No spam, just quality content.
