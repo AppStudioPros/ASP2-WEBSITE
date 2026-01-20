@@ -276,10 +276,10 @@ const AboutPage = () => {
           >
             <TerminalBadge command="leadership" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Meet the <GlitchText className="text-[#FF6A00]">Founders</GlitchText>
+              Meet the <GlitchText className="text-[#FF6A00]">Founder</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
-              The visionaries behind App Studio Pro
+              The visionary behind App Studio Pro
             </p>
           </motion.div>
 
