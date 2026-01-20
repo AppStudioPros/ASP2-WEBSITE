@@ -269,7 +269,7 @@ const HomePage = () => {
             >
               <TerminalBadge command="transparent_pricing" color="#FF6A00" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-                Your Budget <GlitchText className="text-[#4CAF50]">Works</GlitchText>
+                Your Budget <GlitchText className="text-[#FF6A00]">Works</GlitchText>
               </h2>
               <p className="text-[hsl(var(--muted-foreground))] mb-6">
                 From MVP to enterprise. From $5K to $500K+. We flex to fit your reality, 
@@ -325,7 +325,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="verified_results" color="#4CAF50" variant="inverted" />
+            <TerminalBadge command="verified_results" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               Proof, Not <GlitchText className="text-[#FF6A00]">Promises</GlitchText>
             </h2>
