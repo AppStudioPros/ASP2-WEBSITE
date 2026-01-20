@@ -60,7 +60,7 @@ export const ServicesPreview = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <TerminalBadge command="our_expertise" color="#00E5FF" />
+          <TerminalBadge command="our_expertise" color="#00E5FF" variant="inverted" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             <GlitchText className="gradient-text-brand">What We Offer</GlitchText>
           </h2>

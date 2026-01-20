@@ -59,7 +59,7 @@ export const WorkSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <TerminalBadge command="portfolio" color="#FF6A00" />
+          <TerminalBadge command="portfolio" color="#FF6A00" variant="inverted" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             <GlitchText className="text-[#FF6A00]">Our Latest Work</GlitchText>
           </h2>

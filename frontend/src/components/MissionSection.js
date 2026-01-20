@@ -33,7 +33,7 @@ export const MissionSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <TerminalBadge command="our_mission" color="#00E5FF" />
+          <TerminalBadge command="our_mission" color="#00E5FF" variant="inverted" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             We Envision with <GlitchText className="gradient-text-brand">Purpose</GlitchText>
           </h2>

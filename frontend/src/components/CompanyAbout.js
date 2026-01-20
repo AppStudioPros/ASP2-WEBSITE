@@ -22,7 +22,7 @@ export const CompanyAbout = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <TerminalBadge command="who_we_are" color="#00E5FF" />
+            <TerminalBadge command="who_we_are" color="#00E5FF" variant="inverted" />
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               <span className="gradient-text-brand">35+ Years</span> of Excellence
