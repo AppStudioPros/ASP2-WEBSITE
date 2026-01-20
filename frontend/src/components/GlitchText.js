@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export const GlitchText = ({ children, className = '', intensity = 'medium', pauseOnHover = false }) => {
+export const GlitchText = ({ children, className = '', intensity = 'medium' }) => {
   const [isGlitching, setIsGlitching] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   
   const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
   
@@ -16,42 +15,16 @@ export const GlitchText = ({ children, className = '', intensity = 'medium', pau
   const config = intensityConfig[intensity];
   
   useEffect(() => {
-    // If pauseOnHover is true and we're hovered, don't run animation
-    if (pauseOnHover && isHovered) return;
-    
     const interval = setInterval(() => {
       setIsGlitching(true);
       setTimeout(() => setIsGlitching(false), config.duration);
     }, config.interval);
     
     return () => clearInterval(interval);
-  }, [config, pauseOnHover, isHovered]);
-
-  const handleMouseEnter = () => {
-    if (pauseOnHover) {
-      setIsHovered(true);
-      setIsGlitching(false);
-    } else {
-      // Original behavior - trigger glitch on hover
-      setIsGlitching(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (pauseOnHover) {
-      setIsHovered(false);
-    } else {
-      // Original behavior
-      setTimeout(() => setIsGlitching(false), 100);
-    }
-  };
+  }, [config]);
 
   return (
-    <span 
-      className={`relative inline-block ${className}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <span className={`relative inline-block ${className}`}>
       <span className={isGlitching ? 'opacity-0' : 'opacity-100'}>{children}</span>
       {isGlitching && (
         <>
