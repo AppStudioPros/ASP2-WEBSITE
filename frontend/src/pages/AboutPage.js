@@ -66,7 +66,7 @@ const AboutPage = () => {
           >
             <TerminalBadge command="about_us" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              <GlitchText className="gradient-text-brand">35+ Years</GlitchText> of
+              <GlitchText className="gradient-text-brand" pattern={0}>35+ Years</GlitchText> of
               <br />Digital Excellence
             </h1>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8">
@@ -117,9 +117,9 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <TerminalBadge command="our_story" color="#FF6A00" variant="inverted" />
+              <TerminalBadge command="our_story" color="#00E5FF" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
-                From Garage to <GlitchText className="text-[#00E5FF]">Global</GlitchText>
+                From Garage to <GlitchText className="gradient-text-brand" pattern={1}>Global</GlitchText>
               </h2>
               <div className="space-y-4 text-[hsl(var(--muted-foreground))]">
                 <p>
@@ -176,7 +176,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Our <GlitchText className="text-[#FF6A00]">Journey</GlitchText>
+              Our <GlitchText className="text-[#FF6A00]" pattern={2}>Journey</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
               Key milestones that shaped who we are today
@@ -223,9 +223,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="core_values" color="#4CAF50" variant="inverted" />
+            <TerminalBadge command="core_values" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              What Drives <GlitchText className="gradient-text-brand">Us</GlitchText>
+              What Drives <GlitchText className="gradient-text-brand" pattern={3}>Us</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
               Our values aren't just words on a wall—they're the principles that guide every decision we make.
@@ -274,9 +274,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="leadership" color="#00E5FF" variant="inverted" />
+            <TerminalBadge command="leadership" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Meet the <GlitchText className="text-[#FF6A00]">Founder</GlitchText>
+              Meet the <GlitchText className="text-[#FF6A00]" pattern={0}>Founder</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
               The visionary behind App Studio Pro
