@@ -112,7 +112,7 @@ const ContactPage = () => {
           >
             <TerminalBadge command="contact_us" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Let's Build Something <GlitchText className="gradient-text-brand">Amazing</GlitchText>
+              Let's Build Something <GlitchText className="gradient-text-brand" pattern={0}>Amazing</GlitchText>
             </h1>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8">
               Have a project in mind? We'd love to hear about it. Drop us a message and 
