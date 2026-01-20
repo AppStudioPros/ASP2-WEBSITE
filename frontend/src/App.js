@@ -94,7 +94,7 @@ function App() {
             >
               <Terminal className="w-4 h-4 text-[#00E5FF]" />
               <span className="text-sm text-[#00E5FF]">~/app-studio-pro</span>
-              <span className="text-sm text-[hsl(var(--muted-foreground))]">$ init_reality_check</span>
+              <span className="text-sm text-[hsl(var(--muted-foreground))]">$ engineering_excellence</span>
             </motion.div>
 
             {/* Main Headline */}
@@ -105,9 +105,9 @@ function App() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
               data-testid="hero-headline"
             >
-              <span className="text-[hsl(var(--muted-foreground))]">The future was yesterday.</span>
+              <span className="text-[hsl(var(--muted-foreground))]">The future isn't coming.</span>
               <br />
-              <GlitchText className="gradient-text-brand">Where were you?</GlitchText>
+              <GlitchText className="gradient-text-brand">We're building it now.</GlitchText>
             </motion.h1>
 
             {/* Sub-taglines */}
@@ -123,7 +123,7 @@ function App() {
               </p>
               <p className="text-base text-[hsl(var(--muted-foreground))] max-w-2xl">
                 The only limit is your imagination. Everything else—the code, the scale, 
-                the complexity—<strong className="text-[#FF6A00]">we handle.</strong>
+                the complexity—<strong className="text-[#FF6A00]">we got that.</strong>
               </p>
             </motion.div>
 
