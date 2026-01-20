@@ -10,9 +10,16 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    value: '720-276-0797',
-    link: 'tel:720-276-0797',
+    value: '+1 720-276-0797',
+    link: 'tel:+17202760797',
     color: '#00E5FF'
+  },
+  {
+    icon: MessageSquare,
+    title: 'WhatsApp',
+    value: '+1 720-276-0797',
+    link: 'https://wa.me/17202760797',
+    color: '#25D366'
   },
   {
     icon: Mail,
@@ -25,13 +32,6 @@ const contactInfo = [
     icon: Clock,
     title: 'Business Hours',
     value: 'Mon - Fri: 9AM - 6PM MST',
-    link: null,
-    color: '#4CAF50'
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: 'Denver, Colorado',
     link: null,
     color: '#9C27B0'
   }
@@ -388,9 +388,9 @@ const ContactPage = () => {
               {/* Social Links */}
               <div className="mt-8 p-6 rounded-lg border border-[hsl(var(--border))] bg-gradient-to-br from-[#00E5FF]/10 to-[#FF6A00]/10">
                 <h3 className="font-semibold text-[hsl(var(--foreground))] mb-4">Connect With Us</h3>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                   {[
-                    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/appstudiopro' },
+                    { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=100090446731786' },
                     { name: 'X (Twitter)', url: 'https://x.com/AppStudioPro' },
                     { name: 'YouTube', url: 'https://youtube.com/@appstudioproofficial' },
                     { name: 'Instagram', url: 'https://www.instagram.com/appstudiopro' }
