@@ -46,7 +46,7 @@ export const AntiPitch = ({ className = '' }) => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-[hsl(var(--foreground))]">
-                The <GlitchText className="text-[#FF6A00]">Anti-Pitch</GlitchText>
+                The <span className="text-[#FF6A00]">Anti-Pitch</span>
               </h3>
               <p className="text-sm text-[hsl(var(--muted-foreground))]">
                 What we WON'T tell you
