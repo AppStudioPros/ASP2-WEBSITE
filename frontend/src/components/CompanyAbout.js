@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Building2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import { TerminalBadge } from './TerminalBadge';
 
 export const CompanyAbout = () => {
   return (
@@ -21,10 +22,7 @@ export const CompanyAbout = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-4 font-mono">
-              <Building2 className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">WHO_WE_ARE</span>
-            </div>
+            <TerminalBadge command="who_we_are" color="#00E5FF" />
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               <span className="gradient-text-brand">35+ Years</span> of Excellence

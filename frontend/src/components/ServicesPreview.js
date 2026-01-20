@@ -3,6 +3,7 @@ import { Code2, Smartphone, Brain, Palette, Sparkles, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { GlitchText } from './GlitchText';
+import { TerminalBadge } from './TerminalBadge';
 
 const services = [
   {
@@ -59,10 +60,7 @@ export const ServicesPreview = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-            <Sparkles className="w-4 h-4 text-[#00E5FF]" />
-            <span className="text-sm text-[#00E5FF]">OUR_EXPERTISE</span>
-          </div>
+          <TerminalBadge command="our_expertise" color="#00E5FF" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             <GlitchText className="gradient-text-brand">What We Offer</GlitchText>
           </h2>

@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { Folder, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { GlitchText } from './GlitchText';
+import { TerminalBadge } from './TerminalBadge';
 
 const projects = [
   {
@@ -58,10 +59,7 @@ export const WorkSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-            <Folder className="w-4 h-4 text-[#FF6A00]" />
-            <span className="text-sm text-[#FF6A00]">PORTFOLIO</span>
-          </div>
+          <TerminalBadge command="portfolio" color="#FF6A00" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             <GlitchText className="text-[#FF6A00]">Our Latest Work</GlitchText>
           </h2>
