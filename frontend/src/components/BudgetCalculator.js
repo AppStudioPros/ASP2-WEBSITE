@@ -117,9 +117,10 @@ export const BudgetCalculator = ({ className = '' }) => {
             />
             <div className="flex justify-between mt-2 text-xs text-[hsl(var(--muted-foreground))] font-mono">
               <span>$5K</span>
-              <span>$50K</span>
-              <span>$150K</span>
-              <span>$500K+</span>
+              <span>$25K</span>
+              <span>$75K</span>
+              <span>$200K</span>
+              <span>$500K</span>
             </div>
           </div>
 
