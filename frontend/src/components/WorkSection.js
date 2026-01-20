@@ -63,7 +63,7 @@ export const WorkSection = () => {
             <span className="text-sm text-[#FF6A00]">PORTFOLIO</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            <GlitchText className="text-[#FF6A00]">Our Latest Work</GlitchText>
+            <GlitchText className="text-[#FF6A00]" pauseOnHover={true}>Our Latest Work</GlitchText>
           </h2>
           <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
             Explore our diverse portfolio — highlighting our expertise in website and app design
