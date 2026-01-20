@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 import os
@@ -8,7 +7,6 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 import asyncio
 from datetime import datetime
-from bson import ObjectId
 import json
 import base64
 from bs4 import BeautifulSoup
@@ -16,24 +14,20 @@ import requests
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
 
-load_dotenv()
+# Import route modules
+from routes.contact import router as contact_router
+from routes.newsletter import router as newsletter_router
+from routes.sanity import router as sanity_router
 
-# Database
-db_client = None
-db = None
+load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global db_client, db
-    mongo_url = os.getenv("MONGO_URL")
-    db_name = os.getenv("DB_NAME", "appstudiopro_analyzer")
-    db_client = AsyncIOMotorClient(mongo_url)
-    db = db_client[db_name]
-    print(f"✓ Connected to MongoDB: {db_name}")
+    print("✓ FastAPI application started")
+    print("✓ Sanity CMS integration ready (configure SANITY_PROJECT_ID and SANITY_API_TOKEN)")
+    print("✓ Resend email integration ready (configure RESEND_API_KEY)")
     yield
-    if db_client:
-        db_client.close()
-        print("✓ MongoDB connection closed")
+    print("✓ FastAPI application shutdown")
 
 app = FastAPI(lifespan=lifespan)
 
@@ -46,26 +40,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def serialize_doc(doc):
-    if doc is None:
-        return None
-    if isinstance(doc, list):
-        return [serialize_doc(d) for d in doc]
-    if isinstance(doc, dict):
-        result = {}
-        for key, value in doc.items():
-            if isinstance(value, ObjectId):
-                result[key] = str(value)
-            elif isinstance(value, datetime):
-                result[key] = value.isoformat()
-            elif isinstance(value, dict):
-                result[key] = serialize_doc(value)
-            elif isinstance(value, list):
-                result[key] = serialize_doc(value)
-            else:
-                result[key] = value
-        return result
-    return doc
+# Include route modules
+app.include_router(contact_router)
+app.include_router(newsletter_router)
+app.include_router(sanity_router)
+
+# Removed serialize_doc function - no longer using MongoDB
 
 class AnalyzeRequest(BaseModel):
     url: str
@@ -88,7 +68,16 @@ async def root():
 
 @app.get("/api/health")
 async def health():
-    return {"status": "healthy", "database": "connected" if db is not None else "disconnected"}
+    sanity_configured = bool(os.getenv("SANITY_PROJECT_ID") and os.getenv("SANITY_API_TOKEN"))
+    resend_configured = bool(os.getenv("RESEND_API_KEY"))
+    
+    return {
+        "status": "healthy",
+        "integrations": {
+            "sanity": "configured" if sanity_configured else "not_configured",
+            "resend": "configured" if resend_configured else "not_configured"
+        }
+    }
 
 def scrape_website(url: str) -> Dict:
     """Scrape website and extract key information"""
