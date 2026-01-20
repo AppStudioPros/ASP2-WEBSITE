@@ -80,7 +80,7 @@ export const TeamSection = () => {
             <span className="text-sm text-[#4CAF50]">OUR_TEAM</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            <GlitchText className="text-[#4CAF50]" pauseOnHover={true}>Meet Our Team</GlitchText>
+            <GlitchText className="text-[#4CAF50]">Meet Our Team</GlitchText>
           </h2>
           <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
             World-class developers, designers, and problem solvers from around the globe
