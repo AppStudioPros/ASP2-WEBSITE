@@ -1,85 +1,160 @@
-# App Studio Pro - Product Requirements Document
+# Product Requirements Document (PRD)
+**Project**: App Studio Pro Website  
+**Last Updated**: January 20, 2025
 
-## Original Problem Statement
-Extract a website from a zip file and perform a major content overhaul. The user wants to integrate content from an old "App Studio Pro" website into a new modern site, while maintaining the existing design, color scheme, and styling.
+## Project Overview
+Modern, multi-page marketing website for App Studio Pro featuring content management, email communications, and deployment to Vercel.
 
-## Target Audience
-- Business owners seeking digital solutions
-- Startups needing web/mobile app development
-- Enterprise clients requiring AI/ML integration
-- Companies looking for Web3/blockchain services
+## Core Requirements
 
-## Core Requirements (MVP)
-- [x] Homepage with hero section, mission, services preview, portfolio, and company overview
-- [x] Multi-page architecture with React Router
-- [x] Navigation: Home | About | Services | Blog | Contact Us (button)
-- [x] About page with company story, stats, timeline, values, team
-- [x] Services page with all 11 services
-- [x] Blog page with search, filters, and featured posts
-- [x] Contact page with detailed form
-- [x] Consistent header/footer across all pages
+### 1. Website Structure ✅ COMPLETED
+- [x] Multi-page application with React Router
+- [x] Pages: Home, About, Services, Blog, Contact
+- [x] Shared layout with header and footer
+- [x] Responsive design with Tailwind CSS
+- [x] Modern UI with animations (Framer Motion)
 
-## What's Been Implemented
+### 2. Content Management 🔄 IN PROGRESS
+- [ ] Sanity.io CMS integration for dynamic content
+  - [ ] Blog posts management
+  - [ ] Services content
+  - [ ] Portfolio/case studies
+- [ ] Content schemas defined in Sanity Studio
+- [ ] Frontend fetches content from Sanity APIs
 
-### December 2024
-- Initial site setup and content migration from old App Studio Pro website
-- Homepage sections: Hero, Mission/Video, Services Preview, Work/Portfolio, AI Scanner, Truth Bomb, Budget Calculator, Tech Theater, App Vault, Proof Section, Live Sessions, Anti-Pitch, Company About, Final CTA
-- Bug fixes: GlitchText hover effects, container heights, services preview redesign, project tags
+### 3. Email Communications ✅ COMPLETED (Backend Ready)
+- [x] Contact form with Resend email integration
+- [x] Newsletter subscription with welcome emails
+- [x] Email templates (HTML formatted)
+- [ ] Resend API key configured (Waiting for user)
 
-### January 2025
-- **Multi-page architecture** implemented with React Router v7
-- **Layout component** created with shared navigation and footer
-- **New Pages Created:**
-  - `/about` - Company story, 35+ years history, timeline, values, founders
-  - `/services` - Full 11 services with features, process section, why choose us
-  - `/blog` - Featured post, blog grid, search, category filters, newsletter
-  - `/contact` - Contact info cards, detailed project inquiry form, social links
-- Navigation updated with active state highlighting
-- All internal links converted to React Router Links
+### 4. Backend Infrastructure ✅ COMPLETED
+- [x] FastAPI backend without MongoDB
+- [x] Contact form API (`/api/contact`)
+- [x] Newsletter subscription API (`/api/newsletter/subscribe`)
+- [x] Sanity content APIs (`/api/sanity/*`)
+  - [x] Blog posts endpoint
+  - [x] Services endpoint
+  - [x] Portfolio endpoint
+- [x] Health check endpoint
+- [x] Comprehensive error handling
+- [x] CORS configuration
 
-## Tech Stack
-- **Frontend:** React 19, React Router v7, Tailwind CSS, Framer Motion
-- **UI Components:** Shadcn/UI
-- **Backend:** FastAPI (Python)
-- **Database:** MongoDB
+### 5. Frontend Integration ✅ COMPLETED
+- [x] Contact form connected to backend API
+- [x] Newsletter form connected to backend API
+- [x] Toast notifications for user feedback
+- [x] Loading states and error handling
+- [x] Footer phone number fixed (+1 prefix)
 
-## Code Architecture
+### 6. Deployment 🔄 WAITING FOR USER
+- [ ] Frontend deployment to Vercel
+- [ ] Backend remains on Emergent platform
+- [ ] Environment variables configured
+- [ ] Domain verification in Resend
+
+## Technical Stack
+
+**Frontend**:
+- React 18
+- React Router (multi-page)
+- Tailwind CSS
+- Framer Motion
+- Shadcn UI components
+
+**Backend**:
+- FastAPI (Python)
+- Resend (Email service)
+- Sanity.io (CMS)
+- asyncio for non-blocking operations
+
+**Deployment**:
+- Frontend: Vercel (planned)
+- Backend: Emergent platform (current)
+
+## API Endpoints
+
+### Contact Form
 ```
-/app/
-├── backend/
-│   └── server.py
-├── frontend/
-│   └── src/
-│       ├── components/
-│       │   ├── Layout.js (shared nav/footer)
-│       │   ├── ui/ (shadcn components)
-│       │   └── ... (feature components)
-│       ├── pages/
-│       │   ├── HomePage.js
-│       │   ├── AboutPage.js
-│       │   ├── ServicesPage.js
-│       │   ├── BlogPage.js
-│       │   └── ContactPage.js
-│       └── index.js (router setup)
-└── memory/
-    └── PRD.md
+POST /api/contact
+```
+**Body**: `{ name, email, company?, phone?, projectType, budget?, timeline?, message }`  
+**Response**: `{ success: true, message: string, email_id?: string }`
+
+### Newsletter Subscription
+```
+POST /api/newsletter/subscribe
+```
+**Body**: `{ email }`  
+**Response**: `{ success: true, message: string, email_id?: string }`
+
+### Sanity Content
+```
+GET /api/sanity/blog-posts?limit=10&category=AI
+GET /api/sanity/services
+GET /api/sanity/portfolio?featured=true
 ```
 
-## Known Issues / Deferred Items
-- **Budget Calculator** - Slider value not synchronized with displayed amount (deferred by user)
-- **Contact Form** - Currently MOCKED (no backend API)
-- **Blog** - Frontend only (no CMS/backend)
-- **AI Website Scanner** - Requires Emergent LLM Key (not configured)
+## Pending Tasks
 
-## Future Tasks (Backlog)
-1. **P0:** Fix Budget Calculator synchronization
-2. **P1:** Backend API for contact form submissions
-3. **P1:** Backend/CMS for blog posts
-4. **P2:** AI Website Scanner integration
-5. **P2:** Vercel/Sanity migration (user mentioned this for later)
+### Priority 1 (User Action Required)
+1. **Sanity.io Setup**
+   - Create Sanity project
+   - Get Project ID and API Token
+   - Add to backend `.env`
+   - Create content schemas in Sanity Studio
 
-## Test Status
-- Testing Agent: PASSED (100% frontend success)
-- All navigation routes working
-- Contact form validates and shows success toast
-- All page content renders correctly
+2. **Resend Setup**
+   - Get Resend API key
+   - Verify domain `appstudiopro.com`
+   - Add API key to backend `.env`
+
+3. **Deployment**
+   - Deploy frontend to Vercel
+   - Configure environment variables
+   - Test email delivery
+
+### Priority 2 (After Credentials)
+4. **Content Population**
+   - Add blog posts to Sanity
+   - Add services to Sanity
+   - Add portfolio pieces to Sanity
+
+5. **Frontend Updates**
+   - Update BlogPage to fetch from Sanity
+   - Update ServicesPage to fetch from Sanity
+   - Add portfolio section with Sanity data
+
+### Priority 3 (Enhancements)
+6. **Newsletter Subscriber Storage**
+   - Implement Sanity storage for subscribers
+   - Create admin view for subscribers
+
+7. **Testing & QA**
+   - End-to-end testing with real credentials
+   - Email delivery testing
+   - Content update workflows
+
+## Known Issues
+- None currently. Budget Calculator was tentatively fixed in previous session (awaiting user verification).
+
+## Design Specifications
+- Color scheme: Blue (#00E5FF) and Orange (#FF6A00) accents
+- Terminal-style section badges
+- Consistent card styling with faded background icons
+- Glitch text animations for emphasis
+- Modern, professional corporate aesthetic
+
+## Success Criteria
+- [x] Website loads without errors
+- [x] All pages are navigable
+- [x] Contact form submissions work
+- [x] Newsletter subscriptions work
+- [ ] Emails deliver successfully
+- [ ] Content is editable via Sanity
+- [ ] Frontend deployed to Vercel
+- [ ] All integrations configured and operational
+
+---
+
+**Documentation**: See `/app/BACKEND_INTEGRATION_GUIDE.md` for complete setup instructions.
