@@ -7,16 +7,10 @@ import { TerminalBadge } from '../components/TerminalBadge';
 
 const teamMembers = [
   {
-    name: 'Tim Kipp',
-    role: 'Co-Founder & Tech Entrepreneur',
-    bio: 'With over 35 years of combined experience, Tim co-leads ASP with a vision to democratize cutting-edge technology. His background spans from bootstrapping startups to advising Fortune 500 companies on digital transformation.',
+    name: 'Corey Strange',
+    role: 'Founder & CEO',
+    bio: 'With over 35 years of experience in technology and digital innovation, Corey founded App Studio Pro with a vision to democratize cutting-edge technology for businesses of all sizes. His expertise spans web development, mobile applications, AI integration, and strategic digital transformation.',
     color: '#00E5FF'
-  },
-  {
-    name: 'Jimmy Laramie',
-    role: 'Co-Founder & Creative Technologist',
-    bio: 'Jimmy brings a unique blend of artistic vision and technical prowess to every project. His expertise in UI/UX design and emerging technologies has helped shape digital products used by millions worldwide.',
-    color: '#FF6A00'
   }
 ];
 
