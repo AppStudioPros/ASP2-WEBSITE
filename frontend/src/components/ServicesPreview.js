@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Smartphone, MessageSquare, Brain, Palette, Sparkles, Cpu, TrendingUp, Users, Globe } from 'lucide-react';
+import { Code2, Smartphone, Brain, Palette, Sparkles, Cpu } from 'lucide-react';
 import { Button } from './ui/button';
 import { GlitchText } from './GlitchText';
 
@@ -17,22 +17,16 @@ const services = [
     color: '#2196F3'
   },
   {
-    icon: MessageSquare,
-    title: 'Conversational AI',
-    description: 'Custom chatbots and AI solutions for 24/7 support and engagement.',
-    color: '#4CAF50'
+    icon: Palette,
+    title: 'UI/UX Design',
+    description: 'Visually appealing and intuitive interfaces that users love.',
+    color: '#9C27B0'
   },
   {
     icon: Brain,
     title: 'AI Machine Learning',
     description: 'Unlock business potential with advanced machine learning techniques.',
     color: '#FF6A00'
-  },
-  {
-    icon: Palette,
-    title: 'UI/UX Design',
-    description: 'Visually appealing and intuitive interfaces that users love.',
-    color: '#9C27B0'
   },
   {
     icon: Sparkles,
@@ -44,25 +38,7 @@ const services = [
     icon: Cpu,
     title: 'Deep Learning',
     description: 'Harness deep learning to unlock insights and automate complex tasks.',
-    color: '#FF6A00'
-  },
-  {
-    icon: TrendingUp,
-    title: 'GoHighLevel Programming',
-    description: 'Streamline sales, marketing, and operations for optimal growth.',
     color: '#4CAF50'
-  },
-  {
-    icon: Users,
-    title: 'Marketing',
-    description: 'Captivating ads, explainer videos, and stunning graphics for all platforms.',
-    color: '#2196F3'
-  },
-  {
-    icon: Globe,
-    title: 'Web3 Development',
-    description: 'Secure blockchain platforms, NFTs, and cryptocurrency exchanges.',
-    color: '#00E5FF'
   }
 ];
 
@@ -107,22 +83,25 @@ export const ServicesPreview = () => {
                 transition={{ delay: index * 0.05 }}
                 className="relative group"
               >
-                <div className="h-full p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 backdrop-blur-sm hover:border-[#00E5FF] transition-all duration-300">
-                  <div 
-                    className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                    style={{ backgroundColor: `${service.color}20` }}
-                  >
+                <div className="relative h-full p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 backdrop-blur-sm hover:border-[#00E5FF] transition-all duration-300 overflow-hidden">
+                  {/* Background Icon - Large, faded, positioned in lower right */}
+                  <div className="absolute -bottom-6 -right-6 opacity-10 pointer-events-none">
                     <Icon 
-                      className="w-6 h-6" 
+                      className="w-32 h-32" 
                       style={{ color: service.color }}
+                      strokeWidth={1.5}
                     />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-[hsl(var(--foreground))]">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
-                    {service.description}
-                  </p>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <h3 className="text-lg font-semibold mb-2 text-[hsl(var(--foreground))]">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             );
