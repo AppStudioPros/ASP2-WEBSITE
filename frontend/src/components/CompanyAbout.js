@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
-import { Building2, ArrowRight } from 'lucide-react';
+import { ArrowRight, Building2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import { TerminalBadge } from './TerminalBadge';
+import { GlitchText } from './GlitchText';
 
 export const CompanyAbout = () => {
   return (
@@ -18,18 +21,14 @@ export const CompanyAbout = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-4 font-mono">
-              <Building2 className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">WHO_WE_ARE</span>
-            </div>
+            <TerminalBadge command="who_we_are" color="#00E5FF" variant="inverted" />
             
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-              <span className="gradient-text-brand">35+ Years</span> of Excellence
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+              <GlitchText className="gradient-text-brand" pattern={3}>35+ Years</GlitchText> of Excellence
             </h2>
             
-            <div className="space-y-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+            <div className="space-y-4 text-[hsl(var(--muted-foreground))] leading-relaxed mb-6">
               <p>
                 Welcome to <span className="text-[#00E5FF] font-semibold">App Studio Pro</span>, where innovative ideas meet exceptional execution. 
                 We specialize in transforming visionary concepts into successful digital realities.
@@ -45,7 +44,7 @@ export const CompanyAbout = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-8 pt-4">
+            <div className="flex flex-wrap gap-8 pt-4 mb-6">
               <div>
                 <div className="text-3xl font-bold text-[#00E5FF] font-mono mb-1">2500+</div>
                 <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects Delivered</div>
@@ -60,12 +59,14 @@ export const CompanyAbout = () => {
               </div>
             </div>
 
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold transition-all duration-200"
-            >
-              Learn More About Us <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/about">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold transition-all duration-200"
+              >
+                Learn More About Us <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Right Content - Visual Element */}

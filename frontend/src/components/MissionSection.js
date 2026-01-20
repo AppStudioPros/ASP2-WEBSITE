@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { Target, Rocket, Heart } from 'lucide-react';
+import { Rocket, Heart } from 'lucide-react';
 import { GlitchText } from './GlitchText';
 import { YouTubeVideo } from './YouTubeVideo';
+import { TerminalBadge } from './TerminalBadge';
 
 export const MissionSection = () => {
   return (
@@ -32,10 +33,7 @@ export const MissionSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-            <Target className="w-4 h-4 text-[#00E5FF]" />
-            <span className="text-sm text-[#00E5FF]">OUR_MISSION</span>
-          </div>
+          <TerminalBadge command="our_mission" color="#00E5FF" variant="inverted" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             We Envision with <GlitchText className="gradient-text-brand">Purpose</GlitchText>
           </h2>

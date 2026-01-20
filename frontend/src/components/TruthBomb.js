@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { XCircle, CheckCircle, Code2, Users, Zap, Shield, AlertTriangle, Sparkles } from 'lucide-react';
+import { GlitchText } from './GlitchText';
 
 const myths = [
   { icon: AlertTriangle, text: '"Build an app in 5 minutes!"' },
@@ -54,7 +55,7 @@ export const TruthBomb = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            The <span className="gradient-text-brand">Truth Bomb</span>
+            The <GlitchText className="gradient-text-brand" pattern={2}>Truth Bomb</GlitchText>
           </h2>
           <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
             Everyone's selling the dream. Here's what actually works.

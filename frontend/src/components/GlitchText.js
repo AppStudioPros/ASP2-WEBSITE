@@ -1,27 +1,78 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useMemo } from 'react';
 
-export const GlitchText = ({ children, className = '', intensity = 'medium' }) => {
+// Different animation patterns for variety
+const animationPatterns = [
+  // Pattern 1: Single blink, long pause, double blink
+  [
+    { glitch: true, duration: 150 },
+    { glitch: false, duration: 2500 },
+    { glitch: true, duration: 100 },
+    { glitch: false, duration: 200 },
+    { glitch: true, duration: 100 },
+    { glitch: false, duration: 3000 },
+  ],
+  // Pattern 2: Quick triple blink, long pause
+  [
+    { glitch: true, duration: 80 },
+    { glitch: false, duration: 150 },
+    { glitch: true, duration: 80 },
+    { glitch: false, duration: 150 },
+    { glitch: true, duration: 80 },
+    { glitch: false, duration: 4000 },
+  ],
+  // Pattern 3: Single blink, pause, single blink, longer pause
+  [
+    { glitch: true, duration: 120 },
+    { glitch: false, duration: 1800 },
+    { glitch: true, duration: 150 },
+    { glitch: false, duration: 3500 },
+  ],
+  // Pattern 4: Long glitch, pause, quick double
+  [
+    { glitch: true, duration: 200 },
+    { glitch: false, duration: 2800 },
+    { glitch: true, duration: 60 },
+    { glitch: false, duration: 100 },
+    { glitch: true, duration: 60 },
+    { glitch: false, duration: 3200 },
+  ],
+];
+
+export const GlitchText = ({ children, className = '', pattern = 0 }) => {
   const [isGlitching, setIsGlitching] = useState(false);
   
-  const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
-  
-  const intensityConfig = {
-    low: { duration: 100, interval: 5000 },
-    medium: { duration: 150, interval: 3000 },
-    high: { duration: 200, interval: 2000 },
-  };
-  
-  const config = intensityConfig[intensity];
-  
+  // Use pattern prop to select animation, with fallback to random based on children hash
+  const selectedPattern = useMemo(() => {
+    if (pattern >= 0 && pattern < animationPatterns.length) {
+      return animationPatterns[pattern];
+    }
+    // Generate a consistent pattern based on the text content
+    const hash = String(children).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return animationPatterns[hash % animationPatterns.length];
+  }, [pattern, children]);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsGlitching(true);
-      setTimeout(() => setIsGlitching(false), config.duration);
-    }, config.interval);
+    let currentIndex = 0;
+    let timeoutId;
     
-    return () => clearInterval(interval);
-  }, [config]);
+    // Add random initial delay (0-2 seconds) to desync animations
+    const initialDelay = Math.random() * 2000;
+    
+    const runPattern = () => {
+      const step = selectedPattern[currentIndex];
+      setIsGlitching(step.glitch);
+      
+      timeoutId = setTimeout(() => {
+        currentIndex = (currentIndex + 1) % selectedPattern.length;
+        runPattern();
+      }, step.duration);
+    };
+    
+    // Start after initial random delay
+    timeoutId = setTimeout(runPattern, initialDelay);
+    
+    return () => clearTimeout(timeoutId);
+  }, [selectedPattern]);
 
   return (
     <span className={`relative inline-block ${className}`}>
