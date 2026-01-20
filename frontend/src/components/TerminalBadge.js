@@ -6,7 +6,7 @@ export const TerminalBadge = ({ command, color = '#00E5FF', variant = 'default' 
   const isInverted = variant === 'inverted';
   
   return (
-    <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 font-mono">
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 font-mono mb-6">
       <Terminal className="w-4 h-4" style={{ color }} />
       <span 
         className="text-sm" 
