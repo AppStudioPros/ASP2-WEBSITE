@@ -204,7 +204,7 @@ const HomePage = () => {
           >
             <TerminalBadge command="live_dashboard" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-              <GlitchText className="gradient-text-brand">Tech Theater</GlitchText>
+              The <GlitchText className="text-[#FF6A00]">Tech Theater</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
               Real engineering. Real-time. No smoke, no mirrors.
