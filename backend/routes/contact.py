@@ -25,6 +25,7 @@ async def submit_contact_form(request: ContactFormRequest):
     
     resend_api_key = os.getenv("RESEND_API_KEY")
     sender_email = os.getenv("SENDER_EMAIL", "onboarding@resend.dev")
+    reply_to_email = os.getenv("REPLY_TO_EMAIL", "info@appstudiopro.com")
     recipient_email = "info@appstudiopro.com"
     
     if not resend_api_key:
@@ -111,6 +112,7 @@ async def submit_contact_form(request: ContactFormRequest):
     params = {
         "from": sender_email,
         "to": [recipient_email],
+        "reply_to": [reply_to_email],
         "subject": f"New Contact Form: {request.projectType} - {request.name}",
         "html": html_content
     }
