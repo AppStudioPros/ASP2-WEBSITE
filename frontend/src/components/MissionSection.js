@@ -37,7 +37,7 @@ export const MissionSection = () => {
             <span className="text-sm text-[#00E5FF]">OUR_MISSION</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            We Envision with <GlitchText className="gradient-text-brand" pauseOnHover={true}>Purpose</GlitchText>
+            We Envision with <GlitchText className="gradient-text-brand">Purpose</GlitchText>
           </h2>
         </motion.div>
 
