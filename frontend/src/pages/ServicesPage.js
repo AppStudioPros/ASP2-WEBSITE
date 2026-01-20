@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { 
   Code2, Smartphone, Brain, Palette, Sparkles, Cpu, 
-  Globe, Shield, Database, Cloud, Zap, ArrowRight,
-  Check, Server, Lock
+  Globe, Shield, Database, Cloud, ArrowRight,
+  Check, Server
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { GlitchText } from '../components/GlitchText';
+import { TerminalBadge } from '../components/TerminalBadge';
 
 const allServices = [
   {
@@ -125,11 +126,8 @@ const ServicesPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Sparkles className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">OUR_SERVICES</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+            <TerminalBadge command="our_services" color="#00E5FF" />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               Full-Stack <GlitchText className="gradient-text-brand">Solutions</GlitchText>
               <br />for Modern Business
             </h1>
@@ -199,11 +197,8 @@ const ServicesPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Zap className="w-4 h-4 text-[#FF6A00]" />
-              <span className="text-sm text-[#FF6A00]">OUR_PROCESS</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="our_process" color="#FF6A00" />
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
               How We <GlitchText className="text-[#FF6A00]">Work</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
@@ -254,11 +249,8 @@ const ServicesPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-                <Lock className="w-4 h-4 text-[#4CAF50]" />
-                <span className="text-sm text-[#4CAF50]">WHY_US</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
+              <TerminalBadge command="why_us" color="#4CAF50" />
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 mt-6">
                 Why Choose <GlitchText className="gradient-text-brand">App Studio Pro?</GlitchText>
               </h2>
               <div className="space-y-4">
