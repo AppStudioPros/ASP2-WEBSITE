@@ -12,9 +12,9 @@ const projects = [
   },
   {
     title: 'Contractor Guardians',
-    category: 'Real Estate',
+    category: 'Contractors',
     image: 'https://via.placeholder.com/600x400?text=Contractor+Guardians',
-    tags: ['Real Estate', 'Platform']
+    tags: ['Contractors', 'Platform']
   },
   {
     title: 'Pk.Page',
