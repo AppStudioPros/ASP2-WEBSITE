@@ -128,7 +128,7 @@ const ServicesPage = () => {
           >
             <TerminalBadge command="our_services" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Full-Stack <GlitchText className="gradient-text-brand">Solutions</GlitchText>
+              Full-Stack <GlitchText className="gradient-text-brand" pattern={0}>Solutions</GlitchText>
               <br />for Modern Business
             </h1>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8">
@@ -204,7 +204,7 @@ const ServicesPage = () => {
           >
             <TerminalBadge command="our_process" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              How We <GlitchText className="text-[#FF6A00]">Work</GlitchText>
+              How We <GlitchText className="text-[#FF6A00]" pattern={1}>Work</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
               A proven methodology that delivers results
@@ -254,9 +254,9 @@ const ServicesPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <TerminalBadge command="why_us" color="#4CAF50" variant="inverted" />
+              <TerminalBadge command="why_us" color="#00E5FF" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
-                Why Choose <GlitchText className="gradient-text-brand">App Studio Pro?</GlitchText>
+                Why Choose <GlitchText className="gradient-text-brand" pattern={2}>App Studio Pro?</GlitchText>
               </h2>
               <div className="space-y-4">
                 {[
@@ -316,7 +316,7 @@ const ServicesPage = () => {
             className="text-center"
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Ready to <GlitchText className="text-[#FF6A00]">Get Started?</GlitchText>
+              Ready to <GlitchText className="text-[#FF6A00]" pattern={3}>Get Started?</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] mb-8 max-w-xl mx-auto">
               Tell us about your project and we'll show you what's possible.
