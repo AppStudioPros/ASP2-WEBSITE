@@ -129,10 +129,21 @@ const ContactPage = () => {
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               const content = (
-                <div className="p-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 hover:border-[#00E5FF] transition-colors h-full">
-                  <Icon className="w-6 h-6 mb-3" style={{ color: info.color }} />
-                  <div className="text-sm text-[hsl(var(--muted-foreground))] mb-1">{info.title}</div>
-                  <div className="font-semibold text-[hsl(var(--foreground))]">{info.value}</div>
+                <div className="relative p-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 hover:border-[#00E5FF] transition-colors h-full overflow-hidden">
+                  {/* Background Icon - Large, faded, positioned in lower right */}
+                  <div className="absolute -bottom-2 -right-2 opacity-10 pointer-events-none">
+                    <Icon 
+                      className="w-20 h-20" 
+                      style={{ color: info.color }}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="text-sm text-[hsl(var(--muted-foreground))] mb-1">{info.title}</div>
+                    <div className="font-semibold text-[hsl(var(--foreground))]">{info.value}</div>
+                  </div>
                 </div>
               );
 
