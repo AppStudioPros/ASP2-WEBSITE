@@ -97,7 +97,7 @@ const BlogPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <TerminalBadge command="blog" color="#00E5FF" />
+            <TerminalBadge command="blog" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               Insights & <GlitchText className="gradient-text-brand">Ideas</GlitchText>
             </h1>

@@ -126,7 +126,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <TerminalBadge command="our_services" color="#00E5FF" />
+            <TerminalBadge command="our_services" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               Full-Stack <GlitchText className="gradient-text-brand">Solutions</GlitchText>
               <br />for Modern Business
@@ -197,7 +197,7 @@ const ServicesPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="our_process" color="#FF6A00" />
+            <TerminalBadge command="our_process" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
               How We <GlitchText className="text-[#FF6A00]">Work</GlitchText>
             </h2>
@@ -249,7 +249,7 @@ const ServicesPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <TerminalBadge command="why_us" color="#4CAF50" />
+              <TerminalBadge command="why_us" color="#4CAF50" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 mt-6">
                 Why Choose <GlitchText className="gradient-text-brand">App Studio Pro?</GlitchText>
               </h2>

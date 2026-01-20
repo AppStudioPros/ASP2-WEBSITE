@@ -110,7 +110,7 @@ const ContactPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <TerminalBadge command="contact_us" color="#00E5FF" />
+            <TerminalBadge command="contact_us" color="#00E5FF" variant="inverted" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               Let's Build Something <GlitchText className="gradient-text-brand">Amazing</GlitchText>
             </h1>
