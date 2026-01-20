@@ -456,8 +456,8 @@ function App() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <TeamSection />
+      {/* Company About Section */}
+      <CompanyAbout />
 
       {/* Final CTA */}
       <section className="py-16 sm:py-24 border-t border-[hsl(var(--border))]">
