@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 export const GlitchText = ({ children, className = '', intensity = 'medium' }) => {
   const [isGlitching, setIsGlitching] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
   
@@ -15,19 +16,27 @@ export const GlitchText = ({ children, className = '', intensity = 'medium' }) =
   const config = intensityConfig[intensity];
   
   useEffect(() => {
+    // Only run glitch animation if not hovered
+    if (isHovered) return;
+    
     const interval = setInterval(() => {
       setIsGlitching(true);
       setTimeout(() => setIsGlitching(false), config.duration);
     }, config.interval);
     
     return () => clearInterval(interval);
-  }, [config]);
+  }, [config, isHovered]);
 
   return (
     <span 
       className={`relative inline-block ${className}`}
-      onMouseEnter={() => setIsGlitching(true)}
-      onMouseLeave={() => setTimeout(() => setIsGlitching(false), 100)}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setIsGlitching(false);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+      }}
     >
       <span className={isGlitching ? 'opacity-0' : 'opacity-100'}>{children}</span>
       {isGlitching && (
