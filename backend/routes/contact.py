@@ -129,4 +129,14 @@ async def submit_contact_form(request: ContactFormRequest):
     except Exception as e:
         logger.error(f"Failed to send contact form email: {str(e)}")
         # Log the submission even if email fails
-        print(f"\\n📧 CONTACT FORM SUBMISSION (Email Failed):\")\n        print(f\"   From: {request.name} ({request.email})\")\n        print(f\"   Company: {request.company}\")\n        print(f\"   Message: {request.message}\\n\")\n        \n        # Return success anyway so user experience isn't broken\n        return {\n            \"success\": True,\n            \"message\": \"Thank you! We'll get back to you within 24 hours.\",\n            \"note\": \"Contact received (email service temporarily unavailable)\"\n        }
+        print(f"\n📧 CONTACT FORM SUBMISSION (Email Failed):")
+        print(f"   From: {request.name} ({request.email})")
+        print(f"   Company: {request.company}")
+        print(f"   Message: {request.message}\n")
+        
+        # Return success anyway so user experience isn't broken
+        return {
+            "success": True,
+            "message": "Thank you! We'll get back to you within 24 hours.",
+            "note": "Contact received (email service temporarily unavailable)"
+        }
