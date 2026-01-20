@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { FileText, Clock, User, ArrowRight, Tag, Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { GlitchText } from '../components/GlitchText';
+import { TerminalBadge } from '../components/TerminalBadge';
 
 const blogPosts = [
   {
@@ -97,11 +97,8 @@ const BlogPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <FileText className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">BLOG</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+            <TerminalBadge command="blog" color="#00E5FF" />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               Insights & <GlitchText className="gradient-text-brand">Ideas</GlitchText>
             </h1>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8">
