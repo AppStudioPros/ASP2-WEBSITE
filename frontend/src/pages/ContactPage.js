@@ -77,24 +77,46 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const apiUrl = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${apiUrl}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    toast.success('Message sent successfully!', {
-      description: "We'll get back to you within 24 hours."
-    });
+      const data = await response.json();
 
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      phone: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: ''
-    });
-    setIsSubmitting(false);
+      if (response.ok) {
+        toast.success('Message sent successfully!', {
+          description: data.message || "We'll get back to you within 24 hours."
+        });
+
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          projectType: '',
+          budget: '',
+          timeline: '',
+          message: ''
+        });
+      } else {
+        toast.error('Failed to send message', {
+          description: data.detail || 'Please try again or email us directly.'
+        });
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast.error('Connection error', {
+        description: 'Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
