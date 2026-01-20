@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Building2, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 
 export const CompanyAbout = () => {
@@ -60,12 +61,14 @@ export const CompanyAbout = () => {
               </div>
             </div>
 
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold transition-all duration-200"
-            >
-              Learn More About Us <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/about">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold transition-all duration-200"
+              >
+                Learn More About Us <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Right Content - Visual Element */}

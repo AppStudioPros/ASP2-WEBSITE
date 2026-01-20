@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Code2, Smartphone, Brain, Palette, Sparkles, Cpu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { GlitchText } from './GlitchText';
 
@@ -115,13 +116,15 @@ export const ServicesPreview = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-[#00E5FF] text-[#00E5FF] hover:bg-[#00E5FF] hover:text-black transition-colors duration-200"
-          >
-            View All Services
-          </Button>
+          <Link to="/services">
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-[#00E5FF] text-[#00E5FF] hover:bg-[#00E5FF] hover:text-black transition-colors duration-200"
+            >
+              View All Services
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
