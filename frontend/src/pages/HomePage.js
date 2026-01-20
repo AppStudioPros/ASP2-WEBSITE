@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Zap, Terminal, Video, Search, Flame, Shield, Target, Cpu } from 'lucide-react';
+import { Code2, Flame, Shield, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { HeroParticles } from '../components/HeroParticles';
@@ -18,6 +18,7 @@ import { MissionSection } from '../components/MissionSection';
 import { ServicesPreview } from '../components/ServicesPreview';
 import { WorkSection } from '../components/WorkSection';
 import { CompanyAbout } from '../components/CompanyAbout';
+import { TerminalBadge } from '../components/TerminalBadge';
 
 const HomePage = () => {
   return (
@@ -42,12 +43,10 @@ const HomePage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono"
+              className="mb-6"
               data-testid="hero-badge"
             >
-              <Terminal className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">~/app-studio-pro</span>
-              <span className="text-sm text-[hsl(var(--muted-foreground))]">$ engineering_excellence</span>
+              <TerminalBadge command="engineering_excellence" color="#00E5FF" />
             </motion.div>
 
             {/* Main Headline */}
@@ -178,11 +177,8 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Search className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">FREE_TOOL</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="free_tool" color="#00E5FF" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               <GlitchText className="gradient-text-brand">AI Website Scanner</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -219,11 +215,8 @@ const HomePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
-                <Target className="w-4 h-4 text-[#FF6A00]" />
-                <span className="text-sm text-[hsl(var(--muted-foreground))]">Transparent Pricing</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              <TerminalBadge command="transparent_pricing" color="#FF6A00" />
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
                 Your Budget <GlitchText className="text-[#4CAF50]">Works</GlitchText>
               </h2>
               <p className="text-[hsl(var(--muted-foreground))] mb-6">
@@ -268,11 +261,8 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Terminal className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">LIVE_DASHBOARD</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="live_dashboard" color="#00E5FF" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               <GlitchText className="gradient-text-brand">Tech Theater</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -335,11 +325,8 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Shield className="w-4 h-4 text-[#4CAF50]" />
-              <span className="text-sm text-[#4CAF50]">VERIFIED_RESULTS</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="verified_results" color="#4CAF50" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               Proof, Not <GlitchText className="text-[#FF6A00]">Promises</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -365,11 +352,8 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Video className="w-4 h-4 text-[#FF6A00]" />
-              <span className="text-sm text-[#FF6A00]">LIVE_SESSIONS</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="live_sessions" color="#FF6A00" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               Built <GlitchText className="text-[#FF6A00]">WITH</GlitchText> You
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
