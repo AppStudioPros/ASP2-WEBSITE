@@ -20,15 +20,14 @@ export const CompanyAbout = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
           >
             <TerminalBadge command="who_we_are" color="#00E5FF" variant="inverted" />
             
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
               <span className="gradient-text-brand">35+ Years</span> of Excellence
             </h2>
             
-            <div className="space-y-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+            <div className="space-y-4 text-[hsl(var(--muted-foreground))] leading-relaxed mb-6">
               <p>
                 Welcome to <span className="text-[#00E5FF] font-semibold">App Studio Pro</span>, where innovative ideas meet exceptional execution. 
                 We specialize in transforming visionary concepts into successful digital realities.
@@ -44,7 +43,7 @@ export const CompanyAbout = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-8 pt-4">
+            <div className="flex flex-wrap gap-8 pt-4 mb-6">
               <div>
                 <div className="text-3xl font-bold text-[#00E5FF] font-mono mb-1">2500+</div>
                 <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects Delivered</div>
