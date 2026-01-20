@@ -456,6 +456,9 @@ function App() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <TeamSection />
+
       {/* Final CTA */}
       <section className="py-16 sm:py-24 border-t border-[hsl(var(--border))]">
         <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px]">
