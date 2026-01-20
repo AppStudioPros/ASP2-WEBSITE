@@ -248,11 +248,22 @@ const AboutPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 hover:border-[#00E5FF] transition-colors"
+                  className="relative p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 hover:border-[#00E5FF] transition-colors overflow-hidden"
                 >
-                  <Icon className="w-10 h-10 mb-4" style={{ color: value.color }} />
-                  <h3 className="text-xl font-semibold mb-2 text-[hsl(var(--foreground))]">{value.title}</h3>
-                  <p className="text-[hsl(var(--muted-foreground))]">{value.description}</p>
+                  {/* Background Icon - Large, faded, positioned in lower right */}
+                  <div className="absolute -bottom-4 -right-4 opacity-10 pointer-events-none">
+                    <Icon 
+                      className="w-28 h-28" 
+                      style={{ color: value.color }}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-semibold mb-2 text-[hsl(var(--foreground))]">{value.title}</h3>
+                    <p className="text-[hsl(var(--muted-foreground))]">{value.description}</p>
+                  </div>
                 </motion.div>
               );
             })}

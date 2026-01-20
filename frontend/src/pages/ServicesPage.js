@@ -154,30 +154,35 @@ const ServicesPage = () => {
                   transition={{ delay: index * 0.05 }}
                   className="group"
                 >
-                  <div className="h-full p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 backdrop-blur-sm hover:border-[#00E5FF] transition-all duration-300">
-                    <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                      style={{ backgroundColor: `${service.color}20` }}
-                    >
-                      <Icon className="w-6 h-6" style={{ color: service.color }} />
+                  <div className="relative h-full p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 backdrop-blur-sm hover:border-[#00E5FF] transition-all duration-300 overflow-hidden">
+                    {/* Background Icon - Large, faded, positioned in lower right */}
+                    <div className="absolute -bottom-4 -right-4 opacity-10 pointer-events-none">
+                      <Icon 
+                        className="w-28 h-28" 
+                        style={{ color: service.color }}
+                        strokeWidth={1.5}
+                      />
                     </div>
                     
-                    <h3 className="text-xl font-semibold mb-3 text-[hsl(var(--foreground))]">
-                      {service.title}
-                    </h3>
-                    
-                    <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">
-                      {service.description}
-                    </p>
-                    
-                    <ul className="space-y-2">
-                      {service.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="flex items-center gap-2 text-sm">
-                          <Check className="w-4 h-4 text-[#4CAF50]" />
-                          <span className="text-[hsl(var(--muted-foreground))]">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-semibold mb-3 text-[hsl(var(--foreground))]">
+                        {service.title}
+                      </h3>
+                      
+                      <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">
+                        {service.description}
+                      </p>
+                      
+                      <ul className="space-y-2">
+                        {service.features.map((feature, fIndex) => (
+                          <li key={fIndex} className="flex items-center gap-2 text-sm">
+                            <Check className="w-4 h-4 text-[#4CAF50]" />
+                            <span className="text-[hsl(var(--muted-foreground))]">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </motion.div>
               );
