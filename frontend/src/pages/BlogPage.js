@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Clock, User, ArrowRight, Tag, Search } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { GlitchText } from '../components/GlitchText';
 import { TerminalBadge } from '../components/TerminalBadge';
+import { toast } from 'sonner';
 
 const blogPosts = [
   {
@@ -84,6 +86,47 @@ const categories = [
 ];
 
 const BlogPage = () => {
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    
+    setIsSubscribing(true);
+
+    try {
+      const apiUrl = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${apiUrl}/api/newsletter/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success('Successfully subscribed!', {
+          description: data.message || "Check your email for a welcome message."
+        });
+        setNewsletterEmail('');
+      } else {
+        toast.error('Subscription failed', {
+          description: data.detail || 'Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast.error('Connection error', {
+        description: 'Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -274,16 +317,24 @@ const BlogPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF] w-full sm:w-80"
-              />
-              <Button 
-                className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8"
-              >
-                Subscribe
-              </Button>
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 justify-center w-full">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  required
+                  disabled={isSubscribing}
+                  className="px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF] w-full sm:w-80"
+                />
+                <Button 
+                  type="submit"
+                  disabled={isSubscribing}
+                  className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8"
+                >
+                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
+                </Button>
+              </form>
             </div>
             
             <p className="text-xs text-[hsl(var(--muted-foreground))] mt-4">
