@@ -8,7 +8,7 @@ const ASPLogo = ({ className = '' }) => (
   <img 
     src="https://customer-assets.emergentagent.com/job_truthbomb/artifacts/s6r33gbn_AppStudioPro.png" 
     alt="App Studio Pro"
-    className={`h-16 w-auto ${className}`}
+    className={`h-20 w-auto ${className}`}
     data-testid="asp-logo"
   />
 );
