@@ -283,7 +283,7 @@ const AboutPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
@@ -291,7 +291,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50"
+                className="p-8 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 max-w-lg w-full"
               >
                 <div 
                   className="w-20 h-20 rounded-full mb-6 flex items-center justify-center text-3xl font-bold"
