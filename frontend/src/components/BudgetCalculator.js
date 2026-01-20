@@ -75,7 +75,7 @@ const budgetTiers = [
 ];
 
 export const BudgetCalculator = ({ className = '' }) => {
-  const [budget, setBudget] = useState([25000]);
+  const [budget, setBudget] = useState([50000]);
   
   const currentBudget = budget[0];
   const currentTier = budgetTiers.find(t => currentBudget >= t.min && currentBudget <= t.max) || budgetTiers[0];
