@@ -151,9 +151,9 @@ export const AppVault = ({ className = '' }) => {
     <div className={className} data-testid="app-vault">
       {/* Header */}
       <div className="text-center mb-10">
-        <TerminalBadge command="white_label_ready" color="#FF6A00" variant="inverted" />
+        <TerminalBadge command="white_label_ready" color="#00E5FF" variant="inverted" />
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-          The <GlitchText className="text-[#FF6A00]">App Vault</GlitchText>
+          The <GlitchText className="gradient-text-brand">App Vault</GlitchText>
         </h2>
         <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
           Pre-built, battle-tested applications ready for your brand. 
