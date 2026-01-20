@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Building2, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { TerminalBadge } from './TerminalBadge';
+import { GlitchText } from './GlitchText';
 
 export const CompanyAbout = () => {
   return (
@@ -24,7 +25,7 @@ export const CompanyAbout = () => {
             <TerminalBadge command="who_we_are" color="#00E5FF" variant="inverted" />
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              <span className="gradient-text-brand">35+ Years</span> of Excellence
+              <GlitchText className="gradient-text-brand" pattern={3}>35+ Years</GlitchText> of Excellence
             </h2>
             
             <div className="space-y-4 text-[hsl(var(--muted-foreground))] leading-relaxed mb-6">
