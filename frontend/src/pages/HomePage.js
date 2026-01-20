@@ -202,7 +202,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="live_dashboard" color="#00E5FF" variant="inverted" />
+            <TerminalBadge command="live_dashboard" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               The <GlitchText className="text-[#FF6A00]">Tech Theater</GlitchText>
             </h2>
