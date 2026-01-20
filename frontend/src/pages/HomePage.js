@@ -178,7 +178,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="free_tool" color="#00E5FF" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               <GlitchText className="gradient-text-brand">AI Website Scanner</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -216,7 +216,7 @@ const HomePage = () => {
               viewport={{ once: true }}
             >
               <TerminalBadge command="transparent_pricing" color="#FF6A00" variant="inverted" />
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                 Your Budget <GlitchText className="text-[#4CAF50]">Works</GlitchText>
               </h2>
               <p className="text-[hsl(var(--muted-foreground))] mb-6">
@@ -262,7 +262,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="live_dashboard" color="#00E5FF" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               <GlitchText className="gradient-text-brand">Tech Theater</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -326,7 +326,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="verified_results" color="#4CAF50" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               Proof, Not <GlitchText className="text-[#FF6A00]">Promises</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
@@ -353,7 +353,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <TerminalBadge command="live_sessions" color="#FF6A00" variant="inverted" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               Built <GlitchText className="text-[#FF6A00]">WITH</GlitchText> You
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
