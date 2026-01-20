@@ -15,6 +15,10 @@ import { ProofSection } from './components/ProofSection';
 import { AntiPitch } from './components/AntiPitch';
 import { GlitchText, HUDFrame, ScanlineOverlay } from './components/GlitchText';
 import { Toaster } from './components/ui/sonner';
+import { MissionSection } from './components/MissionSection';
+import { ServicesPreview } from './components/ServicesPreview';
+import { WorkSection } from './components/WorkSection';
+import { TeamSection } from './components/TeamSection';
 import './App.css';
 
 // ASP Logo Component
