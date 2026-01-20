@@ -139,15 +139,15 @@ function App() {
                 className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8 h-12 text-base transition-all duration-200"
                 data-testid="hero-primary-cta"
               >
-                <Flame className="w-5 h-5 mr-2" /> Start Building
+                <Flame className="w-5 h-5 mr-2" /> Start Your Project
               </Button>
               <Button 
                 variant="outline"
                 size="lg"
-                className="border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] px-8 h-12 text-base transition-colors duration-200 font-mono"
+                className="border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] px-8 h-12 text-base transition-colors duration-200"
                 data-testid="hero-secondary-cta"
               >
-                <Code2 className="w-5 h-5 mr-2" /> View Source
+                <Code2 className="w-5 h-5 mr-2" /> View Portfolio
               </Button>
             </motion.div>
 
@@ -160,16 +160,16 @@ function App() {
               data-testid="hero-stats"
             >
               <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#00E5FF] font-mono">247+</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">Apps<br/>Shipped</div>
+                <div className="text-3xl font-bold text-[#00E5FF] font-mono">35+</div>
+                <div className="text-sm text-[hsl(var(--muted-foreground))]">Years<br/>Experience</div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#FF6A00] font-mono">0</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">No-Code<br/>Excuses</div>
+                <div className="text-3xl font-bold text-[#FF6A00] font-mono">2500+</div>
+                <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects<br/>Delivered</div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#4CAF50] font-mono">100%</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">Code<br/>Ownership</div>
+                <div className="text-3xl font-bold text-[#4CAF50] font-mono">30+</div>
+                <div className="text-sm text-[hsl(var(--muted-foreground))]">Expert<br/>Engineers</div>
               </div>
             </motion.div>
           </div>
