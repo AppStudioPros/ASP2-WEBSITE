@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Building2, Users, Target, Award, Clock, Rocket, Heart, Zap, ArrowRight } from 'lucide-react';
+import { Users, Target, Rocket, Heart, Zap, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { GlitchText } from '../components/GlitchText';
+import { TerminalBadge } from '../components/TerminalBadge';
 
 const teamMembers = [
   {
@@ -69,11 +70,8 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Building2 className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">ABOUT_US</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+            <TerminalBadge command="about_us" color="#00E5FF" />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 mt-6">
               <GlitchText className="gradient-text-brand">35+ Years</GlitchText> of
               <br />Digital Excellence
             </h1>
@@ -125,11 +123,8 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-                <Clock className="w-4 h-4 text-[#FF6A00]" />
-                <span className="text-sm text-[#FF6A00]">OUR_STORY</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
+              <TerminalBadge command="our_story" color="#FF6A00" />
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 mt-6">
                 From Garage to <GlitchText className="text-[#00E5FF]">Global</GlitchText>
               </h2>
               <div className="space-y-4 text-[hsl(var(--muted-foreground))]">
@@ -234,11 +229,8 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Award className="w-4 h-4 text-[#4CAF50]" />
-              <span className="text-sm text-[#4CAF50]">CORE_VALUES</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="core_values" color="#4CAF50" />
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
               What Drives <GlitchText className="gradient-text-brand">Us</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
@@ -277,11 +269,8 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[hsl(var(--border))] bg-black/40 mb-6 font-mono">
-              <Users className="w-4 h-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">LEADERSHIP</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            <TerminalBadge command="leadership" color="#00E5FF" />
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
               Meet the <GlitchText className="text-[#FF6A00]">Founders</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
