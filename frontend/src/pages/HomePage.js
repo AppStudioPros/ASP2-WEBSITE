@@ -154,15 +154,6 @@ const HomePage = () => {
         </motion.div>
       </section>
 
-      {/* Mission & Video Section */}
-      <MissionSection />
-
-      {/* Services Preview Section */}
-      <ServicesPreview />
-
-      {/* Work/Portfolio Section */}
-      <WorkSection />
-
       {/* AI Website Scanner Section */}
       <section 
         className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
@@ -196,6 +187,67 @@ const HomePage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Tech Theater Section */}
+      <section 
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
+        data-testid="tech-theater-section"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(33,150,243,0.08),transparent_60%)] pointer-events-none" />
+        
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+          <motion.div 
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <TerminalBadge command="live_dashboard" color="#00E5FF" variant="inverted" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              <GlitchText className="gradient-text-brand">Tech Theater</GlitchText>
+            </h2>
+            <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto">
+              Real engineering. Real-time. No smoke, no mirrors.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <LiveBuildCounter baseValue={247} />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <ActivityHeatmap weeks={12} />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              <CodePoetry />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Video Section */}
+      <MissionSection />
+
+      {/* Services Preview Section */}
+      <ServicesPreview />
+
+      {/* Work/Portfolio Section */}
+      <WorkSection />
 
       {/* Truth Bomb Section */}
       <TruthBomb />
