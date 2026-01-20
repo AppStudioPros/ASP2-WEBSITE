@@ -8,7 +8,7 @@ import { HUDFrame } from './GlitchText';
 const budgetTiers = [
   {
     min: 5000,
-    max: 15000,
+    max: 24999,
     name: 'Starter',
     icon: Sparkles,
     color: '#00E5FF',
@@ -22,12 +22,12 @@ const budgetTiers = [
     perfect: 'MVPs, landing pages, simple tools'
   },
   {
-    min: 15000,
-    max: 50000,
+    min: 25000,
+    max: 74999,
     name: 'Growth',
     icon: Rocket,
     color: '#2196F3',
-    timeline: '4-8 weeks',
+    timeline: '6-12 weeks',
     features: [
       'Full web application',
       'User authentication',
@@ -38,12 +38,12 @@ const budgetTiers = [
     perfect: 'SaaS apps, marketplaces, portals'
   },
   {
-    min: 50000,
-    max: 150000,
+    min: 75000,
+    max: 199999,
     name: 'Scale',
     icon: Building2,
     color: '#FF6A00',
-    timeline: '8-16 weeks',
+    timeline: '3-6 months',
     features: [
       'Complex multi-feature platform',
       'AI/ML integrations',
@@ -55,12 +55,12 @@ const budgetTiers = [
     perfect: 'Enterprise apps, AI platforms, complex SaaS'
   },
   {
-    min: 150000,
+    min: 200000,
     max: 500000,
     name: 'Enterprise',
     icon: Building2,
     color: '#4CAF50',
-    timeline: '16+ weeks',
+    timeline: '6+ months',
     features: [
       'Full enterprise solution',
       'Custom AI agents',
