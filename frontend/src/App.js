@@ -203,6 +203,15 @@ function App() {
         </motion.div>
       </section>
 
+      {/* Mission & Video Section */}
+      <MissionSection />
+
+      {/* Services Preview Section */}
+      <ServicesPreview />
+
+      {/* Work/Portfolio Section */}
+      <WorkSection />
+
       {/* AI Website Scanner Section - Prominently placed under hero */}
       <section 
         className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
