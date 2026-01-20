@@ -318,7 +318,7 @@ const AboutPage = () => {
             className="text-center"
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Ready to <GlitchText className="gradient-text-brand">Work Together?</GlitchText>
+              Ready to <GlitchText className="gradient-text-brand" pattern={1}>Work Together?</GlitchText>
             </h2>
             <p className="text-[hsl(var(--muted-foreground))] mb-8 max-w-xl mx-auto">
               Let's discuss how we can help bring your vision to life.
