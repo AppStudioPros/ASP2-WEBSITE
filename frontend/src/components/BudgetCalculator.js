@@ -75,9 +75,12 @@ const budgetTiers = [
 ];
 
 export const BudgetCalculator = ({ className = '' }) => {
-  const [budget, setBudget] = useState([50000]);
+  // Define the exact marker values
+  const markerValues = [5000, 25000, 75000, 200000, 500000];
+  const [sliderPosition, setSliderPosition] = useState([1]); // Index into markerValues (0-4)
   
-  const currentBudget = budget[0];
+  // Get the actual budget value from the slider position
+  const currentBudget = markerValues[sliderPosition[0]];
   const currentTier = budgetTiers.find(t => currentBudget >= t.min && currentBudget <= t.max) || budgetTiers[0];
   const TierIcon = currentTier.icon;
 
@@ -108,11 +111,11 @@ export const BudgetCalculator = ({ className = '' }) => {
           {/* Slider */}
           <div className="px-4">
             <Slider
-              value={budget}
-              onValueChange={setBudget}
-              min={5000}
-              max={500000}
-              step={5000}
+              value={sliderPosition}
+              onValueChange={setSliderPosition}
+              min={0}
+              max={4}
+              step={1}
               className="[&_[role=slider]]:bg-[#00E5FF] [&_[role=slider]]:border-0 [&_[role=slider]]:w-5 [&_[role=slider]]:h-5"
             />
             <div className="flex justify-between mt-2 text-xs text-[hsl(var(--muted-foreground))] font-mono">
