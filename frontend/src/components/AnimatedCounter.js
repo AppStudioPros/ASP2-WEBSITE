@@ -101,7 +101,7 @@ export const LiveBuildCounter = ({ baseValue = 247, className = '' }) => {
   }, []);
 
   return (
-    <div className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${className}`}>
+    <div className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] h-full flex flex-col ${className}`}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">
           Live Builds
@@ -115,11 +115,13 @@ export const LiveBuildCounter = ({ baseValue = 247, className = '' }) => {
           <span className="text-xs text-[hsl(var(--muted-foreground))]">Real-time</span>
         </div>
       </div>
-      <AnimatedCounter 
-        value={count} 
-        label="AI Apps Shipped This Year"
-        suffix="+"
-      />
+      <div className="flex-1 flex items-center">
+        <AnimatedCounter 
+          value={count} 
+          label="AI Apps Shipped This Year"
+          suffix="+"
+        />
+      </div>
     </div>
   );
 };
