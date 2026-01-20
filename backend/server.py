@@ -68,8 +68,18 @@ async def root():
 
 @app.get("/api/health")
 async def health():
-    sanity_configured = bool(os.getenv("SANITY_PROJECT_ID") and os.getenv("SANITY_API_TOKEN"))
-    resend_configured = bool(os.getenv("RESEND_API_KEY"))
+    sanity_project_id = os.getenv("SANITY_PROJECT_ID", "")
+    sanity_token = os.getenv("SANITY_API_TOKEN", "")
+    resend_key = os.getenv("RESEND_API_KEY", "")
+    
+    # Check if they're actual values, not placeholders
+    sanity_configured = (
+        sanity_project_id and 
+        sanity_token and 
+        not sanity_project_id.startswith("your_") and 
+        not sanity_token.startswith("your_")
+    )
+    resend_configured = resend_key and not resend_key.startswith("your_")
     
     return {
         "status": "healthy",
