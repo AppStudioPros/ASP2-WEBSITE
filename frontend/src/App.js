@@ -42,17 +42,27 @@ function App() {
             <div className="flex items-center gap-2" data-testid="nav-logo">
               <ASPLogo />
             </div>
-            <div className="flex items-center gap-4">
-              <span className="hidden sm:block text-xs text-[hsl(var(--muted-foreground))] font-mono">
-                <span className="text-[#4CAF50]">●</span> Systems Online
-              </span>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#home" className="text-[hsl(var(--foreground))] hover:text-[#00E5FF] transition-colors">
+                  Home
+                </a>
+                <a href="#about" className="text-[hsl(var(--foreground))] hover:text-[#00E5FF] transition-colors">
+                  About
+                </a>
+                <a href="#services" className="text-[hsl(var(--foreground))] hover:text-[#00E5FF] transition-colors">
+                  Services
+                </a>
+                <a href="#blog" className="text-[hsl(var(--foreground))] hover:text-[#00E5FF] transition-colors">
+                  Blog
+                </a>
+              </div>
               <Button 
-                variant="outline" 
                 size="sm"
-                className="border-[#00E5FF] text-[#00E5FF] hover:bg-[#00E5FF] hover:text-black transition-colors duration-200 font-mono"
+                className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold transition-all duration-200"
                 data-testid="nav-cta-button"
               >
-                Initialize Build
+                Contact Us
               </Button>
             </div>
           </div>
