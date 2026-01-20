@@ -60,7 +60,7 @@ export const ActivityHeatmap = ({
 
   return (
     <div 
-      className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] ${className}`}
+      className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] h-full flex flex-col ${className}`}
       data-testid="github-heatmap"
     >
       <div className="flex items-center justify-between mb-6">

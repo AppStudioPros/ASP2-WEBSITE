@@ -24,11 +24,7 @@ export const GlitchText = ({ children, className = '', intensity = 'medium' }) =
   }, [config]);
 
   return (
-    <span 
-      className={`relative inline-block ${className}`}
-      onMouseEnter={() => setIsGlitching(true)}
-      onMouseLeave={() => setTimeout(() => setIsGlitching(false), 100)}
-    >
+    <span className={`relative inline-block ${className}`}>
       <span className={isGlitching ? 'opacity-0' : 'opacity-100'}>{children}</span>
       {isGlitching && (
         <>

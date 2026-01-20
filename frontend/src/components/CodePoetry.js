@@ -165,9 +165,9 @@ export const CodePoetry = ({ className = '' }) => {
         </div>
       </div>
 
-      {/* Code display */}
+      {/* Code display - FIXED HEIGHT */}
       <div 
-        className="relative min-h-[280px] overflow-hidden"
+        className="relative h-[320px] overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, transparent 0%, rgba(0,229,255,0.02) 100%)'
         }}
@@ -220,7 +220,7 @@ export const CodePoetry = ({ className = '' }) => {
         )}
 
         {/* Gradient fade at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[hsl(var(--card))] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[hsl(var(--card))] to-transparent pointer-events-none" />
       </div>
 
       {/* Snippet navigation dots */}
