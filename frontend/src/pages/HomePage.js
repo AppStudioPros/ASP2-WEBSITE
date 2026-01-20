@@ -177,7 +177,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="free_tool" color="#00E5FF" />
+            <TerminalBadge command="free_tool" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               <GlitchText className="gradient-text-brand">AI Website Scanner</GlitchText>
             </h2>
@@ -215,7 +215,7 @@ const HomePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <TerminalBadge command="transparent_pricing" color="#FF6A00" />
+              <TerminalBadge command="transparent_pricing" color="#FF6A00" variant="inverted" />
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
                 Your Budget <GlitchText className="text-[#4CAF50]">Works</GlitchText>
               </h2>
@@ -261,7 +261,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="live_dashboard" color="#00E5FF" />
+            <TerminalBadge command="live_dashboard" color="#00E5FF" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               <GlitchText className="gradient-text-brand">Tech Theater</GlitchText>
             </h2>
@@ -325,7 +325,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="verified_results" color="#4CAF50" />
+            <TerminalBadge command="verified_results" color="#4CAF50" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               Proof, Not <GlitchText className="text-[#FF6A00]">Promises</GlitchText>
             </h2>
@@ -352,7 +352,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <TerminalBadge command="live_sessions" color="#FF6A00" />
+            <TerminalBadge command="live_sessions" color="#FF6A00" variant="inverted" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 mt-6">
               Built <GlitchText className="text-[#FF6A00]">WITH</GlitchText> You
             </h2>
