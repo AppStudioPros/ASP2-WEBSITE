@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, BarChart3, Users, MessageSquare, Calendar, FileText, Lock, ArrowRight, Eye } from 'lucide-react';
+import { ShoppingCart, BarChart3, Users, MessageSquare, Calendar, FileText, ArrowRight, Eye } from 'lucide-react';
 import { Button } from './ui/button';
 import { HUDFrame, GlitchText } from './GlitchText';
+import { TerminalBadge } from './TerminalBadge';
 
 const vaultApps = [
   {
@@ -150,11 +151,8 @@ export const AppVault = ({ className = '' }) => {
     <div className={className} data-testid="app-vault">
       {/* Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] mb-6">
-          <Lock className="w-4 h-4 text-[#FF6A00]" />
-          <span className="text-sm text-[hsl(var(--muted-foreground))] font-mono">WHITE-LABEL READY</span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+        <TerminalBadge command="white_label_ready" color="#FF6A00" variant="inverted" />
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 mt-6">
           The <GlitchText className="text-[#FF6A00]">App Vault</GlitchText>
         </h2>
         <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
