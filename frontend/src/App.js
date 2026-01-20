@@ -18,7 +18,7 @@ import { Toaster } from './components/ui/sonner';
 import { MissionSection } from './components/MissionSection';
 import { ServicesPreview } from './components/ServicesPreview';
 import { WorkSection } from './components/WorkSection';
-import { TeamSection } from './components/TeamSection';
+import { CompanyAbout } from './components/CompanyAbout';
 import './App.css';
 
 // ASP Logo Component
