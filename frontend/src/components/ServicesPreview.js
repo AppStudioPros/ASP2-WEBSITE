@@ -87,7 +87,7 @@ export const ServicesPreview = () => {
             <span className="text-sm text-[#00E5FF]">OUR_EXPERTISE</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            <GlitchText className="gradient-text-brand">What We Offer</GlitchText>
+            <GlitchText className="gradient-text-brand" pauseOnHover={true}>What We Offer</GlitchText>
           </h2>
           <p className="text-[hsl(var(--muted-foreground))] text-base sm:text-lg max-w-2xl mx-auto mb-6">
             Comprehensive services that help businesses improve their visibility and reputation
