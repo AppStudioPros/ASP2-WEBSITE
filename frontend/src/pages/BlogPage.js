@@ -115,12 +115,6 @@ const BlogPage = () => {
                     
                     {/* Content */}
                     <div className="relative z-10">
-                      <div 
-                        className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                        style={{ backgroundColor: `${feature.color}20` }}
-                      >
-                        <Icon className="w-6 h-6" style={{ color: feature.color }} />
-                      </div>
                       <h3 className="text-lg font-semibold mb-2 text-[hsl(var(--foreground))]">
                         {feature.title}
                       </h3>
