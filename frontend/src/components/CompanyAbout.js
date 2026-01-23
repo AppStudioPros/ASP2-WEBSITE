@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
@@ -6,6 +7,9 @@ import { TerminalBadge } from './TerminalBadge';
 import { GlitchText } from './GlitchText';
 
 export const CompanyAbout = () => {
+  const cardRef = useRef(null);
+  const isCardInView = useInView(cardRef, { once: true, margin: "-100px" });
+
   return (
     <section 
       id="about"
@@ -69,39 +73,68 @@ export const CompanyAbout = () => {
             </Link>
           </motion.div>
 
-          {/* Right Content - Visual Element */}
+          {/* Right Content - 3D Rotating Card */}
           <motion.div
+            ref={cardRef}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
+            style={{ perspective: '1000px' }}
           >
-            <div className="relative aspect-square rounded-2xl border border-[hsl(var(--border))] bg-gradient-to-br from-[#00E5FF]/10 via-[#2196F3]/10 to-[#4CAF50]/10 overflow-hidden">
-              {/* Decorative elements */}
+            {/* 3D Card that rotates on scroll */}
+            <motion.div
+              className="relative aspect-square rounded-2xl border border-[hsl(var(--border))] bg-[#0a0a0a] overflow-hidden"
+              initial={{ rotateY: 0 }}
+              animate={isCardInView ? {
+                rotateY: [0, 15, 0, -15, 0],
+                rotateX: [0, 5, 0, -5, 0],
+              } : {}}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {/* Grid Background */}
+              <div 
+                className="absolute inset-0 opacity-30"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(0,229,255,0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,229,255,0.1) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '30px 30px'
+                }}
+              />
+              
+              {/* Corner Brackets */}
+              <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#00E5FF] rounded-tl-sm" />
+              <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#00E5FF] rounded-tr-sm" />
+              <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#00E5FF] rounded-bl-sm" />
+              <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#00E5FF] rounded-br-sm" />
+              
+              {/* Side Chevrons */}
+              <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-1 opacity-40">
+                <div className="w-2 h-2 border-l border-t border-[#00E5FF] rotate-[-45deg]" />
+                <div className="w-2 h-2 border-l border-t border-[#00E5FF] rotate-[-45deg]" />
+              </div>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-1 opacity-40">
+                <div className="w-2 h-2 border-r border-t border-[#00E5FF] rotate-[45deg]" />
+                <div className="w-2 h-2 border-r border-t border-[#00E5FF] rotate-[45deg]" />
+              </div>
+              
+              {/* Center content */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full h-full p-8">
-                  {/* Code brackets decoration */}
-                  <div className="absolute top-8 left-8 text-6xl text-[#00E5FF] opacity-20 font-mono">{'<'}</div>
-                  <div className="absolute bottom-8 right-8 text-6xl text-[#00E5FF] opacity-20 font-mono">{'>'}</div>
-                  
-                  {/* Center content */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center space-y-4">
-                      <Building2 className="w-24 h-24 text-[#00E5FF] mx-auto opacity-40" />
-                      <div className="text-xl font-mono text-[hsl(var(--muted-foreground))]">
-                        Building the Future
-                      </div>
-                    </div>
+                <div className="text-center space-y-4">
+                  <Building2 className="w-24 h-24 text-[#00E5FF] mx-auto opacity-60" strokeWidth={1} />
+                  <div className="text-xl font-medium text-white">
+                    Building the Future
                   </div>
-                  
-                  {/* Corner decorations */}
-                  <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#00E5FF]" />
-                  <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#00E5FF]" />
-                  <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#00E5FF]" />
-                  <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#00E5FF]" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
