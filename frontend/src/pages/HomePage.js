@@ -351,8 +351,27 @@ const HomePage = () => {
       {/* Mission & Video Section */}
       <MissionSection />
 
-      {/* Services Preview Section */}
-      <ServicesPreview />
+      {/* Services Showcase Section - Rotating 2-Column Layout */}
+      <section 
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
+        data-testid="services-showcase-section"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,106,0,0.04),transparent_60%)] pointer-events-none" />
+        
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+          <div className="text-center mb-12">
+            <TerminalBadge command="our_services" color="#FF6A00" variant="inverted" />
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mt-4 mb-4">
+              What We <GlitchText className="text-[#FF6A00]" pattern={2}>Build</GlitchText>
+            </h2>
+            <p className="text-lg text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
+              Full-stack solutions tailored to your business needs
+            </p>
+          </div>
+          
+          <ServicesShowcase />
+        </div>
+      </section>
 
       {/* Work/Portfolio Section */}
       <WorkSection />
