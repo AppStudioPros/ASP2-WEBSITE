@@ -132,40 +132,55 @@ const BlogPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-gradient-to-br from-[#00E5FF]/10 via-transparent to-[#FF6A00]/10 rounded-xl border border-[hsl(var(--border))] p-8 sm:p-12"
             >
-              <Mail className="w-12 h-12 text-[#00E5FF] mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
-                Get <GlitchText className="text-[#FF6A00]" pattern={1}>Notified</GlitchText>
-              </h2>
-              <p className="text-[hsl(var(--muted-foreground))] mb-8 max-w-xl mx-auto">
-                Subscribe to be the first to know when we publish our insights on technology, 
-                innovation, and digital transformation.
-              </p>
-              
-              <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
-                    required
-                    disabled={isSubscribing}
-                    className="flex-1 px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
+              <HUDFrame 
+                className="bg-black/20 border border-[hsl(var(--border))] overflow-hidden"
+                animated={true}
+                singleCard={true}
+              >
+                {/* Background Icon */}
+                <div className="absolute -bottom-8 -right-8 opacity-10 pointer-events-none">
+                  <Mail 
+                    className="w-40 h-40" 
+                    style={{ color: '#00E5FF' }}
+                    strokeWidth={1.5}
                   />
-                  <Button 
-                    type="submit"
-                    disabled={isSubscribing}
-                    className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8"
-                  >
-                    {isSubscribing ? 'Subscribing...' : 'Notify Me'}
-                  </Button>
                 </div>
-                <p className="text-xs text-[hsl(var(--muted-foreground))] mt-4">
-                  Join our community. No spam, just quality insights.
-                </p>
-              </form>
+                
+                <div className="relative z-10 text-center py-4">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
+                    Get <GlitchText className="text-[#FF6A00]" pattern={1}>Notified</GlitchText>
+                  </h2>
+                  <p className="text-[hsl(var(--muted-foreground))] mb-8 max-w-xl mx-auto">
+                    Subscribe to be the first to know when we publish our insights on technology, 
+                    innovation, and digital transformation.
+                  </p>
+                  
+                  <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={newsletterEmail}
+                        onChange={(e) => setNewsletterEmail(e.target.value)}
+                        required
+                        disabled={isSubscribing}
+                        className="flex-1 px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
+                      />
+                      <Button 
+                        type="submit"
+                        disabled={isSubscribing}
+                        className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8"
+                      >
+                        {isSubscribing ? 'Subscribing...' : 'Notify Me'}
+                      </Button>
+                    </div>
+                    <p className="text-xs text-[hsl(var(--muted-foreground))] mt-4">
+                      Join our community. No spam, just quality insights.
+                    </p>
+                  </form>
+                </div>
+              </HUDFrame>
             </motion.div>
 
             {/* Coming Soon Timeline */}
