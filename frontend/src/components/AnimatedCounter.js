@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 
 export const AnimatedCounter = ({ 
   value = 0, 
@@ -85,23 +85,56 @@ export const AnimatedCounter = ({
   );
 };
 
-// Live counter that increments over time
-export const LiveBuildCounter = ({ baseValue = 247, className = '' }) => {
-  const [count, setCount] = useState(baseValue);
+// Live counter that counts from 0 to base value on scroll, then increments slowly
+export const LiveBuildCounter = ({ baseValue = 134, className = '' }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [count, setCount] = useState(0);
+  const [hasReachedBase, setHasReachedBase] = useState(false);
 
+  // Initial count up from 0 to baseValue when in view
   useEffect(() => {
-    // Simulate real-time builds - random increment every few seconds
+    if (!isInView) return;
+    
+    const duration = 2000;
+    const startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.floor(baseValue * eased);
+      
+      setCount(currentValue);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setHasReachedBase(true);
+      }
+    };
+    
+    animate();
+  }, [isInView, baseValue]);
+
+  // After reaching base, slowly increment one at a time
+  useEffect(() => {
+    if (!hasReachedBase) return;
+    
     const interval = setInterval(() => {
-      if (Math.random() > 0.6) {
+      if (Math.random() > 0.5) {
         setCount(prev => prev + 1);
       }
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [hasReachedBase]);
 
   return (
-    <div className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] h-full flex flex-col ${className}`}>
+    <div 
+      ref={ref}
+      className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] h-full flex flex-col ${className}`}
+    >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">
           Live Builds

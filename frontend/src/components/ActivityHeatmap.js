@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 // Generate mock activity data for the last N weeks
 const generateMockData = (weeks = 12) => {
@@ -32,6 +32,9 @@ export const ActivityHeatmap = ({
   data: providedData = null,
   className = '' 
 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
   const data = useMemo(() => providedData || generateMockData(weeks), [providedData, weeks]);
   
   const maxValue = useMemo(() => Math.max(...data.map(d => d.count), 1), [data]);
@@ -58,8 +61,17 @@ export const ActivityHeatmap = ({
   const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const totalCommits = useMemo(() => data.reduce((sum, d) => sum + d.count, 0), [data]);
 
+  // Calculate sequential index for each cell (top-left to bottom-right)
+  const getCellIndex = (weekIndex, dayIndex) => {
+    // Go row by row (day by day across all weeks)
+    return dayIndex * grid.length + weekIndex;
+  };
+
+  const totalCells = grid.length * 7;
+
   return (
     <div 
+      ref={ref}
       className={`p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] h-full flex flex-col ${className}`}
       data-testid="github-heatmap"
     >
@@ -96,26 +108,33 @@ export const ActivityHeatmap = ({
           ))}
         </div>
 
-        {/* Heatmap grid */}
+        {/* Heatmap grid - dots populate in order from top-left to bottom-right */}
         <div className="flex gap-1 overflow-x-auto">
           {grid.map((week, weekIndex) => (
             <div key={weekIndex} className="flex flex-col gap-1">
-              {week.map((day, dayIndex) => (
-                <motion.div
-                  key={day.date}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    delay: (weekIndex * 7 + dayIndex) * 0.005,
-                    duration: 0.2
-                  }}
-                  className="w-3 h-3 rounded-sm cursor-pointer transition-transform duration-150 hover:scale-125"
-                  style={{ backgroundColor: getColor(day.count) }}
-                  title={`${day.date}: ${day.count} contributions`}
-                  data-testid="github-heatmap-cell"
-                  aria-label={`${day.date}: ${day.count} contributions`}
-                />
-              ))}
+              {week.map((day, dayIndex) => {
+                const cellIndex = getCellIndex(weekIndex, dayIndex);
+                // Stagger delay based on sequential order (row by row)
+                const delay = isInView ? cellIndex * 0.015 : 0;
+                
+                return (
+                  <motion.div
+                    key={day.date}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                    transition={{ 
+                      delay,
+                      duration: 0.2,
+                      ease: "easeOut"
+                    }}
+                    className="w-3 h-3 rounded-sm cursor-pointer transition-transform duration-150 hover:scale-125"
+                    style={{ backgroundColor: getColor(day.count) }}
+                    title={`${day.date}: ${day.count} contributions`}
+                    data-testid="github-heatmap-cell"
+                    aria-label={`${day.date}: ${day.count} contributions`}
+                  />
+                );
+              })}
             </div>
           ))}
         </div>
@@ -126,8 +145,11 @@ export const ActivityHeatmap = ({
         <span className="text-xs text-[hsl(var(--muted-foreground))]">Less</span>
         <div className="flex gap-1">
           {[0, 0.25, 0.5, 0.75, 1].map((intensity, i) => (
-            <div
+            <motion.div
               key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: isInView ? totalCells * 0.015 + i * 0.1 : 0 }}
               className="w-3 h-3 rounded-sm"
               style={{ backgroundColor: getColor(intensity * maxValue) }}
             />

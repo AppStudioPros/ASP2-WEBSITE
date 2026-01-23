@@ -4,6 +4,7 @@ import { DollarSign, Rocket, Building2, Sparkles, Check, ArrowRight } from 'luci
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
 import { HUDFrame } from './GlitchText';
+import { Link } from 'react-router-dom';
 
 const budgetTiers = [
   {
@@ -56,7 +57,7 @@ const budgetTiers = [
   },
   {
     min: 200000,
-    max: 500000,
+    max: 200000,
     name: 'Enterprise',
     icon: Building2,
     color: '#4CAF50',
@@ -75,9 +76,9 @@ const budgetTiers = [
 ];
 
 export const BudgetCalculator = ({ className = '' }) => {
-  // Define the exact marker values
-  const markerValues = [5000, 25000, 75000, 200000, 500000];
-  const [sliderPosition, setSliderPosition] = useState([1]); // Index into markerValues (0-4)
+  // Slider values: $5K, $25K, $75K, $200K+
+  const markerValues = [5000, 25000, 75000, 200000];
+  const [sliderPosition, setSliderPosition] = useState([1]); // Index into markerValues (0-3)
   
   // Get the actual budget value from the slider position
   const currentBudget = markerValues[sliderPosition[0]];
@@ -85,7 +86,7 @@ export const BudgetCalculator = ({ className = '' }) => {
   const TierIcon = currentTier.icon;
 
   const formatBudget = (value) => {
-    if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
+    if (value >= 200000) return '$200K +';
     if (value >= 1000) return `$${(value / 1000).toFixed(0)}K`;
     return `$${value}`;
   };
@@ -108,13 +109,13 @@ export const BudgetCalculator = ({ className = '' }) => {
             </motion.div>
           </div>
 
-          {/* Slider */}
+          {/* Slider - $5K to $200K+ */}
           <div className="px-4">
             <Slider
               value={sliderPosition}
               onValueChange={setSliderPosition}
               min={0}
-              max={4}
+              max={3}
               step={1}
               className="[&_[role=slider]]:bg-[#00E5FF] [&_[role=slider]]:border-0 [&_[role=slider]]:w-5 [&_[role=slider]]:h-5"
             />
@@ -122,8 +123,7 @@ export const BudgetCalculator = ({ className = '' }) => {
               <span>$5K</span>
               <span>$25K</span>
               <span>$75K</span>
-              <span>$200K</span>
-              <span>$500K</span>
+              <span>$200K +</span>
             </div>
           </div>
 
@@ -176,11 +176,13 @@ export const BudgetCalculator = ({ className = '' }) => {
             <p className="text-sm text-[hsl(var(--muted-foreground))]">
               No hidden costs. No surprise invoices. <strong className="text-[hsl(var(--foreground))]">Ever.</strong>
             </p>
-            <Button 
-              className="w-full h-12 bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black font-semibold"
-            >
-              Get Exact Quote <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+            <Link to="/contact">
+              <Button 
+                className="w-full h-12 bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black font-semibold"
+              >
+                Get Exact Quote <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </HUDFrame>

@@ -1,8 +1,43 @@
-import { motion } from 'framer-motion';
-import { Rocket, Heart } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { GlitchText } from './GlitchText';
 import { YouTubeVideo } from './YouTubeVideo';
 import { TerminalBadge } from './TerminalBadge';
+
+// Animated counter that counts up from 0 on scroll
+const ScrollCounter = ({ value, suffix = '', color }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    if (!isInView) return;
+    
+    const duration = 2000;
+    const startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.floor(value * eased);
+      
+      setCount(currentValue);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    animate();
+  }, [isInView, value]);
+  
+  return (
+    <span ref={ref} style={{ color }}>
+      {count}{suffix}
+    </span>
+  );
+};
 
 export const MissionSection = () => {
   return (
@@ -39,7 +74,7 @@ export const MissionSection = () => {
           </h2>
         </motion.div>
 
-        {/* Mission Text */}
+        {/* Mission Text - No icons */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -47,14 +82,11 @@ export const MissionSection = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <div className="flex items-start gap-3">
-              <Rocket className="w-6 h-6 text-[#00E5FF] mt-1 flex-shrink-0" />
-              <p className="text-[hsl(var(--muted-foreground))] leading-relaxed">
-                We have a unique combination of talents motivated by ambitious goals and a can-do attitude. 
-                Our drive to develop excellent products is built on teamwork, passion, and giving team members 
-                full control over their work to succeed on their own.
-              </p>
-            </div>
+            <p className="text-[hsl(var(--muted-foreground))] leading-relaxed">
+              We have a unique combination of talents motivated by ambitious goals and a can-do attitude. 
+              Our drive to develop excellent products is built on teamwork, passion, and giving team members 
+              full control over their work to succeed on their own.
+            </p>
           </motion.div>
 
           <motion.div
@@ -63,18 +95,15 @@ export const MissionSection = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <div className="flex items-start gap-3">
-              <Heart className="w-6 h-6 text-[#FF6A00] mt-1 flex-shrink-0" />
-              <p className="text-[hsl(var(--muted-foreground))] leading-relaxed">
-                We want to create an environment where ideas can flourish. We dream, design, develop, and dare 
-                to challenge the status quo and make a difference. We strive to develop a rich culture by 
-                expanding our horizons and bringing your ideas outside of the box.
-              </p>
-            </div>
+            <p className="text-[hsl(var(--muted-foreground))] leading-relaxed">
+              We want to create an environment where ideas can flourish. We dream, design, develop, and dare 
+              to challenge the status quo and make a difference. We strive to develop a rich culture by 
+              expanding our horizons and bringing your ideas outside of the box.
+            </p>
           </motion.div>
         </div>
 
-        {/* Stats */}
+        {/* Stats - Numbers count up from 0 on scroll */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,15 +111,21 @@ export const MissionSection = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-[hsl(var(--border))]"
         >
           <div className="text-center">
-            <div className="text-4xl font-bold text-[#00E5FF] font-mono mb-2">35+</div>
+            <div className="text-4xl font-bold font-mono mb-2">
+              <ScrollCounter value={35} suffix="+" color="#00E5FF" />
+            </div>
             <div className="text-sm text-[hsl(var(--muted-foreground))]">Years of Experience</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-[#FF6A00] font-mono mb-2">2500+</div>
+            <div className="text-4xl font-bold font-mono mb-2">
+              <ScrollCounter value={2500} suffix="+" color="#FF6A00" />
+            </div>
             <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects Completed</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-[#4CAF50] font-mono mb-2">30+</div>
+            <div className="text-4xl font-bold font-mono mb-2">
+              <ScrollCounter value={30} suffix="+" color="#4CAF50" />
+            </div>
             <div className="text-sm text-[hsl(var(--muted-foreground))]">Talented People</div>
           </div>
         </motion.div>
