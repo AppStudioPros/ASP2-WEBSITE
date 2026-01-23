@@ -153,6 +153,7 @@ export const HUDFrame = ({
   animated = true, 
   cardIndex = 0,
   totalCards = 1,
+  singleCard = false,  // For standalone cards with minimal downtime
 }) => {
   return (
     // Outer wrapper to allow light overflow
@@ -162,6 +163,7 @@ export const HUDFrame = ({
         <CornerBracketLight 
           cardIndex={cardIndex}
           totalCards={totalCards}
+          singleCard={singleCard || totalCards === 1}
         />
       )}
       
