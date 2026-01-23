@@ -147,11 +147,24 @@ export const ScanlineOverlay = ({ className = '' }) => (
 );
 
 // HUD Frame Component with animated corner lights (ORANGE BRACKETS)
-export const HUDFrame = ({ children, className = '', animated = true, delay = 0 }) => {
+export const HUDFrame = ({ 
+  children, 
+  className = '', 
+  animated = true, 
+  cardIndex = 0,
+  totalCards = 1,
+  onAnimationComplete 
+}) => {
   return (
     <div className={`relative p-6 ${className}`}>
       {/* Add animated corner bracket light */}
-      {animated && <CornerBracketLight delay={delay} duration={2} />}
+      {animated && (
+        <CornerBracketLight 
+          cardIndex={cardIndex}
+          totalCards={totalCards}
+          onAnimationComplete={onAnimationComplete}
+        />
+      )}
       
       {/* Corner Brackets */}
       <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#FF6A00]" />
