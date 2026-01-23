@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Terminal, Bot } from 'lucide-react';
 
 // Animation code being "typed"
@@ -72,23 +72,20 @@ export const HeroMockup = () => {
 
           const progress = currentIndex / animationCode.length;
           
-          // Smoother phase transitions
+          // Phase transitions for all elements
           if (progress > 0.05) setAnimationPhase(1);   // Badge
           if (progress > 0.12) setAnimationPhase(2);   // Headline line 1
           if (progress > 0.18) setAnimationPhase(3);   // Headline line 2
           if (progress > 0.24) setAnimationPhase(4);   // Description
           if (progress > 0.30) setAnimationPhase(5);   // Stats appear
-          if (progress > 0.36) setAnimationPhase(6);   // Chat msg 1 (user)
-          if (progress > 0.42) setAnimationPhase(7);   // Chat msg 2 (bot typing)
-          if (progress > 0.48) setAnimationPhase(8);   // Chat msg 2 (bot responds)
-          if (progress > 0.54) setAnimationPhase(9);   // Chat msg 3 (user)
-          if (progress > 0.60) setAnimationPhase(10);  // Chat msg 4 (bot typing)
-          if (progress > 0.66) setAnimationPhase(11);  // Chat msg 4 (bot responds)
-          if (progress > 0.72) setAnimationPhase(12);  // Chat msg 5 (user)
-          if (progress > 0.78) setAnimationPhase(13);  // Chat msg 6 (bot typing)
-          if (progress > 0.84) setAnimationPhase(14);  // Chat msg 6 (bot responds)
-          if (progress > 0.90) setAnimationPhase(15);  // Chat msg 7 (user)
-          if (progress > 0.95) setAnimationPhase(16);  // Chat msg 8 (bot final)
+          if (progress > 0.36) setAnimationPhase(6);   // Chat msg 1
+          if (progress > 0.44) setAnimationPhase(7);   // Chat msg 2
+          if (progress > 0.52) setAnimationPhase(8);   // Chat msg 3
+          if (progress > 0.60) setAnimationPhase(9);   // Chat msg 4
+          if (progress > 0.68) setAnimationPhase(10);  // Chat msg 5
+          if (progress > 0.76) setAnimationPhase(11);  // Chat msg 6
+          if (progress > 0.84) setAnimationPhase(12);  // Chat msg 7
+          if (progress > 0.92) setAnimationPhase(13);  // Chat msg 8
 
           if (codeContainerRef.current) {
             codeContainerRef.current.scrollTop = codeContainerRef.current.scrollHeight;
@@ -106,80 +103,17 @@ export const HeroMockup = () => {
 
   const codeLines = typedCode.split('\n');
 
-  // Smooth spring transition
-  const smoothSpring = { type: "spring", damping: 25, stiffness: 200 };
-  const smoothTween = { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] };
-
-  // Typing indicator component
-  const TypingIndicator = () => (
-    <motion.div 
-      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-600 rounded-xl rounded-bl-sm w-fit shadow-md"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={smoothSpring}
-    >
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="w-1.5 h-1.5 bg-white/70 rounded-full"
-          animate={{ y: [0, -2, 0], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
-        />
-      ))}
-    </motion.div>
-  );
-
-  // Chat message component for cleaner code
-  const UserMessage = ({ children, delay = 0 }) => (
-    <motion.div 
-      className="flex justify-end"
-      initial={{ opacity: 0, x: 12, scale: 0.95 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ ...smoothSpring, delay }}
-    >
-      <div className="flex items-end gap-1">
-        <div className="bg-blue-600 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-br-sm max-w-[100px] leading-relaxed shadow-md">
-          {children}
-        </div>
-        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0 flex items-center justify-center text-[6px] font-bold text-white shadow-sm">U</div>
-      </div>
-    </motion.div>
-  );
-
-  const BotMessage = ({ children, delay = 0 }) => (
-    <motion.div 
-      className="flex justify-start"
-      initial={{ opacity: 0, x: -12, scale: 0.95 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ ...smoothSpring, delay }}
-    >
-      <div className="flex items-end gap-1">
-        <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm">
-          <Bot className="w-2.5 h-2.5 text-slate-800" />
-        </div>
-        <div className="bg-slate-600 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-bl-sm max-w-[100px] leading-relaxed shadow-md">
-          {children}
-        </div>
-      </div>
-    </motion.div>
-  );
-
-  const BotTyping = () => (
-    <motion.div 
-      className="flex justify-start"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-    >
-      <div className="flex items-end gap-1">
-        <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm">
-          <Bot className="w-2.5 h-2.5 text-slate-800" />
-        </div>
-        <TypingIndicator />
-      </div>
-    </motion.div>
-  );
+  // Chat messages data
+  const chatMessages = [
+    { type: 'user', text: "Hey! 👋 Can you help?", phase: 6 },
+    { type: 'bot', text: "Of course! What do you need?", phase: 7 },
+    { type: 'user', text: "Convert 0.5 ETH to USDC", phase: 8 },
+    { type: 'bot', text: "Sure! Processing now...", phase: 9 },
+    { type: 'user', text: "How long will it take?", phase: 10 },
+    { type: 'bot', text: "About 30 seconds ⚡", phase: 11 },
+    { type: 'user', text: "Perfect, thanks!", phase: 12 },
+    { type: 'bot', text: "Done! ✅ 892 USDC sent", phase: 13 },
+  ];
 
   return (
     <div className="relative w-full">
@@ -208,22 +142,22 @@ export const HeroMockup = () => {
           {/* Corner Markers */}
           <motion.div 
             className="absolute top-4 left-4 text-red-500/50 text-xs select-none"
-            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            animate={animationPhase >= 13 ? { opacity: [0.3, 0.8, 0.3] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >+</motion.div>
           <motion.div 
             className="absolute top-4 right-4 text-red-500/50 text-xs select-none"
-            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            animate={animationPhase >= 13 ? { opacity: [0.3, 0.8, 0.3] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
           >+</motion.div>
           <motion.div 
             className="absolute bottom-4 left-4 text-red-500/50 text-xs select-none"
-            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            animate={animationPhase >= 13 ? { opacity: [0.3, 0.8, 0.3] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
           >+</motion.div>
           <motion.div 
             className="absolute bottom-4 right-4 text-red-500/50 text-xs select-none"
-            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            animate={animationPhase >= 13 ? { opacity: [0.3, 0.8, 0.3] } : {}}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
           >+</motion.div>
           
@@ -233,120 +167,89 @@ export const HeroMockup = () => {
             {/* Left Text Content */}
             <div className="flex-1 flex flex-col justify-center pr-8">
               {/* Badge */}
-              <AnimatePresence>
-                {animationPhase >= 1 && (
-                  <motion.div 
-                    className="flex items-center gap-2 mb-4"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={smoothTween}
-                  >
-                    <span className="text-[10px] text-slate-400 tracking-[0.2em] font-medium">
-                      COMPLEX MADE SIMPLE
-                    </span>
-                    <motion.span 
-                      className="text-red-500 text-xs"
-                      animate={{ opacity: [0, 1, 0] }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-                    >_</motion.span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {animationPhase >= 1 && (
+                <motion.div 
+                  className="flex items-center gap-2 mb-4"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <span className="text-[10px] text-slate-400 tracking-[0.2em] font-medium">
+                    COMPLEX MADE SIMPLE
+                  </span>
+                  <motion.span 
+                    className="text-red-500 text-xs"
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                  >_</motion.span>
+                </motion.div>
+              )}
               
               {/* Headline */}
               <div className="mb-4 overflow-hidden">
-                <AnimatePresence>
-                  {animationPhase >= 2 && (
-                    <motion.span
-                      className="block text-white text-2xl font-semibold leading-tight"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ ...smoothTween, duration: 0.6 }}
-                    >
-                      AI-powered
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-                <AnimatePresence>
-                  {animationPhase >= 3 && (
-                    <motion.span
-                      className="block text-white text-2xl font-semibold leading-tight"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ ...smoothTween, duration: 0.6 }}
-                      style={animationPhase >= 16 ? {
-                        background: 'linear-gradient(90deg, #fff, #94a3b8, #fff)',
-                        backgroundSize: '200% auto',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        animation: 'shimmer 3s linear infinite'
-                      } : {}}
-                    >
-                      simplicity
-                    </motion.span>
-                  )}
-                </AnimatePresence>
+                {animationPhase >= 2 && (
+                  <motion.span
+                    className="block text-white text-2xl font-semibold leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
+                    AI-powered
+                  </motion.span>
+                )}
+                {animationPhase >= 3 && (
+                  <motion.span
+                    className="block text-white text-2xl font-semibold leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    style={animationPhase >= 13 ? {
+                      background: 'linear-gradient(90deg, #fff, #94a3b8, #fff)',
+                      backgroundSize: '200% auto',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      animation: 'shimmer 3s linear infinite'
+                    } : {}}
+                  >
+                    simplicity
+                  </motion.span>
+                )}
               </div>
               
               {/* Description */}
-              <AnimatePresence>
-                {animationPhase >= 4 && (
-                  <motion.p 
-                    className="text-slate-500 text-[11px] leading-relaxed max-w-[220px]"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ ...smoothTween, duration: 0.5 }}
-                  >
-                    A chat-based interface backed by a custom-trained LLM simplifies even the most complex tasks.
-                  </motion.p>
-                )}
-              </AnimatePresence>
+              {animationPhase >= 4 && (
+                <motion.p 
+                  className="text-slate-500 text-[11px] leading-relaxed max-w-[220px]"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  A chat-based interface backed by a custom-trained LLM simplifies even the most complex tasks.
+                </motion.p>
+              )}
 
               {/* Stats Row */}
-              <AnimatePresence>
-                {animationPhase >= 5 && (
-                  <motion.div 
-                    className="flex gap-6 mt-5"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ ...smoothTween, delay: 0.1 }}
-                  >
-                    <div className="text-center">
-                      <motion.div 
-                        className="text-white text-base font-bold tabular-nums"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        99.9%
-                      </motion.div>
-                      <div className="text-slate-600 text-[8px]">Accuracy</div>
-                    </div>
-                    <div className="text-center">
-                      <motion.div 
-                        className="text-white text-base font-bold"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                      >
-                        &lt;1s
-                      </motion.div>
-                      <div className="text-slate-600 text-[8px]">Response</div>
-                    </div>
-                    <div className="text-center">
-                      <motion.div 
-                        className="text-white text-base font-bold"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.2 }}
-                      >
-                        24/7
-                      </motion.div>
-                      <div className="text-slate-600 text-[8px]">Available</div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {animationPhase >= 5 && (
+                <motion.div 
+                  className="flex gap-6 mt-5"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                >
+                  <div className="text-center">
+                    <div className="text-white text-base font-bold tabular-nums">99.9%</div>
+                    <div className="text-slate-600 text-[8px]">Accuracy</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-white text-base font-bold">&lt;1s</div>
+                    <div className="text-slate-600 text-[8px]">Response</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-white text-base font-bold">24/7</div>
+                    <div className="text-slate-600 text-[8px]">Available</div>
+                  </div>
+                </motion.div>
+              )}
             </div>
             
             {/* Right - Phone Mockup */}
@@ -355,7 +258,7 @@ export const HeroMockup = () => {
                 className="relative"
                 initial={{ opacity: 0.5, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 {/* Phone Frame */}
                 <div 
@@ -366,90 +269,67 @@ export const HeroMockup = () => {
                   <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-black rounded-full z-20" />
                   
                   {/* Phone Screen */}
-                  <div className="absolute inset-1.5 rounded-[20px] overflow-hidden">
-                    {/* Background - darker for better contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800">
-                      <svg className="absolute bottom-0 left-0 right-0 h-14 opacity-20" viewBox="0 0 200 100" preserveAspectRatio="none">
-                        <path d="M0,100 L0,60 L30,40 L60,70 L90,30 L120,60 L150,45 L180,65 L200,50 L200,100 Z" fill="#1e293b"/>
-                        <path d="M0,100 L0,80 L40,60 L80,85 L120,55 L160,75 L200,65 L200,100 Z" fill="#0f172a"/>
-                      </svg>
-                    </div>
+                  <div className="absolute inset-1.5 rounded-[20px] overflow-hidden bg-slate-900">
                     
                     {/* Chat Interface */}
                     <div className="absolute inset-0 flex flex-col">
                       {/* Header */}
-                      <div className="flex items-center justify-between px-2.5 pt-5 pb-1">
+                      <div className="flex items-center justify-between px-2.5 pt-5 pb-2 border-b border-slate-800">
                         <div className="flex items-center gap-1.5">
-                          <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
-                            <Bot className="w-2.5 h-2.5 text-slate-800" />
+                          <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                            <Bot className="w-3 h-3 text-white" />
                           </div>
-                          <span className="text-white text-[9px] font-medium">Assistant</span>
+                          <span className="text-white text-[10px] font-semibold">Assistant</span>
                         </div>
-                        <div className="text-white/60 text-[9px]">•••</div>
+                        <div className="text-slate-500 text-[10px]">•••</div>
                       </div>
                       
                       {/* Messages Container */}
-                      <div className="flex-1 px-2 py-1.5 space-y-1.5 overflow-hidden">
-                        
-                        {/* Message 1: User */}
-                        <AnimatePresence>
-                          {animationPhase >= 6 && (
-                            <UserMessage>Hey! 👋 Can you help me?</UserMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 2: Bot typing then response */}
-                        <AnimatePresence mode="wait">
-                          {animationPhase === 7 && <BotTyping />}
-                          {animationPhase >= 8 && (
-                            <BotMessage>Of course! What do you need?</BotMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 3: User */}
-                        <AnimatePresence>
-                          {animationPhase >= 9 && (
-                            <UserMessage>Convert 0.5 ETH to USDC</UserMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 4: Bot typing then response */}
-                        <AnimatePresence mode="wait">
-                          {animationPhase === 10 && <BotTyping />}
-                          {animationPhase >= 11 && (
-                            <BotMessage>Sure! Processing now...</BotMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 5: User */}
-                        <AnimatePresence>
-                          {animationPhase >= 12 && (
-                            <UserMessage>How long will it take?</UserMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 6: Bot typing then response */}
-                        <AnimatePresence mode="wait">
-                          {animationPhase === 13 && <BotTyping />}
-                          {animationPhase >= 14 && (
-                            <BotMessage>About 30 seconds ⚡</BotMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 7: User */}
-                        <AnimatePresence>
-                          {animationPhase >= 15 && (
-                            <UserMessage>Perfect, thanks!</UserMessage>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Message 8: Bot final */}
-                        <AnimatePresence>
-                          {animationPhase >= 16 && (
-                            <BotMessage>Done! ✅ 892 USDC sent</BotMessage>
-                          )}
-                        </AnimatePresence>
-                        
+                      <div className="flex-1 px-2 py-2 space-y-2 overflow-hidden">
+                        {chatMessages.map((msg, index) => {
+                          if (animationPhase < msg.phase) return null;
+                          
+                          const isUser = msg.type === 'user';
+                          
+                          return (
+                            <motion.div 
+                              key={index}
+                              className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
+                              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              transition={{ duration: 0.3, ease: "easeOut" }}
+                            >
+                              <div className={`flex items-end gap-1 ${isUser ? 'flex-row-reverse' : ''}`}>
+                                {!isUser && (
+                                  <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex-shrink-0 flex items-center justify-center">
+                                    <Bot className="w-2.5 h-2.5 text-white" />
+                                  </div>
+                                )}
+                                <div 
+                                  className={`text-[8px] px-2.5 py-1.5 max-w-[95px] leading-relaxed ${
+                                    isUser 
+                                      ? 'bg-blue-600 text-white rounded-2xl rounded-br-md' 
+                                      : 'bg-slate-800 text-slate-200 rounded-2xl rounded-bl-md'
+                                  }`}
+                                >
+                                  {msg.text}
+                                </div>
+                                {isUser && (
+                                  <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0 flex items-center justify-center text-[6px] font-bold text-white">
+                                    U
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                      
+                      {/* Input Area */}
+                      <div className="px-2 pb-2">
+                        <div className="flex items-center gap-1.5 bg-slate-800 rounded-full px-3 py-1.5">
+                          <span className="text-slate-500 text-[8px]">Type a message...</span>
+                        </div>
                       </div>
                     </div>
                   </div>
