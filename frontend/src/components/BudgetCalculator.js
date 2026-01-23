@@ -92,7 +92,7 @@ export const BudgetCalculator = ({ className = '' }) => {
 
   return (
     <div className={`${className}`} data-testid="budget-calculator">
-      <HUDFrame title="Budget Analysis" className="bg-black/20 border border-[hsl(var(--border))] rounded-xl">
+      <HUDFrame title="Budget Analysis" className="bg-black/20 border border-[hsl(var(--border))]">
         <div className="space-y-6">
           {/* Budget Display */}
           <div className="text-center">
