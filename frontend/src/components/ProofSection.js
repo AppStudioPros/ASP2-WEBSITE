@@ -70,7 +70,11 @@ export const ProofSection = ({ className = '' }) => {
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
           >
-            <HUDFrame className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg">
+            <HUDFrame 
+              className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg" 
+              animated={true}
+              delay={i * 0.3}
+            >
               <div className="text-center">
                 <stat.icon className="w-6 h-6 mx-auto mb-2" style={{ color: stat.color }} />
                 <div className="text-3xl font-bold font-mono" style={{ color: stat.color }}>
@@ -78,6 +82,7 @@ export const ProofSection = ({ className = '' }) => {
                 </div>
                 <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">{stat.label}</div>
               </div>
+            </HUDFrame>
             </HUDFrame>
           </motion.div>
         ))}
