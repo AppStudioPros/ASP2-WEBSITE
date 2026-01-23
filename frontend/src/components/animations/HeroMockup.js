@@ -191,7 +191,7 @@ export const HeroMockup = () => {
         style={{ height: '520px' }}
       >
         {/* TOP - Mock Website Preview */}
-        <div className="h-[330px] bg-[#0a0a0a] relative overflow-hidden">
+        <div className="h-[340px] bg-[#0a0a0a] relative overflow-hidden">
           
           {/* Grid Background */}
           <div 
