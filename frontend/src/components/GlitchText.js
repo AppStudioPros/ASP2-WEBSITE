@@ -164,4 +164,24 @@ export const ScanlineOverlay = ({ className = '' }) => (
   />
 );
 
+// HUD Frame Component with animated corner lights
+import { CornerBracketLight } from './animations/CornerBracketLight';
+
+export const HUDFrame = ({ children, className = '', animated = true, delay = 0 }) => {
+  return (
+    <div className={`relative p-6 ${className}`}>
+      {/* Add animated corner bracket light */}
+      {animated && <CornerBracketLight delay={delay} duration={2} />}
+      
+      {/* Corner Brackets */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#FF6A00]" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#FF6A00]" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#FF6A00]" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#FF6A00]" />
+      
+      {children}
+    </div>
+  );
+};
+
 export default GlitchText;
