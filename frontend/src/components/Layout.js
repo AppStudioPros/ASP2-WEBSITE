@@ -2,6 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Toaster } from './ui/sonner';
 import { ScanlineOverlay } from './GlitchText';
+import { BlueprintGrid } from './animations/BlueprintGrid';
+import { CrosshairTargets } from './animations/CrosshairTargets';
+import { FloatingParticles } from './animations/FloatingParticles';
 
 // ASP Logo Component
 const ASPLogo = ({ className = '' }) => (
@@ -23,6 +26,15 @@ export const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))] relative" data-testid="app-container">
+      {/* Blueprint Grid Background */}
+      <BlueprintGrid />
+      
+      {/* Crosshair Targets with Animated Beams */}
+      <CrosshairTargets />
+      
+      {/* Floating Particles */}
+      <FloatingParticles />
+      
       <Toaster position="top-right" />
       <ScanlineOverlay />
       
