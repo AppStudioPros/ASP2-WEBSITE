@@ -165,8 +165,6 @@ export const ScanlineOverlay = ({ className = '' }) => (
 );
 
 // HUD Frame Component with animated corner lights
-import { CornerBracketLight } from './animations/CornerBracketLight';
-
 export const HUDFrame = ({ children, className = '', animated = true, delay = 0 }) => {
   return (
     <div className={`relative p-6 ${className}`}>
