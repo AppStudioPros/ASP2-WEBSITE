@@ -29,7 +29,7 @@ export const LightCoordinator = ({ children }) => {
 };
 
 // Light trail component
-const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
+const LightTrail = ({ edge, onDone, speed = 2 }) => {  // Slower: 2s instead of 1.1s
   const isTop = edge === 'top';
   const isRight = edge === 'right';
   const isBottom = edge === 'bottom';
