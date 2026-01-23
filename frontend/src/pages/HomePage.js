@@ -420,8 +420,9 @@ const HomePage = () => {
 
       {/* Proof Section */}
       <section 
-        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
+        className="py-16 sm:py-24 lg:py-32 relative border-t border-[hsl(var(--border))]"
         data-testid="proof-section"
+        style={{ overflow: 'visible' }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(76,175,80,0.06),transparent_60%)] pointer-events-none" />
         
