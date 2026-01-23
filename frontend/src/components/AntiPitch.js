@@ -33,35 +33,6 @@ const guarantees = [
   "No vendor lock-in, ever",
 ];
 
-// 3D Rotating Icon Component
-const Rotating3DIcon = ({ icon: Icon, color, delay = 0, isInView }) => {
-  return (
-    <div className="relative" style={{ perspective: '500px' }}>
-      <motion.div
-        initial={{ rotateY: 0 }}
-        animate={isInView ? { rotateY: 360 } : { rotateY: 0 }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "linear",
-          delay 
-        }}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        <div 
-          className="w-10 h-10 rounded-lg flex items-center justify-center relative"
-          style={{ 
-            background: `linear-gradient(135deg, ${color}30, ${color}10)`,
-            boxShadow: `0 0 20px ${color}20`
-          }}
-        >
-          <Icon className="w-5 h-5" style={{ color }} />
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
 export const AntiPitch = ({ className = '' }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -71,11 +42,10 @@ export const AntiPitch = ({ className = '' }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left - The Honest Truths */}
         <motion.div
-          initial={{ opacity: 0, x: -40, rotateY: -5 }}
-          animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+          initial={{ opacity: 0, x: -40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="p-6 sm:p-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] relative overflow-hidden"
-          style={{ perspective: '1000px' }}
         >
           {/* Background grid */}
           <div 
@@ -91,7 +61,9 @@ export const AntiPitch = ({ className = '' }) => {
           
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-6">
-              <Rotating3DIcon icon={AlertTriangle} color="#FF6A00" isInView={isInView} />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[#FF6A00]/20">
+                <AlertTriangle className="w-5 h-5 text-[#FF6A00]" />
+              </div>
               <div>
                 <h3 className="text-xl font-bold text-[hsl(var(--foreground))]">
                   The <span className="text-[#FF6A00]">Anti-Pitch</span>
@@ -116,14 +88,9 @@ export const AntiPitch = ({ className = '' }) => {
                   whileHover={{ scale: 1.02, x: 5 }}
                   className="p-4 rounded-lg bg-black/20 border border-[hsl(var(--border))] relative overflow-hidden group cursor-pointer"
                 >
-                  {/* Rotating icon in background */}
-                  <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    >
-                      <item.icon className="w-20 h-20" style={{ color: item.color }} />
-                    </motion.div>
+                  {/* Static icon in background - NOT rotating */}
+                  <div className="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
+                    <item.icon className="w-20 h-20" style={{ color: item.color }} />
                   </div>
                   
                   <div className="relative z-10">
@@ -156,11 +123,10 @@ export const AntiPitch = ({ className = '' }) => {
 
         {/* Right - What We Guarantee */}
         <motion.div
-          initial={{ opacity: 0, x: 40, rotateY: 5 }}
-          animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+          initial={{ opacity: 0, x: 40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           className="p-6 sm:p-8 rounded-xl border border-[#00E5FF]/30 bg-[hsl(var(--card))] ring-1 ring-[#00E5FF]/20 relative overflow-hidden"
-          style={{ perspective: '1000px' }}
         >
           {/* Background grid */}
           <div 
@@ -176,7 +142,9 @@ export const AntiPitch = ({ className = '' }) => {
           
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-6">
-              <Rotating3DIcon icon={Shield} color="#00E5FF" delay={0.5} isInView={isInView} />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[#00E5FF]/20">
+                <Shield className="w-5 h-5 text-[#00E5FF]" />
+              </div>
               <div>
                 <h3 className="text-xl font-bold text-[hsl(var(--foreground))]">
                   What We <span className="text-[#00E5FF]">Guarantee</span>
@@ -203,8 +171,7 @@ export const AntiPitch = ({ className = '' }) => {
                 >
                   <motion.div 
                     className="w-6 h-6 rounded-full bg-[#00E5FF]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00E5FF]/30 transition-colors"
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    transition={{ duration: 0.3 }}
+                    whileHover={{ scale: 1.1 }}
                   >
                     <Check className="w-4 h-4 text-[#00E5FF]" />
                   </motion.div>
