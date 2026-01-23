@@ -18,8 +18,8 @@ const LightBeam = ({ edge, duration, onComplete }) => {
   const horizontal = isTop || isBottom;
   
   // Clockwise: top→right, right→down, bottom→left, left→up
-  const startPct = (isTop || isRight) ? -15 : 115;
-  const endPct = (isTop || isRight) ? 115 : -15;
+  const startPct = (isTop || isRight) ? -10 : 110;
+  const endPct = (isTop || isRight) ? 110 : -10;
   
   // Gradient direction for tail (tail trails behind movement)
   const gradientAngle = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
@@ -28,7 +28,7 @@ const LightBeam = ({ edge, duration, onComplete }) => {
     <motion.div
       style={{
         position: 'absolute',
-        // Position along the border edge (2px to match bracket line width)
+        // Position exactly on the border line (2px width like brackets)
         ...(isTop && { top: 0, left: 0, width: '100%', height: 2 }),
         ...(isBottom && { bottom: 0, left: 0, width: '100%', height: 2 }),
         ...(isLeft && { left: 0, top: 0, width: 2, height: '100%' }),
@@ -38,30 +38,31 @@ const LightBeam = ({ edge, duration, onComplete }) => {
         zIndex: 50,
       }}
     >
-      {/* The light beam itself */}
+      {/* The light beam - thin line with fading tail */}
       <motion.div
         style={{
           position: 'absolute',
-          // Thin line matching bracket width, with length for the trail
+          // Thin line (2px) matching bracket width, ~40px length for trail
           ...(horizontal 
-            ? { height: 2, width: 50, top: 0 }
-            : { width: 2, height: 50, left: 0 }
+            ? { height: 2, width: 40, top: 0 }
+            : { width: 2, height: 40, left: 0 }
           ),
-          // Orange gradient: bright head fading to transparent tail
+          // Orange gradient: fading tail → bright head with white tip
           background: `linear-gradient(${gradientAngle}, 
             transparent 0%,
-            rgba(255,106,0,0.05) 20%,
-            rgba(255,106,0,0.2) 40%,
-            rgba(255,106,0,0.5) 60%,
-            rgba(255,106,0,0.8) 80%,
+            rgba(255,106,0,0.02) 15%,
+            rgba(255,106,0,0.1) 30%,
+            rgba(255,106,0,0.3) 50%,
+            rgba(255,106,0,0.6) 70%,
+            rgba(255,106,0,0.9) 85%,
             #FF6A00 95%,
             #FFFFFF 100%
           )`,
-          // Glow effect around the bright head
+          // Subtle glow around the bright head
           boxShadow: `
-            0 0 6px 2px rgba(255,106,0,0.9),
-            0 0 12px 4px rgba(255,106,0,0.5),
-            0 0 20px 6px rgba(255,106,0,0.2)
+            0 0 4px 1px rgba(255,106,0,0.8),
+            0 0 8px 2px rgba(255,106,0,0.4),
+            0 0 12px 3px rgba(255,106,0,0.15)
           `,
           borderRadius: 1,
         }}
@@ -76,7 +77,7 @@ const LightBeam = ({ edge, duration, onComplete }) => {
         transition={{
           duration: duration,
           ease: 'linear',
-          opacity: { times: [0, 0.05, 0.5, 0.95, 1], duration: duration }
+          opacity: { times: [0, 0.03, 0.5, 0.97, 1], duration: duration }
         }}
         onAnimationComplete={onComplete}
       />
