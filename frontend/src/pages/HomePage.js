@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Code2, Flame, Shield, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { Button } from '../components/ui/button';
 import { HeroParticles } from '../components/HeroParticles';
 import { TruthBomb } from '../components/TruthBomb';
@@ -23,6 +24,15 @@ import { TerminalBadge } from '../components/TerminalBadge';
 import { HeroMockup } from '../components/animations/HeroMockup';
 
 const HomePage = () => {
+  const videoRef = useRef(null);
+
+  // Set video playback rate to half speed
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
+
   return (
     <>
       {/* HERO Section - 2 Column Layout */}
@@ -30,20 +40,25 @@ const HomePage = () => {
         className="relative min-h-screen flex items-center overflow-hidden pt-16"
         data-testid="hero-section"
       >
-        {/* AI Robot Background Image */}
+        {/* Background Video */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* The AI Robot Image - transparent with stretch to fill */}
-          <div 
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `url('https://customer-assets.emergentagent.com/job_codetrail-3/artifacts/764e0xb5_AI%20integration.png')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }}
-          />
+          {/* Video element - transparent with stretch to fill */}
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-20"
+            style={{ minWidth: '100%', minHeight: '100%' }}
+          >
+            <source 
+              src="https://customer-assets.emergentagent.com/job_7a93f0dc-bbe7-4b63-acd6-8f1807cba672/artifacts/brfhrgsv_Hailuo_Video_6-second%20seamless%20loop%20Keep%20t_471143927727419399.mp4" 
+              type="video/mp4" 
+            />
+          </video>
           
-          {/* Gradient overlay on top of the image */}
+          {/* Gradient overlay on top of the video */}
           <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/80 via-[hsl(var(--background))]/60 to-[hsl(var(--background))]/80 z-10" />
         </div>
         
