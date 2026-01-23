@@ -145,26 +145,65 @@ const AboutPage = () => {
             </motion.div>
 
             <motion.div
+              ref={storyCardRef}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative"
+              style={{ perspective: '1000px' }}
             >
-              <div className="relative aspect-square rounded-2xl border border-[hsl(var(--border))] bg-gradient-to-br from-[#00E5FF]/10 via-[#2196F3]/10 to-[#4CAF50]/10 overflow-hidden p-8">
-                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#00E5FF]" />
-                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#00E5FF]" />
-                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#00E5FF]" />
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#00E5FF]" />
+              {/* 3D Rotating Card */}
+              <motion.div
+                className="relative aspect-square rounded-2xl border border-[hsl(var(--border))] bg-[#0a0a0a] overflow-hidden"
+                initial={{ rotateY: 0 }}
+                animate={isStoryCardInView ? {
+                  rotateY: [0, 15, 0, -15, 0],
+                  rotateX: [0, 5, 0, -5, 0],
+                } : {}}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {/* Grid Background */}
+                <div 
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(rgba(0,229,255,0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,229,255,0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '30px 30px'
+                  }}
+                />
                 
-                <div className="h-full flex flex-col justify-center items-center text-center">
-                  <Rocket className="w-20 h-20 text-[#00E5FF] mb-6 opacity-60" />
-                  <div className="text-2xl font-bold text-[hsl(var(--foreground))] mb-2">Our Mission</div>
+                {/* Corner Brackets */}
+                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#00E5FF] rounded-tl-sm" />
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#00E5FF] rounded-tr-sm" />
+                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#00E5FF] rounded-bl-sm" />
+                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#00E5FF] rounded-br-sm" />
+                
+                {/* Side Chevrons */}
+                <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-1 opacity-40">
+                  <div className="w-2 h-2 border-l border-t border-[#00E5FF] rotate-[-45deg]" />
+                  <div className="w-2 h-2 border-l border-t border-[#00E5FF] rotate-[-45deg]" />
+                </div>
+                <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-1 opacity-40">
+                  <div className="w-2 h-2 border-r border-t border-[#00E5FF] rotate-[45deg]" />
+                  <div className="w-2 h-2 border-r border-t border-[#00E5FF] rotate-[45deg]" />
+                </div>
+                
+                <div className="h-full flex flex-col justify-center items-center text-center p-8">
+                  <Rocket className="w-20 h-20 text-[#00E5FF] mb-6 opacity-60" strokeWidth={1} />
+                  <div className="text-2xl font-bold text-white mb-2">Our Mission</div>
                   <p className="text-[hsl(var(--muted-foreground))] max-w-xs">
                     "Empowering businesses to thrive in the digital age through innovative, 
                     high-quality technology solutions."
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
