@@ -24,11 +24,56 @@ import { HeroMockup } from '../components/animations/HeroMockup';
 const HomePage = () => {
   return (
     <>
-      {/* HERO Section - The Confident Opener */}
+      {/* HERO Section - 2 Column Layout */}
       <section 
         className="relative min-h-screen flex items-center overflow-hidden pt-16"
         data-testid="hero-section"
       >
+        {/* Futuristic Office Background Scene */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Gradient fade to see grid through */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/60 via-[hsl(var(--background))]/40 to-[hsl(var(--background))]/80" />
+          
+          {/* Futuristic office silhouette - androids building apps */}
+          <div className="absolute bottom-0 left-0 right-0 h-[40vh] flex items-end justify-center opacity-20">
+            <svg viewBox="0 0 1200 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              {/* Desk surfaces */}
+              <rect x="100" y="300" width="200" height="8" fill="#00E5FF" opacity="0.3" />
+              <rect x="400" y="280" width="250" height="8" fill="#00E5FF" opacity="0.3" />
+              <rect x="750" y="290" width="220" height="8" fill="#FF6A00" opacity="0.3" />
+              
+              {/* Android/Robot figures (simplified) */}
+              {/* Android 1 - sitting at desk */}
+              <rect x="150" y="220" width="50" height="80" rx="25" fill="#00E5FF" opacity="0.4" />
+              <circle cx="175" cy="200" r="25" fill="#00E5FF" opacity="0.4" />
+              <rect x="140" y="240" width="15" height="40" fill="#00E5FF" opacity="0.3" />
+              <rect x="195" y="240" width="15" height="40" fill="#00E5FF" opacity="0.3" />
+              
+              {/* Android 2 - at standing desk */}
+              <rect x="500" y="180" width="50" height="100" rx="25" fill="#FF6A00" opacity="0.4" />
+              <circle cx="525" cy="160" r="25" fill="#FF6A00" opacity="0.4" />
+              
+              {/* Android 3 - walking */}
+              <rect x="850" y="200" width="50" height="90" rx="25" fill="#00E5FF" opacity="0.4" />
+              <circle cx="875" cy="180" r="25" fill="#00E5FF" opacity="0.4" />
+              
+              {/* Floating holograms/screens */}
+              <rect x="130" y="180" width="80" height="50" fill="#00E5FF" opacity="0.2" stroke="#00E5FF" strokeWidth="2" />
+              <rect x="480" y="100" width="90" height="60" fill="#FF6A00" opacity="0.2" stroke="#FF6A00" strokeWidth="2" />
+              <rect x="820" y="150" width="70" height="45" fill="#00E5FF" opacity="0.2" stroke="#00E5FF" strokeWidth="2" />
+              
+              {/* Code lines on holograms */}
+              <line x1="140" y1="195" x2="200" y2="195" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              <line x1="140" y1="205" x2="195" y2="205" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              <line x1="140" y1="215" x2="185" y2="215" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              
+              <line x1="490" y1="120" x2="560" y2="120" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
+              <line x1="490" y1="130" x2="555" y2="130" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
+              <line x1="490" y1="140" x2="545" y2="140" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
+            </svg>
+          </div>
+        </div>
+        
         {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(0,229,255,0.12),rgba(0,0,0,0)_60%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[conic-gradient(from_200deg_at_70%_30%,rgba(255,106,0,0.08),rgba(0,0,0,0)_40%)] pointer-events-none" />
@@ -36,98 +81,113 @@ const HomePage = () => {
         {/* Particles */}
         <HeroParticles />
         
-        {/* Content */}
+        {/* 2-COLUMN CONTENT */}
         <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
-          <div className="max-w-4xl">
-            {/* Terminal Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-6"
-              data-testid="hero-badge"
-            >
-              <TerminalBadge command="engineering_excellence" color="#00E5FF" />
-            </motion.div>
-
-            {/* Main Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
-              data-testid="hero-headline"
-            >
-              <span className="text-[hsl(var(--muted-foreground))]">The future isn't coming.</span>
-              <br />
-              <GlitchText className="gradient-text-brand" pattern={0}>We're building it now.</GlitchText>
-            </motion.h1>
-
-            {/* Sub-taglines */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-2 mb-8"
-            >
-              <p className="text-lg sm:text-xl text-[hsl(var(--foreground))]">
-                We don't do <span className="text-[hsl(var(--muted-foreground))] line-through">magic</span>. 
-                <span className="text-[#00E5FF]"> We do engineering.</span>
-              </p>
-              <p className="text-base text-[hsl(var(--muted-foreground))] max-w-2xl">
-                The only limit is your imagination. Everything else—the code, the scale, 
-                the complexity—<strong className="text-[#FF6A00]">we got that.</strong>
-              </p>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap gap-4"
-            >
-              <Link to="/contact">
-                <Button 
-                  size="lg"
-                  className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8 h-12 text-base transition-all duration-200"
-                  data-testid="hero-primary-cta"
-                >
-                  <Flame className="w-5 h-5 mr-2" /> Start Your Project
-                </Button>
-              </Link>
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] px-8 h-12 text-base transition-colors duration-200"
-                data-testid="hero-secondary-cta"
-                onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* LEFT COLUMN - Text Content */}
+            <div className="max-w-2xl">
+              {/* Terminal Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-6"
+                data-testid="hero-badge"
               >
-                <Code2 className="w-5 h-5 mr-2" /> View Portfolio
-              </Button>
-            </motion.div>
+                <TerminalBadge command="engineering_excellence" color="#00E5FF" />
+              </motion.div>
 
-            {/* Stats Row */}
+              {/* Main Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
+                data-testid="hero-headline"
+              >
+                <span className="text-[hsl(var(--muted-foreground))]">The future isn't coming.</span>
+                <br />
+                <GlitchText className="gradient-text-brand" pattern={0}>We're building it now.</GlitchText>
+              </motion.h1>
+
+              {/* Sub-taglines */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-2 mb-8"
+              >
+                <p className="text-lg sm:text-xl text-[hsl(var(--foreground))]">
+                  We don't do <span className="text-[hsl(var(--muted-foreground))] line-through">magic</span>. 
+                  <span className="text-[#00E5FF]"> We do engineering.</span>
+                </p>
+                <p className="text-base text-[hsl(var(--muted-foreground))] max-w-2xl">
+                  The only limit is your imagination. Everything else—the code, the scale, 
+                  the complexity—<strong className="text-[#FF6A00]">we got that.</strong>
+                </p>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Link to="/contact">
+                  <Button 
+                    size="lg"
+                    className="bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold px-8 h-12 text-base transition-all duration-200"
+                    data-testid="hero-primary-cta"
+                  >
+                    <Flame className="w-5 h-5 mr-2" /> Start Your Project
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] px-8 h-12 text-base transition-colors duration-200"
+                  data-testid="hero-secondary-cta"
+                  onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <Code2 className="w-5 h-5 mr-2" /> View Portfolio
+                </Button>
+              </motion.div>
+
+              {/* Stats Row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-[hsl(var(--border))]"
+                data-testid="hero-stats"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl font-bold text-[#00E5FF] font-mono">35+</div>
+                  <div className="text-sm text-[hsl(var(--muted-foreground))]">Years<br/>Experience</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl font-bold text-[#FF6A00] font-mono">2500+</div>
+                  <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects<br/>Delivered</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl font-bold text-[#4CAF50] font-mono">30+</div>
+                  <div className="text-sm text-[hsl(var(--muted-foreground))]">Expert<br/>Engineers</div>
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* RIGHT COLUMN - Animated Mockup */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-[hsl(var(--border))]"
-              data-testid="hero-stats"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden lg:block"
             >
-              <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#00E5FF] font-mono">35+</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">Years<br/>Experience</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#FF6A00] font-mono">2500+</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">Projects<br/>Delivered</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="text-3xl font-bold text-[#4CAF50] font-mono">30+</div>
-                <div className="text-sm text-[hsl(var(--muted-foreground))]">Expert<br/>Engineers</div>
-              </div>
+              <HeroMockup />
             </motion.div>
+            
           </div>
         </div>
 
