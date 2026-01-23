@@ -17,9 +17,10 @@ const LightBeam = ({ edge, duration, onComplete }) => {
   const isLeft = edge === 'left';
   const horizontal = isTop || isBottom;
   
-  // Clockwise movement within card borders
-  const startPct = (isTop || isRight) ? 0 : 95;
-  const endPct = (isTop || isRight) ? 95 : 0;
+  // Stay fully within card borders (account for line length)
+  // Line is 25px, so end at 100% minus line length
+  const startPct = (isTop || isRight) ? 0 : 100;
+  const endPct = (isTop || isRight) ? 100 : 0;
   
   // Gradient direction for fade (tail fades to transparent)
   const gradientAngle = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
@@ -28,17 +29,17 @@ const LightBeam = ({ edge, duration, onComplete }) => {
     <motion.div
       style={{
         position: 'absolute',
-        // Position on the border line
+        // Position on the border line - use overflow hidden to clip
         ...(isTop && { top: 0, left: 0, width: '100%', height: 2 }),
         ...(isBottom && { bottom: 0, left: 0, width: '100%', height: 2 }),
         ...(isLeft && { left: 0, top: 0, width: 2, height: '100%' }),
         ...(isRight && { right: 0, top: 0, width: 2, height: '100%' }),
-        overflow: 'visible',
+        overflow: 'hidden',  // CLIP the line at card borders
         pointerEvents: 'none',
         zIndex: 50,
       }}
     >
-      {/* Simple orange dash with fading tail - NO glow */}
+      {/* Simple orange dash with fading tail - NO glow, contained within card */}
       <motion.div
         style={{
           position: 'absolute',
@@ -61,7 +62,7 @@ const LightBeam = ({ edge, duration, onComplete }) => {
           opacity: 0 
         }}
         animate={{ 
-          [horizontal ? 'left' : 'top']: `${endPct}%`,
+          [horizontal ? 'left' : 'top']: `calc(${endPct}% - ${endPct === 100 ? '25px' : '0px'})`,
           opacity: [0, 1, 1, 1, 0]
         }}
         transition={{
