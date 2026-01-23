@@ -53,7 +53,7 @@ const HomePage = () => {
             style={{ minWidth: '100%', minHeight: '100%' }}
           >
             <source 
-              src="https://customer-assets.emergentagent.com/job_7a93f0dc-bbe7-4b63-acd6-8f1807cba672/artifacts/brfhrgsv_Hailuo_Video_6-second%20seamless%20loop%20Keep%20t_471143927727419399.mp4" 
+              src="https://customer-assets.emergentagent.com/job_7a93f0dc-bbe7-4b63-acd6-8f1807cba672/artifacts/nk9oxvin_Hailuo_Video_%E2%80%9C6-second%20seamless%20loop%20using%20_471158377868087303.mp4" 
               type="video/mp4" 
             />
           </video>
