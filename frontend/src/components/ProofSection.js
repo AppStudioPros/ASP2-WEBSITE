@@ -83,7 +83,6 @@ export const ProofSection = ({ className = '' }) => {
                 <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">{stat.label}</div>
               </div>
             </HUDFrame>
-            </HUDFrame>
           </motion.div>
         ))}
       </div>
