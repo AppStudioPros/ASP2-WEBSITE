@@ -426,7 +426,7 @@ const HomePage = () => {
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(76,175,80,0.06),transparent_60%)] pointer-events-none" />
         
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10" style={{ overflow: 'visible' }}>
           <motion.div 
             className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
