@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock, Building2, User, FileText, MessageSquare } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { GlitchText } from '../components/GlitchText';
+import { GlitchText, HUDFrame } from '../components/GlitchText';
 import { TerminalBadge } from '../components/TerminalBadge';
 import { toast } from 'sonner';
 
