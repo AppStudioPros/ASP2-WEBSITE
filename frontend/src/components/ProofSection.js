@@ -60,10 +60,10 @@ const AnimatedCounter = ({ value, suffix = '', duration = 2000 }) => {
 
 export const ProofSection = ({ className = '' }) => {
   return (
-    <div className={className} data-testid="proof-section">
+    <div className={className} data-testid="proof-section" style={{ overflow: 'visible' }}>
       {/* Stats Grid with Light Coordinator */}
       <LightCoordinator cardCount={stats.length}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12" style={{ overflow: 'visible' }}>
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -71,6 +71,7 @@ export const ProofSection = ({ className = '' }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
+              style={{ overflow: 'visible' }}
             >
               <HUDFrame 
                 className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg" 
