@@ -126,7 +126,7 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   };
 
   useEffect(() => {
-    const delay = 100 + cardIndex * 400 + Math.random() * 500;
+    const delay = 100 + cardIndex * 300 + Math.random() * 400;  // Faster start
     timerRef.current = setTimeout(tryStart, delay);
     return () => clearTimeout(timerRef.current);
   }, []); // eslint-disable-line
