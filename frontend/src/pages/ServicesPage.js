@@ -290,15 +290,20 @@ const ServicesPage = () => {
                   { value: '<2hr', label: 'Response Time', color: '#4CAF50' },
                   { value: '100%', label: 'Satisfaction', color: '#9C27B0' }
                 ].map((stat, index) => (
-                  <div 
+                  <HUDFrame 
                     key={index}
-                    className="p-6 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 text-center"
+                    className="bg-black/20 border border-[hsl(var(--border))] overflow-hidden"
+                    animated={true}
+                    cardIndex={index}
+                    totalCards={4}
                   >
-                    <div className="text-3xl font-bold font-mono mb-1" style={{ color: stat.color }}>
-                      {stat.value}
+                    <div className="text-center">
+                      <div className="text-3xl font-bold font-mono mb-1" style={{ color: stat.color }}>
+                        {stat.value}
+                      </div>
+                      <div className="text-sm text-[hsl(var(--muted-foreground))]">{stat.label}</div>
                     </div>
-                    <div className="text-sm text-[hsl(var(--muted-foreground))]">{stat.label}</div>
-                  </div>
+                  </HUDFrame>
                 ))}
               </div>
             </motion.div>
