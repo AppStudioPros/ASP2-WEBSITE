@@ -12,7 +12,7 @@
 - **Production**: https://aspwebsite-webdesignpros.vercel.app/ (should also work)
 
 ### Backend (Emergent)
-- **API Base**: https://appstudio-relaunch.preview.emergentagent.com
+- **API Base**: https://frontend-wow.preview.emergentagent.com
 
 ---
 
@@ -404,7 +404,7 @@ Similar updates needed for:
 ### Sanity Content Not Loading
 1. Verify schemas are created in Sanity Studio
 2. Check content is published (not draft)
-3. Test API directly: `curl https://appstudio-relaunch.preview.emergentagent.com/api/sanity/blog-posts`
+3. Test API directly: `curl https://frontend-wow.preview.emergentagent.com/api/sanity/blog-posts`
 
 ### CORS Errors
 1. Check browser console for exact error
@@ -417,7 +417,7 @@ Similar updates needed for:
 
 ### Backend Issues
 - **Logs**: `/var/log/supervisor/backend.out.log`
-- **Health Check**: https://appstudio-relaunch.preview.emergentagent.com/api/health
+- **Health Check**: https://frontend-wow.preview.emergentagent.com/api/health
 - **Restart**: `sudo supervisorctl restart backend`
 
 ### Frontend Issues
