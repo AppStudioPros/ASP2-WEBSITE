@@ -135,26 +135,6 @@ export const TerminalText = ({ text, speed = 50, className = '', onComplete }) =
   );
 };
 
-// HUD Frame component
-export const HUDFrame = ({ children, title, className = '' }) => (
-  <div className={`relative ${className}`}>
-    {/* Corner brackets */}
-    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00E5FF]/50" />
-    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00E5FF]/50" />
-    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00E5FF]/50" />
-    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00E5FF]/50" />
-    
-    {/* Title bar */}
-    {title && (
-      <div className="absolute -top-3 left-6 px-2 bg-[hsl(var(--background))]">
-        <span className="text-xs font-mono text-[#00E5FF] uppercase tracking-wider">{title}</span>
-      </div>
-    )}
-    
-    <div className="p-4">{children}</div>
-  </div>
-);
-
 // Scanline overlay
 export const ScanlineOverlay = ({ className = '' }) => (
   <div 
@@ -166,7 +146,7 @@ export const ScanlineOverlay = ({ className = '' }) => (
   />
 );
 
-// HUD Frame Component with animated corner lights
+// HUD Frame Component with animated corner lights (ORANGE BRACKETS)
 export const HUDFrame = ({ children, className = '', animated = true, delay = 0 }) => {
   return (
     <div className={`relative p-6 ${className}`}>
