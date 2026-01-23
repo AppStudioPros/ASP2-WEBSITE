@@ -8,37 +8,37 @@ const projects = [
   {
     title: 'PocketFiller',
     category: 'Document Management System (DMS)',
-    image: 'https://via.placeholder.com/600x400?text=PocketFiller',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/u74mjn3m_PocketFiler1.png',
     tags: ['Web App', 'Enterprise']
   },
   {
     title: 'Contractor Guardians',
     category: 'Contractors',
-    image: 'https://via.placeholder.com/600x400?text=Contractor+Guardians',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/wuomxms9_contractor%20guradian.png',
     tags: ['Contractors', 'Platform']
   },
   {
     title: 'Pk.Page',
     category: 'Digital Marketing Agency',
-    image: 'https://via.placeholder.com/600x400?text=Pk.Page',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/evnt6e9r__pk.page.png',
     tags: ['Marketing', 'Website']
   },
   {
     title: 'Gaya Blockchain',
     category: 'Web3 Wallet',
-    image: 'https://via.placeholder.com/600x400?text=Gaya+Blockchain',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/1xs2a3t4_gaya%20blockchain.png',
     tags: ['Web3', 'Blockchain']
   },
   {
     title: 'Evox Network',
     category: 'RWA Tokenization Platform',
-    image: 'https://via.placeholder.com/600x400?text=Evox+Network',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/0wlud7wf__evox.png',
     tags: ['Web3', 'Tokenization']
   },
   {
     title: 'Capstone',
     category: 'Development Company',
-    image: 'https://via.placeholder.com/600x400?text=Capstone',
+    image: 'https://customer-assets.emergentagent.com/job_frontend-wow/artifacts/a69thtgf_Capstone.png',
     tags: ['Corporate', 'Website']
   }
 ];
