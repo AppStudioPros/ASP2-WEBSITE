@@ -64,31 +64,43 @@ export const ProofSection = ({ className = '' }) => {
       {/* Stats Grid with Light Coordinator */}
       <LightCoordinator cardCount={stats.length}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12" style={{ overflow: 'visible' }}>
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              style={{ overflow: 'visible' }}
-            >
-              <HUDFrame 
-                className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg" 
-                animated={true}
-                cardIndex={i}
-                totalCards={stats.length}
+          {stats.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                style={{ overflow: 'visible' }}
               >
-                <div className="text-center">
-                  <stat.icon className="w-6 h-6 mx-auto mb-2" style={{ color: stat.color }} />
-                  <div className="text-3xl font-bold font-mono" style={{ color: stat.color }}>
-                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <HUDFrame 
+                  className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg overflow-hidden" 
+                  animated={true}
+                  cardIndex={i}
+                  totalCards={stats.length}
+                >
+                  {/* Background Icon - Large, faded, positioned in lower right */}
+                  <div className="absolute -bottom-4 -right-4 opacity-10 pointer-events-none">
+                    <Icon 
+                      className="w-24 h-24" 
+                      style={{ color: stat.color }}
+                      strokeWidth={1.5}
+                    />
                   </div>
-                  <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">{stat.label}</div>
-                </div>
-              </HUDFrame>
-            </motion.div>
-          ))}
+                  
+                  {/* Content */}
+                  <div className="relative z-10 text-center">
+                    <div className="text-3xl font-bold font-mono" style={{ color: stat.color }}>
+                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">{stat.label}</div>
+                  </div>
+                </HUDFrame>
+              </motion.div>
+            );
+          })}
         </div>
       </LightCoordinator>
 
