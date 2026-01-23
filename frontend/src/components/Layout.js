@@ -65,6 +65,13 @@ export const Layout = ({ children }) => {
                   Services
                 </Link>
                 <Link 
+                  to="/projects" 
+                  className={`transition-colors ${isActive('/projects') ? 'text-[#00E5FF]' : 'text-[hsl(var(--foreground))] hover:text-[#00E5FF]'}`}
+                  data-testid="nav-projects"
+                >
+                  Portfolio
+                </Link>
+                <Link 
                   to="/blog" 
                   className={`transition-colors ${isActive('/blog') ? 'text-[#00E5FF]' : 'text-[hsl(var(--foreground))] hover:text-[#00E5FF]'}`}
                   data-testid="nav-blog"
@@ -158,6 +165,7 @@ export const Layout = ({ children }) => {
                 <li><Link to="/" className="hover:text-[#00E5FF] transition-colors">Home</Link></li>
                 <li><Link to="/about" className="hover:text-[#00E5FF] transition-colors">About</Link></li>
                 <li><Link to="/services" className="hover:text-[#00E5FF] transition-colors">Services</Link></li>
+                <li><Link to="/projects" className="hover:text-[#00E5FF] transition-colors">Portfolio</Link></li>
                 <li><Link to="/blog" className="hover:text-[#00E5FF] transition-colors">Blog</Link></li>
                 <li><Link to="/contact" className="hover:text-[#00E5FF] transition-colors">Contact</Link></li>
               </ul>
