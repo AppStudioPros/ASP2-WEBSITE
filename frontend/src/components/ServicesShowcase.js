@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Globe, Smartphone, Palette, Cloud, Brain,
   Code2, Layout, Database, Cpu, MessageSquare,
-  Check, Zap, Shield, Rocket
+  Check, Zap, Shield, Rocket, Server, User
 } from 'lucide-react';
 
-// Service data with features and visuals config
+// Service data
 const services = [
   {
     id: 'web',
@@ -80,33 +80,40 @@ const services = [
   }
 ];
 
-// Website Development Visual
+// Website Development Visual - Enhanced
 const WebDevVisual = () => {
   const [codeLines, setCodeLines] = useState([]);
   const [buildProgress, setBuildProgress] = useState(0);
+  const mountedRef = useRef(true);
   
   const codeSnippets = [
-    '<div class="hero">',
-    '  <h1>Welcome</h1>',
-    '  <p>Building...</p>',
-    '</div>',
-    '<style>',
-    '  .hero { padding: 2rem; }',
-    '</style>'
+    { num: 1, code: '<section class="hero">', color: '#FF6A00' },
+    { num: 2, code: '  <nav class="navbar">', color: '#00E5FF' },
+    { num: 3, code: '    <a href="/">Home</a>', color: '#4CAF50' },
+    { num: 4, code: '  </nav>', color: '#00E5FF' },
+    { num: 5, code: '  <h1>Welcome</h1>', color: '#9C27B0' },
+    { num: 6, code: '  <button>Get Started</button>', color: '#FF6A00' },
+    { num: 7, code: '</section>', color: '#FF6A00' },
   ];
 
   useEffect(() => {
+    mountedRef.current = true;
     let lineIndex = 0;
-    const interval = setInterval(() => {
+    
+    const addLine = () => {
+      if (!mountedRef.current) return;
       if (lineIndex < codeSnippets.length) {
         setCodeLines(prev => [...prev, codeSnippets[lineIndex]]);
+        setBuildProgress(((lineIndex + 1) / codeSnippets.length) * 100);
         lineIndex++;
-        setBuildProgress((lineIndex / codeSnippets.length) * 100);
+        setTimeout(addLine, 900);
       }
-    }, 800);
+    };
+    
+    setTimeout(addLine, 500);
     
     return () => {
-      clearInterval(interval);
+      mountedRef.current = false;
       setCodeLines([]);
       setBuildProgress(0);
     };
@@ -116,250 +123,344 @@ const WebDevVisual = () => {
     <div className="h-full flex flex-col gap-3">
       {/* Website Preview */}
       <div className="flex-1 bg-[#1a1a2e] rounded-lg border border-[hsl(var(--border))] overflow-hidden">
-        <div className="h-6 bg-[#0d0d1a] flex items-center px-3 gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-          <span className="text-xs text-gray-500 ml-2 font-mono">preview.localhost</span>
+        <div className="h-7 bg-[#0d0d1a] flex items-center px-3 gap-2 border-b border-gray-800">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <div className="w-3 h-3 rounded-full bg-[#27ca3f]" />
+          </div>
+          <div className="flex-1 mx-4">
+            <div className="bg-[#2a2a3e] rounded px-3 py-0.5 text-xs text-gray-400 font-mono">
+              https://your-website.com
+            </div>
+          </div>
         </div>
         <div className="p-4">
+          {/* Navbar */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            className="flex items-center justify-between mb-4 pb-3 border-b border-gray-700/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: buildProgress > 15 ? 1 : 0 }}
+          >
+            <div className="w-20 h-5 bg-[#FF6A00]/30 rounded" />
+            <div className="flex gap-3">
+              <div className="w-12 h-3 bg-gray-700 rounded" />
+              <div className="w-12 h-3 bg-gray-700 rounded" />
+              <div className="w-12 h-3 bg-gray-700 rounded" />
+            </div>
+          </motion.div>
+          
+          {/* Hero Content */}
+          <motion.div
             className="space-y-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: buildProgress > 40 ? 1 : 0 }}
           >
             <motion.div 
-              className="h-8 bg-gradient-to-r from-[#00E5FF]/20 to-transparent rounded"
+              className="h-8 bg-gradient-to-r from-[#00E5FF]/30 to-transparent rounded"
               initial={{ width: 0 }}
-              animate={{ width: '60%' }}
-              transition={{ duration: 1, delay: 0.8 }}
+              animate={{ width: buildProgress > 50 ? '70%' : 0 }}
+              transition={{ duration: 0.5 }}
             />
             <motion.div 
-              className="h-4 bg-[#FF6A00]/20 rounded"
+              className="h-4 bg-gray-700/50 rounded"
               initial={{ width: 0 }}
-              animate={{ width: '80%' }}
-              transition={{ duration: 1, delay: 1.2 }}
+              animate={{ width: buildProgress > 60 ? '90%' : 0 }}
+              transition={{ duration: 0.5 }}
             />
             <motion.div 
-              className="h-4 bg-[#FF6A00]/10 rounded"
+              className="h-4 bg-gray-700/30 rounded"
               initial={{ width: 0 }}
-              animate={{ width: '65%' }}
-              transition={{ duration: 1, delay: 1.5 }}
+              animate={{ width: buildProgress > 70 ? '60%' : 0 }}
+              transition={{ duration: 0.5 }}
             />
             <motion.div 
-              className="h-20 bg-gradient-to-br from-[#4CAF50]/20 to-[#00E5FF]/20 rounded mt-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 2 }}
-            />
+              className="h-10 w-32 bg-[#FF6A00]/40 rounded mt-4 flex items-center justify-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: buildProgress > 80 ? 1 : 0, scale: buildProgress > 80 ? 1 : 0.8 }}
+            >
+              <span className="text-xs text-gray-300">Get Started</span>
+            </motion.div>
           </motion.div>
         </div>
       </div>
       
       {/* Code Editor */}
-      <div className="h-32 bg-[#0d0d1a] rounded-lg border border-[hsl(var(--border))] overflow-hidden">
-        <div className="h-5 bg-[#1a1a2e] flex items-center px-3">
+      <div className="h-36 bg-[#0d0d1a] rounded-lg border border-[hsl(var(--border))] overflow-hidden">
+        <div className="h-6 bg-[#1a1a2e] flex items-center px-3 gap-2 border-b border-gray-800">
+          <div className="w-3 h-3 rounded-sm bg-[#00E5FF]/30" />
           <span className="text-xs text-[#00E5FF] font-mono">index.html</span>
+          <span className="text-xs text-gray-600 ml-auto">UTF-8</span>
         </div>
-        <div className="p-2 font-mono text-xs overflow-hidden">
+        <div className="p-3 font-mono text-xs overflow-hidden">
           {codeLines.map((line, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-gray-400"
+              className="flex"
             >
-              <span className="text-gray-600 mr-2">{i + 1}</span>
-              <span className="text-[#00E5FF]">{line}</span>
+              <span className="text-gray-600 w-6 text-right mr-4">{line.num}</span>
+              <span style={{ color: line.color }}>{line.code}</span>
             </motion.div>
           ))}
-          <motion.span 
-            className="inline-block w-2 h-4 bg-[#FF6A00]"
-            animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
-          />
+          <div className="flex">
+            <span className="text-gray-600 w-6 text-right mr-4">{codeLines.length + 1}</span>
+            <motion.span 
+              className="inline-block w-2 h-4 bg-[#00E5FF]"
+              animate={{ opacity: [1, 0] }}
+              transition={{ duration: 0.6, repeat: Infinity }}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// Mobile App Development Visual
+// Mobile App Development Visual - Enhanced
 const MobileDevVisual = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
-  const screens = ['home', 'profile', 'settings'];
+  const mountedRef = useRef(true);
   
   useEffect(() => {
+    mountedRef.current = true;
     const interval = setInterval(() => {
-      setCurrentScreen(prev => (prev + 1) % 3);
+      if (mountedRef.current) {
+        setCurrentScreen(prev => (prev + 1) % 3);
+      }
     }, 2500);
-    return () => clearInterval(interval);
+    return () => {
+      mountedRef.current = false;
+      clearInterval(interval);
+    };
   }, []);
 
   return (
     <div className="h-full flex items-center justify-center">
-      {/* Phone Mockup */}
       <div className="relative">
-        <div className="w-48 h-80 bg-[#1a1a2e] rounded-3xl border-4 border-gray-700 overflow-hidden shadow-2xl">
-          {/* Notch */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-b-xl z-10" />
-          
-          {/* Screen Content */}
-          <div className="h-full pt-6 pb-2 px-2">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentScreen}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                className="h-full bg-[#0d0d1a] rounded-xl p-3"
-              >
-                {currentScreen === 0 && (
-                  <div className="space-y-3">
-                    <div className="h-6 w-24 bg-[#FF6A00]/30 rounded" />
-                    <div className="h-20 bg-gradient-to-br from-[#00E5FF]/20 to-[#FF6A00]/20 rounded-lg" />
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="h-12 bg-[#4CAF50]/20 rounded" />
-                      <div className="h-12 bg-[#9C27B0]/20 rounded" />
-                    </div>
-                  </div>
-                )}
-                {currentScreen === 1 && (
-                  <div className="space-y-3 text-center">
-                    <div className="w-12 h-12 mx-auto bg-[#00E5FF]/30 rounded-full" />
-                    <div className="h-4 w-20 mx-auto bg-gray-700 rounded" />
-                    <div className="h-3 w-28 mx-auto bg-gray-800 rounded" />
-                    <div className="mt-4 space-y-2">
-                      <div className="h-8 bg-[#FF6A00]/20 rounded" />
-                      <div className="h-8 bg-[#4CAF50]/20 rounded" />
-                    </div>
-                  </div>
-                )}
-                {currentScreen === 2 && (
-                  <div className="space-y-2">
-                    <div className="h-5 w-16 bg-gray-700 rounded" />
-                    {[1,2,3,4].map(i => (
-                      <div key={i} className="flex items-center gap-2 p-2 bg-gray-800/50 rounded">
-                        <div className="w-6 h-6 bg-[#2196F3]/30 rounded" />
-                        <div className="flex-1 h-3 bg-gray-700 rounded" />
+        {/* Phone Frame */}
+        <div className="w-52 h-[380px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[40px] p-2 shadow-2xl border border-gray-700">
+          {/* Inner Screen */}
+          <div className="w-full h-full bg-[#0d0d1a] rounded-[32px] overflow-hidden relative">
+            {/* Dynamic Island */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-20 flex items-center justify-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-gray-800" />
+              <div className="w-8 h-3 rounded-full bg-gray-800" />
+            </div>
+            
+            {/* Screen Content */}
+            <div className="h-full pt-10 pb-6 px-3">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentScreen}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  className="h-full"
+                >
+                  {currentScreen === 0 && (
+                    <div className="space-y-3 p-2">
+                      <div className="flex items-center justify-between">
+                        <div className="h-5 w-20 bg-[#FF6A00]/40 rounded" />
+                        <div className="w-8 h-8 rounded-full bg-[#00E5FF]/30" />
                       </div>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
+                      <div className="h-28 bg-gradient-to-br from-[#FF6A00]/20 to-[#00E5FF]/20 rounded-xl" />
+                      <div className="text-xs text-gray-500 font-medium">Quick Actions</div>
+                      <div className="grid grid-cols-4 gap-2">
+                        {['#FF6A00', '#00E5FF', '#4CAF50', '#9C27B0'].map((c, i) => (
+                          <div key={i} className="aspect-square rounded-lg" style={{ backgroundColor: `${c}20` }} />
+                        ))}
+                      </div>
+                      <div className="h-16 bg-gray-800/50 rounded-xl mt-2" />
+                    </div>
+                  )}
+                  {currentScreen === 1 && (
+                    <div className="space-y-3 p-2 text-center">
+                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-[#00E5FF]/40 to-[#FF6A00]/40 rounded-full" />
+                      <div className="h-4 w-24 mx-auto bg-gray-700 rounded" />
+                      <div className="h-3 w-32 mx-auto bg-gray-800 rounded" />
+                      <div className="mt-4 space-y-2">
+                        {['Profile', 'Settings', 'Notifications'].map((item, i) => (
+                          <div key={i} className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
+                            <div className="w-8 h-8 rounded-lg bg-[#FF6A00]/20" />
+                            <span className="text-xs text-gray-400">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {currentScreen === 2 && (
+                    <div className="space-y-2 p-2">
+                      <div className="h-5 w-16 bg-gray-700 rounded mb-3" />
+                      {['General', 'Privacy', 'Security', 'Help'].map((item, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded bg-[#2196F3]/30" />
+                            <span className="text-xs text-gray-400">{item}</span>
+                          </div>
+                          <div className="w-4 h-4 text-gray-600">›</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            
+            {/* Home Indicator */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-gray-600 rounded-full" />
           </div>
-          
-          {/* Home Indicator */}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full" />
         </div>
         
         {/* Tap Indicator */}
         <motion.div
-          className="absolute w-8 h-8 border-2 border-[#FF6A00] rounded-full"
-          style={{ top: '40%', left: '60%' }}
+          className="absolute w-10 h-10 border-2 border-[#FF6A00] rounded-full"
+          style={{ top: '35%', right: '-5%' }}
           animate={{ 
-            scale: [1, 1.5, 1],
-            opacity: [0.8, 0, 0.8]
+            scale: [1, 1.3, 1],
+            opacity: [0.6, 0, 0.6]
           }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          transition={{ duration: 2, repeat: Infinity }}
         />
       </div>
     </div>
   );
 };
 
-// UI/UX Design Visual
+// UI/UX Design Visual - Enhanced
 const DesignVisual = () => {
-  const [elementsPlaced, setElementsPlaced] = useState(0);
+  const [step, setStep] = useState(0);
+  const mountedRef = useRef(true);
   
   useEffect(() => {
+    mountedRef.current = true;
     const interval = setInterval(() => {
-      setElementsPlaced(prev => (prev + 1) % 6);
-    }, 1200);
-    return () => clearInterval(interval);
+      if (mountedRef.current) {
+        setStep(prev => (prev + 1) % 5);
+      }
+    }, 1400);
+    return () => {
+      mountedRef.current = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const colors = ['#FF6A00', '#00E5FF', '#4CAF50', '#9C27B0', '#2196F3'];
 
   return (
     <div className="h-full bg-[#1a1a2e] rounded-lg border border-[hsl(var(--border))] overflow-hidden">
-      {/* Figma-style toolbar */}
-      <div className="h-8 bg-[#0d0d1a] flex items-center px-3 gap-4">
+      {/* Toolbar */}
+      <div className="h-9 bg-[#0d0d1a] flex items-center px-3 gap-3 border-b border-gray-800">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#27ca3f]" />
+        </div>
+        <div className="h-5 w-px bg-gray-700" />
         <Layout className="w-4 h-4 text-gray-500" />
-        <div className="flex gap-1">
+        <div className="flex gap-1 ml-auto">
           {colors.map((c, i) => (
             <motion.div
               key={i}
-              className="w-4 h-4 rounded"
+              className="w-4 h-4 rounded-sm cursor-pointer"
               style={{ backgroundColor: c }}
-              initial={{ scale: 0 }}
-              animate={{ scale: elementsPlaced > i ? 1 : 0 }}
-              transition={{ delay: i * 0.2 }}
+              animate={{ 
+                scale: step >= i ? 1 : 0.6,
+                opacity: step >= i ? 1 : 0.3
+              }}
+              transition={{ duration: 0.2 }}
             />
           ))}
         </div>
       </div>
       
-      {/* Artboard */}
-      <div className="p-4 relative">
-        {/* Grid */}
-        <div className="absolute inset-4 grid grid-cols-8 grid-rows-6 gap-px opacity-20">
-          {Array.from({ length: 48 }).map((_, i) => (
-            <div key={i} className="border border-gray-700" />
-          ))}
+      {/* Canvas */}
+      <div className="p-4 relative h-[calc(100%-36px)]">
+        {/* Grid Background */}
+        <div className="absolute inset-4 opacity-10">
+          <div className="w-full h-full" style={{
+            backgroundImage: 'linear-gradient(#444 1px, transparent 1px), linear-gradient(90deg, #444 1px, transparent 1px)',
+            backgroundSize: '20px 20px'
+          }} />
         </div>
         
         {/* Design Elements */}
         <div className="relative space-y-3">
+          {/* Header */}
           <motion.div
-            className="h-10 bg-[#FF6A00]/30 rounded"
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: elementsPlaced >= 1 ? 1 : 0 }}
-            transition={{ type: 'spring', stiffness: 100 }}
-          />
+            className="h-12 rounded-lg flex items-center px-4 justify-between"
+            style={{ backgroundColor: `${colors[0]}20`, borderLeft: `3px solid ${colors[0]}` }}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: step >= 0 ? 0 : -50, opacity: step >= 0 ? 1 : 0 }}
+          >
+            <div className="w-16 h-4 bg-white/20 rounded" />
+            <div className="flex gap-2">
+              <div className="w-8 h-4 bg-white/10 rounded" />
+              <div className="w-8 h-4 bg-white/10 rounded" />
+            </div>
+          </motion.div>
+          
+          {/* Two Column Layout */}
           <div className="flex gap-3">
             <motion.div
-              className="flex-1 h-24 bg-[#00E5FF]/20 rounded"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: elementsPlaced >= 2 ? 1 : 0 }}
-              transition={{ type: 'spring', stiffness: 100 }}
-            />
+              className="flex-1 h-28 rounded-lg"
+              style={{ backgroundColor: `${colors[1]}15`, border: `1px dashed ${colors[1]}50` }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: step >= 1 ? 0 : 30, opacity: step >= 1 ? 1 : 0 }}
+            >
+              <div className="p-3 space-y-2">
+                <div className="w-20 h-3 bg-white/20 rounded" />
+                <div className="w-full h-2 bg-white/10 rounded" />
+                <div className="w-3/4 h-2 bg-white/10 rounded" />
+              </div>
+            </motion.div>
             <motion.div
-              className="w-24 h-24 bg-[#9C27B0]/20 rounded"
+              className="w-28 h-28 rounded-lg flex items-center justify-center"
+              style={{ backgroundColor: `${colors[3]}20` }}
               initial={{ scale: 0 }}
-              animate={{ scale: elementsPlaced >= 3 ? 1 : 0 }}
-              transition={{ type: 'spring', stiffness: 100 }}
-            />
+              animate={{ scale: step >= 2 ? 1 : 0 }}
+            >
+              <div className="w-16 h-16 rounded-full bg-white/10" />
+            </motion.div>
           </div>
+          
+          {/* Cards Row */}
           <motion.div
             className="flex gap-2"
             initial={{ opacity: 0 }}
-            animate={{ opacity: elementsPlaced >= 4 ? 1 : 0 }}
+            animate={{ opacity: step >= 3 ? 1 : 0 }}
           >
-            {[1,2,3].map(i => (
-              <div key={i} className="flex-1 h-16 bg-[#4CAF50]/20 rounded" />
+            {[colors[2], colors[4], colors[0]].map((c, i) => (
+              <motion.div 
+                key={i} 
+                className="flex-1 h-16 rounded-lg p-2"
+                style={{ backgroundColor: `${c}15` }}
+                initial={{ y: 20 }}
+                animate={{ y: step >= 3 ? 0 : 20 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="w-6 h-6 rounded" style={{ backgroundColor: `${c}40` }} />
+              </motion.div>
             ))}
           </motion.div>
         </div>
         
         {/* Alignment Guides */}
-        {elementsPlaced >= 3 && (
+        {step >= 2 && (
           <>
             <motion.div
-              className="absolute left-4 right-4 h-px bg-[#FF6A00]"
-              style={{ top: '50%' }}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.3 }}
+              className="absolute left-4 right-4 h-px"
+              style={{ top: '45%', backgroundColor: '#FF6A00' }}
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 0.6 }}
             />
             <motion.div
-              className="absolute top-4 bottom-4 w-px bg-[#00E5FF]"
-              style={{ left: '50%' }}
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              className="absolute top-4 bottom-4 w-px"
+              style={{ left: '50%', backgroundColor: '#00E5FF' }}
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 0.6 }}
+              transition={{ delay: 0.1 }}
             />
           </>
         )}
@@ -368,185 +469,253 @@ const DesignVisual = () => {
   );
 };
 
-// Cloud Solutions Visual
+// Cloud Solutions Visual - Fixed and Enhanced
 const CloudVisual = () => {
-  const [activeConnections, setActiveConnections] = useState([]);
-  const [uptimeValue, setUptimeValue] = useState(0);
+  const [activeNode, setActiveNode] = useState(0);
+  const [uptimeValue, setUptimeValue] = useState(95);
+  const [packets, setPackets] = useState([]);
+  const mountedRef = useRef(true);
   
+  const nodes = [
+    { id: 'us-east', x: 15, y: 25, label: 'US-East' },
+    { id: 'eu-west', x: 85, y: 25, label: 'EU-West' },
+    { id: 'primary', x: 50, y: 50, label: 'Primary', isPrimary: true },
+    { id: 'us-west', x: 15, y: 75, label: 'US-West' },
+    { id: 'apac', x: 85, y: 75, label: 'APAC' },
+  ];
+
   useEffect(() => {
-    // Animate connections
-    const connInterval = setInterval(() => {
-      const conn = Math.floor(Math.random() * 6);
-      setActiveConnections(prev => {
-        const newConns = [...prev, conn];
-        return newConns.slice(-3);
-      });
+    mountedRef.current = true;
+    
+    // Rotate active node
+    const nodeInterval = setInterval(() => {
+      if (mountedRef.current) {
+        setActiveNode(prev => (prev + 1) % 4);
+      }
+    }, 1500);
+    
+    // Animate uptime
+    const uptimeInterval = setInterval(() => {
+      if (mountedRef.current) {
+        setUptimeValue(prev => {
+          const next = prev + 0.1;
+          return next > 99.9 ? 99.9 : next;
+        });
+      }
+    }, 100);
+    
+    // Add packets
+    const packetInterval = setInterval(() => {
+      if (mountedRef.current) {
+        const sourceIdx = Math.floor(Math.random() * 4);
+        const source = [0, 1, 3, 4][sourceIdx];
+        setPackets(prev => [...prev.slice(-3), { id: Date.now(), source }]);
+      }
     }, 800);
     
-    // Animate uptime graph
-    const uptimeInterval = setInterval(() => {
-      setUptimeValue(prev => Math.min(prev + 5, 99.9));
-    }, 200);
-    
     return () => {
-      clearInterval(connInterval);
+      mountedRef.current = false;
+      clearInterval(nodeInterval);
       clearInterval(uptimeInterval);
+      clearInterval(packetInterval);
     };
   }, []);
-
-  const nodes = [
-    { x: 20, y: 20, label: 'US-East' },
-    { x: 80, y: 20, label: 'EU-West' },
-    { x: 50, y: 50, label: 'Primary' },
-    { x: 20, y: 80, label: 'US-West' },
-    { x: 80, y: 80, label: 'APAC' },
-  ];
 
   return (
     <div className="h-full flex flex-col gap-3">
       {/* Network Diagram */}
       <div className="flex-1 bg-[#1a1a2e] rounded-lg border border-[hsl(var(--border))] relative overflow-hidden">
+        {/* Connection Lines */}
         <svg className="absolute inset-0 w-full h-full">
-          {/* Connection lines */}
-          {nodes.slice(0, -1).map((node, i) => (
-            <motion.line
-              key={i}
-              x1={`${node.x}%`}
-              y1={`${node.y}%`}
-              x2="50%"
-              y2="50%"
-              stroke={activeConnections.includes(i) ? '#00E5FF' : '#333'}
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1 }}
-            />
-          ))}
+          {[0, 1, 3, 4].map((nodeIdx) => {
+            const node = nodes[nodeIdx];
+            const isActive = [0, 1, 3, 4].indexOf(nodeIdx) === activeNode;
+            return (
+              <line
+                key={nodeIdx}
+                x1={`${node.x}%`}
+                y1={`${node.y}%`}
+                x2="50%"
+                y2="50%"
+                stroke={isActive ? '#00E5FF' : '#333'}
+                strokeWidth={isActive ? 2 : 1}
+                strokeDasharray={isActive ? 'none' : '4,4'}
+              />
+            );
+          })}
         </svg>
+        
+        {/* Animated Packets */}
+        {packets.map(packet => {
+          const source = nodes[packet.source];
+          return (
+            <motion.div
+              key={packet.id}
+              className="absolute w-2 h-2 bg-[#00E5FF] rounded-full shadow-lg shadow-[#00E5FF]/50"
+              style={{ left: `${source.x}%`, top: `${source.y}%` }}
+              animate={{ 
+                left: '50%', 
+                top: '50%',
+                opacity: [1, 1, 0]
+              }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            />
+          );
+        })}
         
         {/* Server Nodes */}
         {nodes.map((node, i) => (
-          <motion.div
-            key={i}
+          <div
+            key={node.id}
             className="absolute flex flex-col items-center"
-            style={{ left: `${node.x}%`, top: `${node.y}%`, transform: 'translate(-50%, -50%)' }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: i * 0.15 }}
+            style={{ 
+              left: `${node.x}%`, 
+              top: `${node.y}%`, 
+              transform: 'translate(-50%, -50%)' 
+            }}
           >
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-              i === 2 ? 'bg-[#FF6A00]/30 border border-[#FF6A00]' : 'bg-[#00E5FF]/20 border border-[#00E5FF]/50'
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+              node.isPrimary 
+                ? 'bg-[#FF6A00]/30 border-2 border-[#FF6A00]' 
+                : [0, 1, 3, 4].indexOf(i) === activeNode
+                  ? 'bg-[#00E5FF]/30 border-2 border-[#00E5FF]'
+                  : 'bg-gray-800 border border-gray-700'
             }`}>
-              <Database className="w-4 h-4 text-gray-400" />
+              {node.isPrimary ? (
+                <Server className="w-5 h-5 text-[#FF6A00]" />
+              ) : (
+                <Database className="w-4 h-4 text-gray-400" />
+              )}
             </div>
-            <span className="text-[10px] text-gray-500 mt-1">{node.label}</span>
-            
-            {/* Data packet animation */}
-            {activeConnections.includes(i) && (
-              <motion.div
-                className="absolute w-2 h-2 bg-[#00E5FF] rounded-full"
-                initial={{ x: 0, y: 0 }}
-                animate={{ 
-                  x: (50 - node.x) * 2,
-                  y: (50 - node.y) * 2
-                }}
-                transition={{ duration: 0.5 }}
-              />
-            )}
-          </motion.div>
+            <span className="text-[10px] text-gray-500 mt-1 font-mono">{node.label}</span>
+          </div>
         ))}
+        
+        {/* Status Badge */}
+        <div className="absolute top-3 right-3 flex items-center gap-2 bg-[#4CAF50]/20 px-2 py-1 rounded-full">
+          <div className="w-2 h-2 bg-[#4CAF50] rounded-full animate-pulse" />
+          <span className="text-xs text-[#4CAF50] font-mono">ONLINE</span>
+        </div>
       </div>
       
       {/* Uptime Graph */}
-      <div className="h-20 bg-[#0d0d1a] rounded-lg border border-[hsl(var(--border))] p-3">
+      <div className="h-24 bg-[#0d0d1a] rounded-lg border border-[hsl(var(--border))] p-3">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs text-gray-500">Uptime</span>
-          <span className="text-sm font-mono text-[#4CAF50]">{uptimeValue.toFixed(1)}%</span>
+          <span className="text-xs text-gray-500">System Uptime</span>
+          <span className="text-sm font-mono text-[#4CAF50] font-bold">{uptimeValue.toFixed(1)}%</span>
         </div>
-        <div className="h-6 flex items-end gap-px">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 bg-[#4CAF50]/60 rounded-t"
-              initial={{ height: 0 }}
-              animate={{ height: `${Math.min(100, uptimeValue + Math.random() * 10)}%` }}
-              transition={{ delay: i * 0.05, duration: 0.3 }}
-            />
-          ))}
+        <div className="h-10 flex items-end gap-[2px]">
+          {Array.from({ length: 30 }).map((_, i) => {
+            const height = 40 + Math.sin(i * 0.3) * 20 + Math.random() * 20;
+            return (
+              <motion.div
+                key={i}
+                className="flex-1 rounded-t"
+                style={{ backgroundColor: height > 50 ? '#4CAF50' : '#4CAF5080' }}
+                initial={{ height: 0 }}
+                animate={{ height: `${Math.min(height, 100)}%` }}
+                transition={{ delay: i * 0.02, duration: 0.3 }}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
   );
 };
 
-// AI Integration Visual
+// AI Integration Visual - Fixed with realistic conversation
 const AIVisual = () => {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [currentMsgIndex, setCurrentMsgIndex] = useState(0);
+  const mountedRef = useRef(true);
   
   const conversation = [
-    { type: 'user', text: 'Analyze sales data' },
-    { type: 'ai', text: 'Processing 10,000 records...' },
-    { type: 'ai', text: 'Found 3 key insights!' },
+    { role: 'user', text: 'Can you add automation to handle form submissions?' },
+    { role: 'ai', text: 'I can set up automated email responses, data validation, and CRM integration for your forms.' },
+    { role: 'user', text: 'Great! What about scheduling follow-ups?' },
+    { role: 'ai', text: 'I\'ll implement automated follow-up sequences with customizable timing and personalized messages.' },
   ];
 
   useEffect(() => {
-    let msgIndex = 0;
-    const addMessage = () => {
-      if (msgIndex < conversation.length) {
-        if (conversation[msgIndex].type === 'ai') {
-          setIsTyping(true);
-          setTimeout(() => {
-            setIsTyping(false);
-            setMessages(prev => [...prev, conversation[msgIndex]]);
-            msgIndex++;
-            setTimeout(addMessage, 1500);
-          }, 1200);
-        } else {
-          setMessages(prev => [...prev, conversation[msgIndex]]);
-          msgIndex++;
-          setTimeout(addMessage, 1000);
-        }
+    mountedRef.current = true;
+    setMessages([]);
+    setCurrentMsgIndex(0);
+    
+    const addNextMessage = (index) => {
+      if (!mountedRef.current || index >= conversation.length) return;
+      
+      const msg = conversation[index];
+      
+      if (msg.role === 'ai') {
+        setIsTyping(true);
+        setTimeout(() => {
+          if (!mountedRef.current) return;
+          setIsTyping(false);
+          setMessages(prev => [...prev, msg]);
+          setCurrentMsgIndex(index + 1);
+          setTimeout(() => addNextMessage(index + 1), 1500);
+        }, 1500);
+      } else {
+        setMessages(prev => [...prev, msg]);
+        setCurrentMsgIndex(index + 1);
+        setTimeout(() => addNextMessage(index + 1), 1200);
       }
     };
     
-    setTimeout(addMessage, 500);
+    setTimeout(() => addNextMessage(0), 800);
     
-    return () => setMessages([]);
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
   return (
     <div className="h-full bg-[#1a1a2e] rounded-lg border border-[hsl(var(--border))] overflow-hidden flex flex-col">
-      {/* Chat Header */}
-      <div className="h-10 bg-[#0d0d1a] flex items-center px-4 gap-2">
-        <Brain className="w-5 h-5 text-[#2196F3]" />
-        <span className="text-sm font-medium">AI Assistant</span>
-        <div className="ml-auto flex items-center gap-1">
+      {/* Header */}
+      <div className="h-12 bg-[#0d0d1a] flex items-center px-4 gap-3 border-b border-gray-800">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2196F3] to-[#00E5FF] flex items-center justify-center">
+          <Brain className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <div className="text-sm font-medium text-white">AI Assistant</div>
+          <div className="text-xs text-gray-500">Automation Expert</div>
+        </div>
+        <div className="ml-auto flex items-center gap-1.5">
           <div className="w-2 h-2 bg-[#4CAF50] rounded-full animate-pulse" />
-          <span className="text-xs text-gray-500">Online</span>
+          <span className="text-xs text-[#4CAF50]">Online</span>
         </div>
       </div>
       
       {/* Messages */}
-      <div className="flex-1 p-4 space-y-3 overflow-hidden">
-        <AnimatePresence>
-          {messages.map((msg, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div className={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${
-                msg.type === 'user' 
-                  ? 'bg-[#FF6A00]/30 text-white' 
-                  : 'bg-[#2196F3]/20 text-gray-300'
-              }`}>
-                {msg.text}
+      <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+        {messages.map((msg, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            {msg.role === 'ai' && (
+              <div className="w-6 h-6 rounded-full bg-[#2196F3]/30 flex items-center justify-center mr-2 flex-shrink-0">
+                <Brain className="w-3 h-3 text-[#2196F3]" />
               </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+            )}
+            <div className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
+              msg.role === 'user' 
+                ? 'bg-[#FF6A00] text-white rounded-br-md' 
+                : 'bg-gray-800 text-gray-200 rounded-bl-md'
+            }`}>
+              {msg.text}
+            </div>
+            {msg.role === 'user' && (
+              <div className="w-6 h-6 rounded-full bg-[#FF6A00]/30 flex items-center justify-center ml-2 flex-shrink-0">
+                <User className="w-3 h-3 text-[#FF6A00]" />
+              </div>
+            )}
+          </motion.div>
+        ))}
         
         {/* Typing Indicator */}
         {isTyping && (
@@ -555,13 +724,16 @@ const AIVisual = () => {
             animate={{ opacity: 1 }}
             className="flex items-center gap-2"
           >
-            <div className="bg-[#2196F3]/20 px-3 py-2 rounded-lg flex items-center gap-1">
+            <div className="w-6 h-6 rounded-full bg-[#2196F3]/30 flex items-center justify-center">
+              <Brain className="w-3 h-3 text-[#2196F3]" />
+            </div>
+            <div className="bg-gray-800 px-4 py-2 rounded-2xl rounded-bl-md flex items-center gap-1">
               {[0, 1, 2].map(i => (
                 <motion.div
                   key={i}
                   className="w-2 h-2 bg-[#2196F3] rounded-full"
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.15 }}
                 />
               ))}
             </div>
@@ -569,17 +741,14 @@ const AIVisual = () => {
         )}
       </div>
       
-      {/* Processing Indicator */}
-      <div className="h-12 bg-[#0d0d1a] flex items-center px-4">
-        <div className="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-[#2196F3] to-[#00E5FF]"
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 6, ease: 'linear' }}
-          />
+      {/* Input Bar */}
+      <div className="h-14 bg-[#0d0d1a] flex items-center px-4 gap-3 border-t border-gray-800">
+        <div className="flex-1 h-9 bg-gray-800 rounded-full px-4 flex items-center">
+          <span className="text-sm text-gray-500">Ask about automation...</span>
         </div>
-        <Cpu className="w-4 h-4 text-[#2196F3] ml-3 animate-pulse" />
+        <div className="w-9 h-9 rounded-full bg-[#2196F3] flex items-center justify-center">
+          <MessageSquare className="w-4 h-4 text-white" />
+        </div>
       </div>
     </div>
   );
@@ -610,25 +779,21 @@ export const ServicesShowcase = () => {
 
   return (
     <div className="w-full">
-      {/* Service Selector Pills */}
+      {/* Service Selector Pills - NO ICONS */}
       <div className="flex flex-wrap justify-center gap-2 mb-8">
-        {services.map((service, index) => {
-          const Icon = service.icon;
-          return (
-            <button
-              key={service.id}
-              onClick={() => setActiveIndex(index)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${
-                activeIndex === index
-                  ? 'border-[#FF6A00] bg-[#FF6A00]/10 text-white'
-                  : 'border-[hsl(var(--border))] text-gray-400 hover:border-gray-500'
-              }`}
-            >
-              <Icon className="w-4 h-4" style={{ color: activeIndex === index ? service.tagColor : undefined }} />
-              <span className="text-sm font-medium hidden sm:inline">{service.title}</span>
-            </button>
-          );
-        })}
+        {services.map((service, index) => (
+          <button
+            key={service.id}
+            onClick={() => setActiveIndex(index)}
+            className={`px-4 py-2 rounded-full border transition-all text-sm font-medium ${
+              activeIndex === index
+                ? 'border-[#FF6A00] bg-[#FF6A00]/10 text-white'
+                : 'border-[hsl(var(--border))] text-gray-400 hover:border-gray-500 hover:text-gray-300'
+            }`}
+          >
+            {service.title}
+          </button>
+        ))}
       </div>
 
       {/* Two Column Layout */}
@@ -700,6 +865,7 @@ export const ServicesShowcase = () => {
                         initial={{ width: '0%' }}
                         animate={{ width: '100%' }}
                         transition={{ duration: 8, ease: 'linear' }}
+                        key={`progress-${activeIndex}`}
                       />
                     )}
                     {i < activeIndex && (
@@ -720,9 +886,9 @@ export const ServicesShowcase = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.4 }}
-            className="h-80 lg:h-96"
+            className="h-80 lg:h-[420px]"
           >
-            <VisualComponent />
+            <VisualComponent key={`visual-${activeService.id}-${activeIndex}`} />
           </motion.div>
         </AnimatePresence>
       </div>
