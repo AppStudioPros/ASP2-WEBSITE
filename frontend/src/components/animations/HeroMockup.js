@@ -137,11 +137,11 @@ export const HeroMockup = () => {
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ ...smoothSpring, delay }}
     >
-      <div className="flex items-end gap-0.5">
-        <div className="bg-slate-800/90 text-white text-[6px] px-1.5 py-1 rounded-lg rounded-br-sm max-w-[85px] leading-relaxed">
+      <div className="flex items-end gap-1">
+        <div className="bg-slate-800/95 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-br-sm max-w-[100px] leading-relaxed shadow-sm">
           {children}
         </div>
-        <div className="w-3 h-3 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[4px] font-bold text-white">U</div>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[6px] font-bold text-white shadow-sm">U</div>
       </div>
     </motion.div>
   );
@@ -153,11 +153,11 @@ export const HeroMockup = () => {
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ ...smoothSpring, delay }}
     >
-      <div className="flex items-end gap-0.5">
-        <div className="w-3 h-3 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-          <Bot className="w-2 h-2 text-slate-800" />
+      <div className="flex items-end gap-1">
+        <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm">
+          <Bot className="w-2.5 h-2.5 text-slate-800" />
         </div>
-        <div className="bg-slate-700/90 text-white text-[6px] px-1.5 py-1 rounded-lg rounded-bl-sm max-w-[85px] leading-relaxed">
+        <div className="bg-slate-700/95 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-bl-sm max-w-[100px] leading-relaxed shadow-sm">
           {children}
         </div>
       </div>
@@ -172,9 +172,9 @@ export const HeroMockup = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="flex items-end gap-0.5">
-        <div className="w-3 h-3 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-          <Bot className="w-2 h-2 text-slate-800" />
+      <div className="flex items-end gap-1">
+        <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm">
+          <Bot className="w-2.5 h-2.5 text-slate-800" />
         </div>
         <TypingIndicator />
       </div>
