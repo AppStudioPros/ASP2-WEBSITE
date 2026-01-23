@@ -201,162 +201,179 @@ const ContactPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-[hsl(var(--foreground))]">
-                Tell Us About Your Project
-              </h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name & Email Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      <User className="w-4 h-4 inline mr-2" />
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      <Mail className="w-4 h-4 inline mr-2" />
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-
-                {/* Company & Phone Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      <Building2 className="w-4 h-4 inline mr-2" />
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
-                      placeholder="Your Company"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      <Phone className="w-4 h-4 inline mr-2" />
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
-                      placeholder="+1 (555) 123-4567"
-                    />
-                  </div>
-                </div>
-
-                {/* Project Type & Budget Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      <FileText className="w-4 h-4 inline mr-2" />
-                      Project Type *
-                    </label>
-                    <select
-                      name="projectType"
-                      value={formData.projectType}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] focus:outline-none focus:border-[#00E5FF]"
-                    >
-                      <option value="">Select a project type</option>
-                      {projectTypes.map((type, index) => (
-                        <option key={index} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                      Budget Range
-                    </label>
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] focus:outline-none focus:border-[#00E5FF]"
-                    >
-                      <option value="">Select your budget</option>
-                      {budgetRanges.map((range, index) => (
-                        <option key={index} value={range}>{range}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Timeline */}
-                <div>
-                  <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                    <Clock className="w-4 h-4 inline mr-2" />
-                    Expected Timeline
-                  </label>
-                  <input
-                    type="text"
-                    name="timeline"
-                    value={formData.timeline}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF]"
-                    placeholder="e.g., 3 months, Q1 2025"
+              <HUDFrame 
+                className="bg-black/20 border border-[hsl(var(--border))] overflow-hidden"
+                animated={true}
+                singleCard={true}
+              >
+                {/* Background Icon */}
+                <div className="absolute -bottom-8 -right-8 opacity-10 pointer-events-none">
+                  <Send 
+                    className="w-40 h-40" 
+                    style={{ color: '#FF6A00' }}
+                    strokeWidth={1.5}
                   />
                 </div>
+                
+                <div className="relative z-10">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-[hsl(var(--foreground))]">
+                    Tell Us About Your Project
+                  </h2>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Name & Email Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          <User className="w-4 h-4 inline mr-2" />
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00]"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          <Mail className="w-4 h-4 inline mr-2" />
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00]"
+                          placeholder="john@company.com"
+                        />
+                      </div>
+                    </div>
 
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
-                    <MessageSquare className="w-4 h-4 inline mr-2" />
-                    Project Details *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#00E5FF] resize-none"
-                    placeholder="Tell us about your project, goals, and any specific requirements..."
-                  />
+                    {/* Company & Phone Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          <Building2 className="w-4 h-4 inline mr-2" />
+                          Company
+                        </label>
+                        <input
+                          type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00]"
+                          placeholder="Your Company"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          <Phone className="w-4 h-4 inline mr-2" />
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00]"
+                          placeholder="+1 (555) 123-4567"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Project Type & Budget Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          <FileText className="w-4 h-4 inline mr-2" />
+                          Project Type *
+                        </label>
+                        <select
+                          name="projectType"
+                          value={formData.projectType}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] focus:outline-none focus:border-[#FF6A00]"
+                        >
+                          <option value="">Select a project type</option>
+                          {projectTypes.map((type, index) => (
+                            <option key={index} value={type}>{type}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                          Budget Range
+                        </label>
+                        <select
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] focus:outline-none focus:border-[#FF6A00]"
+                        >
+                          <option value="">Select your budget</option>
+                          {budgetRanges.map((range, index) => (
+                            <option key={index} value={range}>{range}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Timeline */}
+                    <div>
+                      <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                        <Clock className="w-4 h-4 inline mr-2" />
+                        Expected Timeline
+                      </label>
+                      <input
+                        type="text"
+                        name="timeline"
+                        value={formData.timeline}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00]"
+                        placeholder="e.g., 3 months, Q1 2025"
+                      />
+                    </div>
+
+                    {/* Message */}
+                    <div>
+                      <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
+                        <MessageSquare className="w-4 h-4 inline mr-2" />
+                        Project Details *
+                      </label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows={5}
+                        className="w-full px-4 py-3 border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:border-[#FF6A00] resize-none"
+                        placeholder="Tell us about your project, goals, and any specific requirements..."
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-[#FF6A00] to-[#FF8C00] text-black hover:from-[#FF8C00] hover:to-[#FFA500] font-semibold h-12 text-base"
+                    >
+                      {isSubmitting ? (
+                        <>Processing...</>
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5 mr-2" /> Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
                 </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#00E5FF] to-[#2196F3] text-black hover:from-[#00B8D4] hover:to-[#1976D2] font-semibold h-12 text-base"
-                >
-                  {isSubmitting ? (
-                    <>Processing...</>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5 mr-2" /> Send Message
-                    </>
-                  )}
-                </Button>
-              </form>
+              </HUDFrame>
             </motion.div>
 
             {/* Right Side - Why Work With Us */}
