@@ -16,6 +16,7 @@ import { AntiPitch } from '../components/AntiPitch';
 import { GlitchText } from '../components/GlitchText';
 import { MissionSection } from '../components/MissionSection';
 import { ServicesPreview } from '../components/ServicesPreview';
+import { ServicesShowcase } from '../components/ServicesShowcase';
 import { WorkSection } from '../components/WorkSection';
 import { CompanyAbout } from '../components/CompanyAbout';
 import { TerminalBadge } from '../components/TerminalBadge';
