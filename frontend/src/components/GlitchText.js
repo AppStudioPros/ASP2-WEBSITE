@@ -155,8 +155,9 @@ export const HUDFrame = ({
   totalCards = 1,
 }) => {
   return (
-    <div className={`relative p-6 ${className}`} style={{ overflow: 'visible' }}>
-      {/* Add animated corner bracket light */}
+    // Outer wrapper to allow light overflow
+    <div style={{ position: 'relative', overflow: 'visible' }}>
+      {/* Light animation positioned OUTSIDE the clipped card */}
       {animated && (
         <CornerBracketLight 
           cardIndex={cardIndex}
@@ -164,13 +165,16 @@ export const HUDFrame = ({
         />
       )}
       
-      {/* Corner Brackets */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#FF6A00]" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#FF6A00]" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#FF6A00]" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#FF6A00]" />
-      
-      {children}
+      {/* Main card with potential rounded corners and borders */}
+      <div className={`relative p-6 ${className}`}>
+        {/* Corner Brackets */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#FF6A00]" style={{ zIndex: 10 }} />
+        <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#FF6A00]" style={{ zIndex: 10 }} />
+        <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#FF6A00]" style={{ zIndex: 10 }} />
+        <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#FF6A00]" style={{ zIndex: 10 }} />
+        
+        {children}
+      </div>
     </div>
   );
 };
