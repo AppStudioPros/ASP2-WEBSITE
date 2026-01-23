@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Users, Rocket, Clock, Star, TrendingUp, CheckCircle } from 'lucide-react';
 import { HUDFrame } from './GlitchText';
+import { LightCoordinator } from './animations/CornerBracketLight';
 
 const stats = [
   { label: 'Apps Shipped', value: 247, suffix: '+', icon: Rocket, color: '#00E5FF' },
