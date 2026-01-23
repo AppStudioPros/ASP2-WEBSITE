@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { GlitchText } from './GlitchText';
 import { TerminalBadge } from './TerminalBadge';
@@ -128,13 +129,16 @@ export const WorkSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-[#FF6A00] text-[#FF6A00] hover:bg-[#FF6A00] hover:text-black transition-colors duration-200"
-          >
-            Explore All Projects
-          </Button>
+          <Link to="/projects">
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-[#FF6A00] text-[#FF6A00] hover:bg-[#FF6A00] hover:text-black transition-colors duration-200"
+              data-testid="explore-all-projects-btn"
+            >
+              Explore All Projects
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
