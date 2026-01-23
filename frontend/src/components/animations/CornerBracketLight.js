@@ -28,7 +28,7 @@ export const LightCoordinator = ({ children }) => {
   );
 };
 
-// Light trail component - positioned to draw on the border itself
+// Light trail component
 const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
   const isTop = edge === 'top';
   const isRight = edge === 'right';
@@ -43,44 +43,41 @@ const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
   // Gradient direction for trail effect
   const gradDir = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
 
-  // Position along the border
-  const positionStyles = {
-    position: 'absolute' as const,
-    zIndex: 9999,
-    pointerEvents: 'none' as const,
-    ...(isTop && { top: 0, left: 0, right: 0, height: 2, transform: 'translateY(-50%)' }),
-    ...(isBottom && { bottom: 0, left: 0, right: 0, height: 2, transform: 'translateY(50%)' }),
-    ...(isLeft && { left: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(-50%)' }),
-    ...(isRight && { right: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(50%)' }),
-  };
-
-  const trailStyles = {
-    position: 'absolute' as const,
-    ...(isHoriz 
-      ? { width: 80, height: 8, top: '50%', transform: 'translateY(-50%)' }
-      : { height: 80, width: 8, left: '50%', transform: 'translateX(-50%)' }
-    ),
-    background: `linear-gradient(${gradDir}, 
-      transparent 0%,
-      rgba(255,106,0,0.15) 20%,
-      rgba(255,106,0,0.4) 45%,
-      rgba(255,106,0,0.7) 70%,
-      rgba(255,200,120,0.95) 90%,
-      #FFFFFF 100%
-    )`,
-    boxShadow: `
-      0 0 20px 8px rgba(255,106,0,0.95),
-      0 0 40px 15px rgba(255,106,0,0.6),
-      0 0 60px 25px rgba(255,106,0,0.3)
-    `,
-    borderRadius: 6,
-    filter: 'blur(0.5px)',
-  };
-
   return (
-    <div style={positionStyles}>
+    <div 
+      style={{
+        position: 'absolute',
+        zIndex: 9999,
+        pointerEvents: 'none',
+        overflow: 'visible',
+        ...(isTop && { top: 0, left: 0, right: 0, height: 2, transform: 'translateY(-50%)' }),
+        ...(isBottom && { bottom: 0, left: 0, right: 0, height: 2, transform: 'translateY(50%)' }),
+        ...(isLeft && { left: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(-50%)' }),
+        ...(isRight && { right: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(50%)' }),
+      }}
+    >
       <motion.div
-        style={trailStyles}
+        style={{
+          position: 'absolute',
+          ...(isHoriz 
+            ? { width: 80, height: 10, top: '50%', transform: 'translateY(-50%)' }
+            : { height: 80, width: 10, left: '50%', transform: 'translateX(-50%)' }
+          ),
+          background: `linear-gradient(${gradDir}, 
+            transparent 0%,
+            rgba(255,106,0,0.15) 20%,
+            rgba(255,106,0,0.45) 45%,
+            rgba(255,106,0,0.75) 70%,
+            rgba(255,210,140,0.95) 90%,
+            #FFFFFF 100%
+          )`,
+          boxShadow: `
+            0 0 25px 10px rgba(255,106,0,1),
+            0 0 50px 20px rgba(255,106,0,0.65),
+            0 0 80px 35px rgba(255,106,0,0.35)
+          `,
+          borderRadius: 8,
+        }}
         initial={{ [isHoriz ? 'left' : 'top']: `${fromPct}%`, opacity: 0 }}
         animate={{ 
           [isHoriz ? 'left' : 'top']: `${toPct}%`,
@@ -135,7 +132,7 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   return (
     <div style={{ 
       position: 'absolute', 
-      inset: -4, // Extend slightly beyond card bounds
+      inset: 0,
       pointerEvents: 'none',
       zIndex: 100,
       overflow: 'visible'
@@ -171,7 +168,7 @@ export const SimpleCornerLight = ({ delay = 0 }) => {
   };
   
   return (
-    <div style={{ position: 'absolute', inset: -4, pointerEvents: 'none', zIndex: 100, overflow: 'visible' }}>
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 100, overflow: 'visible' }}>
       <AnimatePresence>
         {edge && <LightTrail key={edge} edge={edge} onDone={onDone} speed={1.1} />}
       </AnimatePresence>
