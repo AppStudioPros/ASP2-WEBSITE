@@ -32,13 +32,13 @@ const HomePage = () => {
       >
         {/* AI Robot Background Image */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* The AI Robot Image - transparent with object-fit to shrink into section */}
+          {/* The AI Robot Image - transparent with stretch to fill */}
           <div 
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `url('https://customer-assets.emergentagent.com/job_codetrail-3/artifacts/764e0xb5_AI%20integration.png')`,
-              backgroundSize: 'contain',
-              backgroundPosition: 'center right',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             }}
           />
