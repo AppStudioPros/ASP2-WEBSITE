@@ -4,7 +4,7 @@ import { useState, useEffect, createContext, useContext, useCallback, useRef } f
 /**
  * Light trail that travels along card borders
  * - Short line with tapering trail
- * - Clockwise movement only
+ * - Clockwise movement only  
  * - Appears from and disappears into corner brackets
  */
 
@@ -13,51 +13,28 @@ const LightContext = createContext(null);
 
 // Provider that manages which cards can show lights (max 2 at a time)
 export const LightCoordinator = ({ children, cardCount = 4 }) => {
-  const [activeSlots, setActiveSlots] = useState(new Set());
-  const queueRef = useRef([]);
+  const [activeCards, setActiveCards] = useState(new Set());
   
-  // Request to animate a card - returns true if allowed
   const requestAnimation = useCallback((cardId) => {
-    if (activeSlots.has(cardId)) return false;
-    if (activeSlots.size >= 2) {
-      // Add to queue if not already there
-      if (!queueRef.current.includes(cardId)) {
-        queueRef.current.push(cardId);
-      }
-      return false;
-    }
-    
-    setActiveSlots(prev => new Set([...prev, cardId]));
+    if (activeCards.has(cardId)) return false;
+    if (activeCards.size >= 2) return false;
+    setActiveCards(prev => new Set([...prev, cardId]));
     return true;
-  }, [activeSlots]);
+  }, [activeCards]);
   
-  // Called when a card finishes animating
   const releaseAnimation = useCallback((cardId) => {
-    setActiveSlots(prev => {
+    setActiveCards(prev => {
       const next = new Set(prev);
       next.delete(cardId);
       return next;
     });
   }, []);
   
-  // Get next card from queue
-  const getNextFromQueue = useCallback(() => {
-    if (queueRef.current.length > 0) {
-      return queueRef.current.shift();
-    }
-    return null;
-  }, []);
-  
   return (
-    <LightContext.Provider value={{ requestAnimation, releaseAnimation, getNextFromQueue, activeSlots }}>
+    <LightContext.Provider value={{ requestAnimation, releaseAnimation, activeCards }}>
       {children}
     </LightContext.Provider>
   );
-};
-
-// Hook to use light coordination
-export const useLightCoordination = () => {
-  return useContext(LightContext);
 };
 
 // Edge animation component - the actual light trail
@@ -69,24 +46,22 @@ const EdgeTrail = ({ edge, onComplete, duration = 1.1 }) => {
   
   const isHorizontal = isTop || isBottom;
   
-  // Animation positions (clockwise movement)
-  // Top: left→right, Right: top→bottom, Bottom: right→left, Left: bottom→top
-  const startPercent = (isTop || isRight) ? -15 : 115;
-  const endPercent = (isTop || isRight) ? 115 : -15;
+  // Animation direction (clockwise)
+  const startPercent = (isTop || isRight) ? -20 : 120;
+  const endPercent = (isTop || isRight) ? 120 : -20;
   
-  // Trail gradient direction (tail faces opposite to movement)
+  // Trail gradient (tail faces opposite to movement)
   const gradientDir = isTop ? 'to right' : isRight ? 'to bottom' : isBottom ? 'to left' : 'to top';
   
   return (
     <motion.div
       className="absolute pointer-events-none"
       style={{
-        // Position on the actual border edge
-        ...(isTop && { top: 0, left: 0, right: 0, height: 4 }),
-        ...(isBottom && { bottom: 0, left: 0, right: 0, height: 4 }),
-        ...(isLeft && { left: 0, top: 0, bottom: 0, width: 4 }),
-        ...(isRight && { right: 0, top: 0, bottom: 0, width: 4 }),
-        zIndex: 50,
+        ...(isTop && { top: -2, left: 0, right: 0, height: 6 }),
+        ...(isBottom && { bottom: -2, left: 0, right: 0, height: 6 }),
+        ...(isLeft && { left: -2, top: 0, bottom: 0, width: 6 }),
+        ...(isRight && { right: -2, top: 0, bottom: 0, width: 6 }),
+        zIndex: 100,
         overflow: 'visible',
       }}
     >
@@ -94,25 +69,24 @@ const EdgeTrail = ({ edge, onComplete, duration = 1.1 }) => {
         style={{
           position: 'absolute',
           ...(isHorizontal ? { 
-            width: 60, 
-            height: 4,
-            top: -1,
+            width: 80, 
+            height: 6,
+            top: 0,
           } : { 
-            height: 60, 
-            width: 4,
-            left: -1,
+            height: 80, 
+            width: 6,
+            left: 0,
           }),
           background: `linear-gradient(${gradientDir}, 
             transparent 0%,
-            rgba(255,106,0,0.15) 20%,
-            rgba(255,106,0,0.4) 45%,
-            rgba(255,106,0,0.7) 65%,
-            rgba(255,200,100,0.9) 85%,
-            #FFFFFF 95%,
-            #FF6A00 100%
+            rgba(255,106,0,0.1) 15%,
+            rgba(255,106,0,0.3) 35%,
+            rgba(255,106,0,0.6) 55%,
+            rgba(255,180,100,0.9) 80%,
+            #FFFFFF 100%
           )`,
-          boxShadow: '0 0 15px 5px rgba(255,106,0,0.8), 0 0 30px 10px rgba(255,106,0,0.4)',
-          borderRadius: 3,
+          boxShadow: '0 0 20px 8px rgba(255,106,0,0.9), 0 0 40px 16px rgba(255,106,0,0.5), 0 0 60px 24px rgba(255,106,0,0.2)',
+          borderRadius: 4,
         }}
         initial={{ 
           [isHorizontal ? 'left' : 'top']: `${startPercent}%`,
@@ -125,7 +99,7 @@ const EdgeTrail = ({ edge, onComplete, duration = 1.1 }) => {
         transition={{
           duration: duration,
           ease: 'linear',
-          opacity: { times: [0, 0.08, 0.5, 0.92, 1] }
+          opacity: { times: [0, 0.05, 0.5, 0.95, 1] }
         }}
         onAnimationComplete={onComplete}
       />
@@ -141,57 +115,48 @@ export const CornerBracketLight = ({
   const [activeEdge, setActiveEdge] = useState(null);
   const context = useContext(LightContext);
   const timeoutRef = useRef(null);
-  const animationStartedRef = useRef(false);
-  
-  // Generate unique edge sequence for this card
+  const edgeIndexRef = useRef(cardIndex % 4); // Different starting edge per card
   const edges = ['top', 'right', 'bottom', 'left'];
-  const edgeIndexRef = useRef(Math.floor(Math.random() * 4)); // Random starting edge
   
-  // Start an animation on a random edge
+  // Start animation
   const startAnimation = useCallback(() => {
-    // Check with coordinator (or allow if no coordinator)
     const canStart = context?.requestAnimation?.(cardIndex) ?? true;
     
-    if (canStart) {
-      const edge = edges[edgeIndexRef.current % 4];
+    if (canStart && !activeEdge) {
+      const edge = edges[edgeIndexRef.current];
       edgeIndexRef.current = (edgeIndexRef.current + 1) % 4;
       setActiveEdge(edge);
-    } else {
-      // Retry after a delay
-      timeoutRef.current = setTimeout(startAnimation, 800 + Math.random() * 1200);
+    } else if (!canStart) {
+      // Retry after delay
+      timeoutRef.current = setTimeout(startAnimation, 500 + Math.random() * 1000);
     }
-  }, [cardIndex, context]);
+  }, [cardIndex, context, activeEdge]);
   
-  // Handle animation completion
+  // Handle completion
   const handleComplete = useCallback(() => {
     setActiveEdge(null);
     context?.releaseAnimation?.(cardIndex);
     
-    // Schedule next animation after a pause
-    const nextDelay = 2000 + Math.random() * 3000;
-    timeoutRef.current = setTimeout(startAnimation, nextDelay);
+    // Schedule next animation
+    const delay = 2500 + Math.random() * 3500;
+    timeoutRef.current = setTimeout(startAnimation, delay);
   }, [cardIndex, context, startAnimation]);
   
-  // Start animations when component mounts
+  // Initial trigger with staggered timing
   useEffect(() => {
-    if (animationStartedRef.current) return;
-    animationStartedRef.current = true;
-    
-    // Staggered start based on card index
-    const initialDelay = 300 + (cardIndex * 600) + (Math.random() * 1000);
+    // Stagger based on card index
+    const initialDelay = 500 + (cardIndex * 700) + (Math.random() * 800);
     timeoutRef.current = setTimeout(startAnimation, initialDelay);
     
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [cardIndex, startAnimation]);
+  }, []); // Run once on mount
   
   return (
     <div 
       className="absolute inset-0 pointer-events-none"
-      style={{ zIndex: 40, overflow: 'visible' }}
+      style={{ zIndex: 50, overflow: 'visible' }}
     >
       {activeEdge && (
         <EdgeTrail 
@@ -204,35 +169,34 @@ export const CornerBracketLight = ({
   );
 };
 
-// Simple standalone version without coordinator
+// Simple standalone version
 export const SimpleCornerLight = ({ delay = 0 }) => {
   const [activeEdge, setActiveEdge] = useState(null);
   const edges = ['top', 'right', 'bottom', 'left'];
-  const edgeIndex = useRef(0);
+  const edgeIndexRef = useRef(0);
   
   useEffect(() => {
-    const runAnimation = () => {
-      const edge = edges[edgeIndex.current % 4];
-      edgeIndex.current++;
+    const start = () => {
+      const edge = edges[edgeIndexRef.current % 4];
+      edgeIndexRef.current++;
       setActiveEdge(edge);
     };
     
-    const initialTimeout = setTimeout(runAnimation, delay * 1000);
-    
-    return () => clearTimeout(initialTimeout);
+    const timeout = setTimeout(start, delay * 1000);
+    return () => clearTimeout(timeout);
   }, [delay]);
   
   const handleComplete = useCallback(() => {
     setActiveEdge(null);
     setTimeout(() => {
-      const edge = edges[edgeIndex.current % 4];
-      edgeIndex.current++;
+      const edge = edges[edgeIndexRef.current % 4];
+      edgeIndexRef.current++;
       setActiveEdge(edge);
-    }, 1500 + Math.random() * 2000);
+    }, 2000 + Math.random() * 2000);
   }, []);
   
   return (
-    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 40, overflow: 'visible' }}>
+    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 50, overflow: 'visible' }}>
       {activeEdge && (
         <EdgeTrail 
           edge={activeEdge} 
