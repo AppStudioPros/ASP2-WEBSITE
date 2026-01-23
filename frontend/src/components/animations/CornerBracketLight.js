@@ -139,9 +139,7 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
       zIndex: 100,
       overflow: 'visible'
     }}>
-      <AnimatePresence>
-        {edge && <LightTrail key={`${cardIndex}-${edge}`} edge={edge} onDone={onDone} speed={1.1} />}
-      </AnimatePresence>
+      {edge && <LightTrail key={`${cardIndex}-${edge}`} edge={edge} onDone={onDone} speed={2} />}
     </div>
   );
 };
