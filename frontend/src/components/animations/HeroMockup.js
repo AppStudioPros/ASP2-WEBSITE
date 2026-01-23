@@ -3,43 +3,56 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, Bot } from 'lucide-react';
 
 // Animation code being "typed"
-const animationCode = `// Text reveal animation
+const animationCode = `// Smooth text reveal
 const textReveal = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1]
+    }
+  }
 };
 
-// Staggered children
-staggerChildren: 0.15,
-
-// Badge pulse effect
-const badgePulse = {
-  scale: [1, 1.02, 1],
-  opacity: [0.8, 1, 0.8]
+// Staggered children animation
+const stagger = {
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1
+    }
+  }
 };
 
-// Chat message slide
+// Chat message variants
 const messageSlide = {
-  initial: { x: 30, opacity: 0 },
-  animate: { x: 0, opacity: 1 }
+  hidden: { x: 20, opacity: 0, scale: 0.95 },
+  visible: { 
+    x: 0, 
+    opacity: 1, 
+    scale: 1,
+    transition: { 
+      type: "spring",
+      damping: 20,
+      stiffness: 300
+    }
+  }
 };
 
 // Typing indicator
-const typingDots = {
-  y: [0, -4, 0],
-  transition: { repeat: Infinity }
+const typingPulse = {
+  y: [0, -3, 0],
+  opacity: [0.4, 1, 0.4]
 };
 
-// Corner accent animation
-const cornerGlow = {
-  opacity: [0.3, 1, 0.3],
-  scale: [1, 1.2, 1]
-};`;
+// Stats counter
+animateValue(0, 99.9, 1200);`;
 
 export const HeroMockup = () => {
   const [typedCode, setTypedCode] = useState('');
   const [animationPhase, setAnimationPhase] = useState(0);
-  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const codeContainerRef = useRef(null);
 
   // Typing animation for code
@@ -51,7 +64,6 @@ export const HeroMockup = () => {
       currentIndex = 0;
       setTypedCode('');
       setAnimationPhase(0);
-      setShowTypingIndicator(false);
 
       typingInterval = setInterval(() => {
         if (currentIndex < animationCode.length) {
@@ -60,30 +72,32 @@ export const HeroMockup = () => {
 
           const progress = currentIndex / animationCode.length;
           
-          if (progress > 0.08) setAnimationPhase(1);  // Badge animates
-          if (progress > 0.18) setAnimationPhase(2);  // Headline reveals
-          if (progress > 0.28) setAnimationPhase(3);  // Description appears
-          if (progress > 0.40) setAnimationPhase(4);  // First chat message
-          if (progress > 0.52) setAnimationPhase(5);  // Typing indicator
-          if (progress > 0.65) {
-            setAnimationPhase(6);  // Bot responds
-            setShowTypingIndicator(false);
-          }
-          if (progress > 0.75) setAnimationPhase(7);  // Second user message
-          if (progress > 0.85) setShowTypingIndicator(true);
-          if (progress > 0.92) {
-            setAnimationPhase(8);  // Final response + corners glow
-            setShowTypingIndicator(false);
-          }
+          // Smoother phase transitions
+          if (progress > 0.05) setAnimationPhase(1);   // Badge
+          if (progress > 0.12) setAnimationPhase(2);   // Headline line 1
+          if (progress > 0.18) setAnimationPhase(3);   // Headline line 2
+          if (progress > 0.24) setAnimationPhase(4);   // Description
+          if (progress > 0.30) setAnimationPhase(5);   // Stats appear
+          if (progress > 0.36) setAnimationPhase(6);   // Chat msg 1 (user)
+          if (progress > 0.42) setAnimationPhase(7);   // Chat msg 2 (bot typing)
+          if (progress > 0.48) setAnimationPhase(8);   // Chat msg 2 (bot responds)
+          if (progress > 0.54) setAnimationPhase(9);   // Chat msg 3 (user)
+          if (progress > 0.60) setAnimationPhase(10);  // Chat msg 4 (bot typing)
+          if (progress > 0.66) setAnimationPhase(11);  // Chat msg 4 (bot responds)
+          if (progress > 0.72) setAnimationPhase(12);  // Chat msg 5 (user)
+          if (progress > 0.78) setAnimationPhase(13);  // Chat msg 6 (bot typing)
+          if (progress > 0.84) setAnimationPhase(14);  // Chat msg 6 (bot responds)
+          if (progress > 0.90) setAnimationPhase(15);  // Chat msg 7 (user)
+          if (progress > 0.95) setAnimationPhase(16);  // Chat msg 8 (bot final)
 
           if (codeContainerRef.current) {
             codeContainerRef.current.scrollTop = codeContainerRef.current.scrollHeight;
           }
         } else {
           clearInterval(typingInterval);
-          setTimeout(() => startTyping(), 3000);
+          setTimeout(() => startTyping(), 3500);
         }
-      }, 40);
+      }, 35);
     };
 
     startTyping();
@@ -92,21 +106,78 @@ export const HeroMockup = () => {
 
   const codeLines = typedCode.split('\n');
 
+  // Smooth spring transition
+  const smoothSpring = { type: "spring", damping: 25, stiffness: 200 };
+  const smoothTween = { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] };
+
   // Typing indicator component
   const TypingIndicator = () => (
     <motion.div 
-      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-700 rounded-2xl rounded-bl-sm w-fit"
+      className="flex items-center gap-0.5 px-2 py-1 bg-slate-700 rounded-xl rounded-bl-sm w-fit"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
+      transition={smoothSpring}
     >
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-1.5 h-1.5 bg-slate-400 rounded-full"
-          animate={{ y: [0, -3, 0], opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+          className="w-1 h-1 bg-slate-400 rounded-full"
+          animate={{ y: [0, -2, 0], opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
         />
       ))}
+    </motion.div>
+  );
+
+  // Chat message component for cleaner code
+  const UserMessage = ({ children, delay = 0 }) => (
+    <motion.div 
+      className="flex justify-end"
+      initial={{ opacity: 0, x: 12, scale: 0.95 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ ...smoothSpring, delay }}
+    >
+      <div className="flex items-end gap-0.5">
+        <div className="bg-slate-800/90 text-white text-[6px] px-1.5 py-1 rounded-lg rounded-br-sm max-w-[85px] leading-relaxed">
+          {children}
+        </div>
+        <div className="w-3 h-3 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[4px] font-bold text-white">U</div>
+      </div>
+    </motion.div>
+  );
+
+  const BotMessage = ({ children, delay = 0 }) => (
+    <motion.div 
+      className="flex justify-start"
+      initial={{ opacity: 0, x: -12, scale: 0.95 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ ...smoothSpring, delay }}
+    >
+      <div className="flex items-end gap-0.5">
+        <div className="w-3 h-3 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
+          <Bot className="w-2 h-2 text-slate-800" />
+        </div>
+        <div className="bg-slate-700/90 text-white text-[6px] px-1.5 py-1 rounded-lg rounded-bl-sm max-w-[85px] leading-relaxed">
+          {children}
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  const BotTyping = () => (
+    <motion.div 
+      className="flex justify-start"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="flex items-end gap-0.5">
+        <div className="w-3 h-3 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
+          <Bot className="w-2 h-2 text-slate-800" />
+        </div>
+        <TypingIndicator />
+      </div>
     </motion.div>
   );
 
@@ -115,181 +186,164 @@ export const HeroMockup = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         className="relative rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]/30 backdrop-blur-md overflow-hidden shadow-2xl"
         style={{ height: '520px' }}
       >
         {/* TOP - Mock Website Preview */}
-        <div className="h-[320px] bg-[#0a0a0a] relative overflow-hidden">
+        <div className="h-[330px] bg-[#0a0a0a] relative overflow-hidden">
           
           {/* Grid Background */}
           <div 
-            className="absolute inset-0 opacity-30"
+            className="absolute inset-0 opacity-25"
             style={{
               backgroundImage: `
                 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
               `,
-              backgroundSize: '32px 32px'
+              backgroundSize: '28px 28px'
             }}
           />
           
-          {/* Animated Corner Crosses */}
+          {/* Corner Markers */}
           <motion.div 
-            className="absolute top-4 left-4 text-red-500 text-sm font-light"
-            animate={animationPhase >= 8 ? { 
-              opacity: [0.4, 1, 0.4], 
-              scale: [1, 1.3, 1],
-              textShadow: ['0 0 0px #ef4444', '0 0 8px #ef4444', '0 0 0px #ef4444']
-            } : { opacity: 0.4 }}
-            transition={{ duration: 1.5, repeat: animationPhase >= 8 ? Infinity : 0 }}
+            className="absolute top-4 left-4 text-red-500/50 text-xs select-none"
+            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >+</motion.div>
           <motion.div 
-            className="absolute top-4 right-4 text-red-500 text-sm font-light"
-            animate={animationPhase >= 8 ? { 
-              opacity: [0.4, 1, 0.4], 
-              scale: [1, 1.3, 1] 
-            } : { opacity: 0.4 }}
-            transition={{ duration: 1.5, repeat: animationPhase >= 8 ? Infinity : 0, delay: 0.2 }}
+            className="absolute top-4 right-4 text-red-500/50 text-xs select-none"
+            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
           >+</motion.div>
           <motion.div 
-            className="absolute bottom-4 left-4 text-red-500 text-sm font-light"
-            animate={animationPhase >= 8 ? { 
-              opacity: [0.4, 1, 0.4], 
-              scale: [1, 1.3, 1] 
-            } : { opacity: 0.4 }}
-            transition={{ duration: 1.5, repeat: animationPhase >= 8 ? Infinity : 0, delay: 0.4 }}
+            className="absolute bottom-4 left-4 text-red-500/50 text-xs select-none"
+            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
           >+</motion.div>
           <motion.div 
-            className="absolute bottom-4 right-4 text-red-500 text-sm font-light"
-            animate={animationPhase >= 8 ? { 
-              opacity: [0.4, 1, 0.4], 
-              scale: [1, 1.3, 1] 
-            } : { opacity: 0.4 }}
-            transition={{ duration: 1.5, repeat: animationPhase >= 8 ? Infinity : 0, delay: 0.6 }}
+            className="absolute bottom-4 right-4 text-red-500/50 text-xs select-none"
+            animate={animationPhase >= 16 ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
           >+</motion.div>
           
-          {/* Content Layout - Side by Side */}
+          {/* Content Layout */}
           <div className="relative z-10 flex h-full px-8 py-6">
             
             {/* Left Text Content */}
-            <div className="flex-1 flex flex-col justify-center pr-6">
+            <div className="flex-1 flex flex-col justify-center pr-8">
               {/* Badge */}
               <AnimatePresence>
                 {animationPhase >= 1 && (
                   <motion.div 
                     className="flex items-center gap-2 mb-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={smoothTween}
                   >
-                    <motion.span 
-                      className="text-[11px] text-slate-400 tracking-[0.2em] font-medium"
-                      animate={animationPhase >= 2 ? { 
-                        opacity: [0.7, 1, 0.7]
-                      } : {}}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
+                    <span className="text-[10px] text-slate-400 tracking-[0.2em] font-medium">
                       COMPLEX MADE SIMPLE
-                    </motion.span>
+                    </span>
                     <motion.span 
                       className="text-red-500 text-xs"
                       animate={{ opacity: [0, 1, 0] }}
-                      transition={{ duration: 1, repeat: Infinity }}
+                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
                     >_</motion.span>
                   </motion.div>
                 )}
               </AnimatePresence>
               
               {/* Headline */}
-              <AnimatePresence>
-                {animationPhase >= 2 && (
-                  <motion.div className="mb-4 overflow-hidden">
-                    <motion.h2 
-                      className="text-white text-2xl font-semibold leading-tight"
-                      initial={{ opacity: 0, y: 30 }}
+              <div className="mb-4 overflow-hidden">
+                <AnimatePresence>
+                  {animationPhase >= 2 && (
+                    <motion.span
+                      className="block text-white text-2xl font-semibold leading-tight"
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      transition={{ ...smoothTween, duration: 0.6 }}
                     >
-                      <motion.span
-                        className="block"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        AI-powered
-                      </motion.span>
-                      <motion.span
-                        className="block bg-gradient-to-r from-white via-slate-300 to-white bg-clip-text text-transparent"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.15 }}
-                        style={animationPhase >= 8 ? {
-                          backgroundSize: '200% auto',
-                          animation: 'shimmer 3s linear infinite'
-                        } : {}}
-                      >
-                        simplicity
-                      </motion.span>
-                    </motion.h2>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      AI-powered
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {animationPhase >= 3 && (
+                    <motion.span
+                      className="block text-white text-2xl font-semibold leading-tight"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ ...smoothTween, duration: 0.6 }}
+                      style={animationPhase >= 16 ? {
+                        background: 'linear-gradient(90deg, #fff, #94a3b8, #fff)',
+                        backgroundSize: '200% auto',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        animation: 'shimmer 3s linear infinite'
+                      } : {}}
+                    >
+                      simplicity
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
               
               {/* Description */}
               <AnimatePresence>
-                {animationPhase >= 3 && (
+                {animationPhase >= 4 && (
                   <motion.p 
-                    className="text-slate-500 text-xs leading-relaxed max-w-[240px]"
-                    initial={{ opacity: 0, y: 15 }}
+                    className="text-slate-500 text-[11px] leading-relaxed max-w-[220px]"
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    transition={{ ...smoothTween, duration: 0.5 }}
                   >
                     A chat-based interface backed by a custom-trained LLM simplifies even the most complex tasks.
                   </motion.p>
                 )}
               </AnimatePresence>
 
-              {/* Animated Stats Row */}
+              {/* Stats Row */}
               <AnimatePresence>
-                {animationPhase >= 3 && (
+                {animationPhase >= 5 && (
                   <motion.div 
                     className="flex gap-6 mt-5"
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ ...smoothTween, delay: 0.1 }}
                   >
-                    <motion.div 
-                      className="text-center"
-                      whileHover={{ scale: 1.05 }}
-                    >
+                    <div className="text-center">
                       <motion.div 
-                        className="text-white text-lg font-bold"
+                        className="text-white text-base font-bold tabular-nums"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4 }}
                       >
-                        {animationPhase >= 4 ? '99.9%' : '—'}
+                        99.9%
                       </motion.div>
-                      <div className="text-slate-600 text-[9px]">Accuracy</div>
-                    </motion.div>
-                    <motion.div 
-                      className="text-center"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <motion.div className="text-white text-lg font-bold">
-                        {animationPhase >= 5 ? '<1s' : '—'}
+                      <div className="text-slate-600 text-[8px]">Accuracy</div>
+                    </div>
+                    <div className="text-center">
+                      <motion.div 
+                        className="text-white text-base font-bold"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                      >
+                        &lt;1s
                       </motion.div>
-                      <div className="text-slate-600 text-[9px]">Response</div>
-                    </motion.div>
-                    <motion.div 
-                      className="text-center"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <motion.div className="text-white text-lg font-bold">
-                        {animationPhase >= 6 ? '24/7' : '—'}
+                      <div className="text-slate-600 text-[8px]">Response</div>
+                    </div>
+                    <div className="text-center">
+                      <motion.div 
+                        className="text-white text-base font-bold"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                      >
+                        24/7
                       </motion.div>
-                      <div className="text-slate-600 text-[9px]">Available</div>
-                    </motion.div>
+                      <div className="text-slate-600 text-[8px]">Available</div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -299,23 +353,23 @@ export const HeroMockup = () => {
             <div className="flex items-center justify-center">
               <motion.div 
                 className="relative"
-                initial={{ opacity: 0.3 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+                initial={{ opacity: 0.5, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 {/* Phone Frame */}
                 <div 
-                  className="w-[140px] h-[260px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-[22px] border-2 border-slate-700 shadow-2xl overflow-hidden relative"
-                  style={{ boxShadow: '0 25px 50px rgba(0,0,0,0.5)' }}
+                  className="w-[130px] h-[270px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-[20px] border border-slate-700 shadow-2xl overflow-hidden relative"
+                  style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
                 >
                   {/* Phone Notch */}
-                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-black rounded-full z-20" />
+                  <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-2.5 bg-black rounded-full z-20" />
                   
                   {/* Phone Screen */}
-                  <div className="absolute inset-1.5 rounded-[18px] overflow-hidden">
-                    {/* Scenic gradient background */}
+                  <div className="absolute inset-1 rounded-[16px] overflow-hidden">
+                    {/* Background */}
                     <div className="absolute inset-0 bg-gradient-to-b from-slate-600 via-slate-500 to-slate-700">
-                      <svg className="absolute bottom-0 left-0 right-0 h-20 opacity-40" viewBox="0 0 200 100" preserveAspectRatio="none">
+                      <svg className="absolute bottom-0 left-0 right-0 h-16 opacity-30" viewBox="0 0 200 100" preserveAspectRatio="none">
                         <path d="M0,100 L0,60 L30,40 L60,70 L90,30 L120,60 L150,45 L180,65 L200,50 L200,100 Z" fill="#1e293b"/>
                         <path d="M0,100 L0,80 L40,60 L80,85 L120,55 L160,75 L200,65 L200,100 Z" fill="#0f172a"/>
                       </svg>
@@ -323,162 +377,94 @@ export const HeroMockup = () => {
                     
                     {/* Chat Interface */}
                     <div className="absolute inset-0 flex flex-col">
-                      {/* Chat Header */}
-                      <div className="flex items-center justify-between px-2.5 pt-5 pb-1.5">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
-                            <Bot className="w-2.5 h-2.5 text-slate-800" />
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-2 pt-4 pb-1">
+                        <div className="flex items-center gap-1">
+                          <div className="w-3.5 h-3.5 bg-white rounded-full flex items-center justify-center">
+                            <Bot className="w-2 h-2 text-slate-800" />
                           </div>
-                          <span className="text-white text-[9px] font-medium">Exchange</span>
+                          <span className="text-white text-[8px] font-medium">Assistant</span>
                         </div>
-                        <div className="text-white text-[10px]">•••</div>
+                        <div className="text-white/60 text-[8px]">•••</div>
                       </div>
                       
-                      {/* Chat Messages */}
-                      <div className="flex-1 px-2 py-1.5 space-y-1.5 overflow-hidden">
+                      {/* Messages Container */}
+                      <div className="flex-1 px-1.5 py-1 space-y-1 overflow-hidden">
                         
-                        {/* User Message 1 */}
+                        {/* Message 1: User */}
                         <AnimatePresence>
-                          {animationPhase >= 4 && (
-                            <motion.div 
-                              className="flex justify-end"
-                              initial={{ opacity: 0, x: 15, scale: 0.9 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              transition={{ duration: 0.4 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="bg-slate-800/90 text-white text-[7px] px-2 py-1 rounded-xl rounded-br-sm max-w-[95px]">
-                                  Hey Elsa 👋<br/>
-                                  <span className="text-slate-300">exchange 0.001 ETH to SOL</span>
-                                </div>
-                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[5px] font-bold text-white">U</div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Bot Typing / Response 1 */}
-                        <AnimatePresence mode="wait">
-                          {animationPhase === 5 && (
-                            <motion.div 
-                              className="flex justify-start"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-                                  <Bot className="w-2.5 h-2.5 text-slate-800" />
-                                </div>
-                                <TypingIndicator />
-                              </div>
-                            </motion.div>
-                          )}
-                          
                           {animationPhase >= 6 && (
-                            <motion.div 
-                              className="flex justify-start"
-                              initial={{ opacity: 0, x: -15, scale: 0.9 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              transition={{ duration: 0.4 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-                                  <Bot className="w-2.5 h-2.5 text-slate-800" />
-                                </div>
-                                <div className="bg-slate-700/90 text-white text-[7px] px-2 py-1 rounded-xl rounded-bl-sm">
-                                  Yeah! Sure 👍
-                                </div>
-                              </div>
-                            </motion.div>
+                            <UserMessage>Hey! 👋 Can you help me?</UserMessage>
                           )}
                         </AnimatePresence>
                         
-                        {/* User Message 2 */}
-                        <AnimatePresence>
-                          {animationPhase >= 7 && (
-                            <motion.div 
-                              className="flex justify-end"
-                              initial={{ opacity: 0, x: 15, scale: 0.9 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              transition={{ duration: 0.4 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="bg-slate-800/90 text-white text-[7px] px-2 py-1 rounded-xl rounded-br-sm">
-                                  Perfect, thanks!
-                                </div>
-                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[5px] font-bold text-white">U</div>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                        
-                        {/* Bot Typing / Response 2 */}
+                        {/* Message 2: Bot typing then response */}
                         <AnimatePresence mode="wait">
-                          {showTypingIndicator && animationPhase < 8 && (
-                            <motion.div 
-                              className="flex justify-start"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-                                  <Bot className="w-2.5 h-2.5 text-slate-800" />
-                                </div>
-                                <TypingIndicator />
-                              </div>
-                            </motion.div>
-                          )}
-                          
+                          {animationPhase === 7 && <BotTyping />}
                           {animationPhase >= 8 && (
-                            <motion.div 
-                              className="flex justify-start"
-                              initial={{ opacity: 0, x: -15, scale: 0.9 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              transition={{ duration: 0.4 }}
-                            >
-                              <div className="flex items-end gap-1">
-                                <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
-                                  <Bot className="w-2.5 h-2.5 text-slate-800" />
-                                </div>
-                                <div className="bg-slate-700/90 text-white text-[7px] px-2 py-1 rounded-xl rounded-bl-sm">
-                                  Done! ✅ Sent
-                                </div>
-                              </div>
-                            </motion.div>
+                            <BotMessage>Of course! What do you need?</BotMessage>
                           )}
                         </AnimatePresence>
+                        
+                        {/* Message 3: User */}
+                        <AnimatePresence>
+                          {animationPhase >= 9 && (
+                            <UserMessage>Convert 0.5 ETH to USDC</UserMessage>
+                          )}
+                        </AnimatePresence>
+                        
+                        {/* Message 4: Bot typing then response */}
+                        <AnimatePresence mode="wait">
+                          {animationPhase === 10 && <BotTyping />}
+                          {animationPhase >= 11 && (
+                            <BotMessage>Sure! Processing now...</BotMessage>
+                          )}
+                        </AnimatePresence>
+                        
+                        {/* Message 5: User */}
+                        <AnimatePresence>
+                          {animationPhase >= 12 && (
+                            <UserMessage>How long will it take?</UserMessage>
+                          )}
+                        </AnimatePresence>
+                        
+                        {/* Message 6: Bot typing then response */}
+                        <AnimatePresence mode="wait">
+                          {animationPhase === 13 && <BotTyping />}
+                          {animationPhase >= 14 && (
+                            <BotMessage>About 30 seconds ⚡</BotMessage>
+                          )}
+                        </AnimatePresence>
+                        
+                        {/* Message 7: User */}
+                        <AnimatePresence>
+                          {animationPhase >= 15 && (
+                            <UserMessage>Perfect, thanks!</UserMessage>
+                          )}
+                        </AnimatePresence>
+                        
+                        {/* Message 8: Bot final */}
+                        <AnimatePresence>
+                          {animationPhase >= 16 && (
+                            <BotMessage>Done! ✅ 892 USDC sent</BotMessage>
+                          )}
+                        </AnimatePresence>
+                        
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Floating particles around phone */}
+                {/* Floating accents */}
                 <motion.div 
-                  className="absolute -top-2 -right-2 w-2 h-2 bg-orange-500/60 rounded-full"
-                  animate={{ 
-                    y: [0, -8, 0], 
-                    opacity: [0.4, 0.8, 0.4],
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-orange-500/50 rounded-full"
+                  animate={{ y: [0, -5, 0], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div 
-                  className="absolute -bottom-1 -left-3 w-1.5 h-1.5 bg-cyan-500/60 rounded-full"
-                  animate={{ 
-                    y: [0, -6, 0], 
-                    opacity: [0.3, 0.7, 0.3] 
-                  }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-                />
-                <motion.div 
-                  className="absolute top-1/2 -right-4 w-1 h-1 bg-red-500/60 rounded-full"
-                  animate={{ 
-                    x: [0, 4, 0], 
-                    opacity: [0.3, 0.6, 0.3] 
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  className="absolute -bottom-1 -left-2 w-1 h-1 bg-cyan-500/50 rounded-full"
+                  animate={{ y: [0, -4, 0], opacity: [0.2, 0.5, 0.2] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                 />
               </motion.div>
             </div>
@@ -486,29 +472,24 @@ export const HeroMockup = () => {
         </div>
 
         {/* BOTTOM - Code Editor */}
-        <div className="h-[200px] bg-[#0d1117] p-3 border-t border-slate-800 flex flex-col">
+        <div className="h-[190px] bg-[#0d1117] p-3 border-t border-slate-800/50 flex flex-col">
           {/* Editor Header */}
-          <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-800">
-            <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-            </div>
-            <Terminal className="w-3.5 h-3.5 text-[#FF6A00] ml-2" />
-            <span className="text-[10px] text-gray-400 font-mono">animations.config.js</span>
+          <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-800/50">
+            <Terminal className="w-3 h-3 text-[#FF6A00]" />
+            <span className="text-[10px] text-gray-500 font-mono">animations.config.js</span>
             <div className="ml-auto flex items-center gap-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[8px] text-green-400 font-mono">LIVE</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500/80 animate-pulse" />
+              <span className="text-[8px] text-green-500/80 font-mono">LIVE</span>
             </div>
           </div>
           
           {/* Code Content */}
           <div 
             ref={codeContainerRef}
-            className="flex-1 font-mono text-[10px] overflow-y-auto overflow-x-hidden pr-1 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+            className="flex-1 font-mono text-[9px] overflow-y-auto overflow-x-hidden pr-1 scrollbar-thin scrollbar-thumb-gray-700/50 scrollbar-track-transparent leading-relaxed"
           >
             {codeLines.map((line, index) => (
-              <div key={index} className="flex gap-2 min-h-[14px] leading-tight">
+              <div key={index} className="flex gap-2 min-h-[13px]">
                 <span className="text-gray-600 select-none w-4 text-right flex-shrink-0">
                   {index + 1}
                 </span>
@@ -523,30 +504,28 @@ export const HeroMockup = () => {
                   ) : line.includes(':') && !line.includes('//') ? (
                     <span>
                       <span className="text-cyan-300">{line.split(':')[0]}</span>
-                      <span className="text-gray-400">:</span>
+                      <span className="text-gray-500">:</span>
                       <span className="text-orange-300">{line.split(':').slice(1).join(':')}</span>
                     </span>
                   ) : line.includes('{') || line.includes('}') || line.includes('[') || line.includes(']') ? (
-                    <span className="text-yellow-200">{line}</span>
+                    <span className="text-yellow-200/80">{line}</span>
                   ) : (
-                    <span className="text-gray-300">{line}</span>
+                    <span className="text-gray-400">{line}</span>
                   )}
                 </span>
               </div>
             ))}
-            {/* Blinking cursor */}
             {typedCode.length < animationCode.length && (
               <motion.span
-                className="inline-block w-1.5 h-3 bg-[#FF6A00] ml-5"
+                className="inline-block w-1.5 h-2.5 bg-[#FF6A00] ml-5"
                 animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
+                transition={{ duration: 0.4, repeat: Infinity, ease: "easeInOut" }}
               />
             )}
           </div>
         </div>
       </motion.div>
 
-      {/* Shimmer keyframes */}
       <style>{`
         @keyframes shimmer {
           0% { background-position: -200% center; }
