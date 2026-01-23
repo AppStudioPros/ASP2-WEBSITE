@@ -43,40 +43,42 @@ const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
   // Gradient direction for trail effect
   const gradDir = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
 
+  // DEBUG: Make it super visible
   return (
     <div 
       style={{
         position: 'absolute',
-        zIndex: 9999,
+        zIndex: 99999,
         pointerEvents: 'none',
         overflow: 'visible',
-        ...(isTop && { top: 0, left: 0, right: 0, height: 2, transform: 'translateY(-50%)' }),
-        ...(isBottom && { bottom: 0, left: 0, right: 0, height: 2, transform: 'translateY(50%)' }),
-        ...(isLeft && { left: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(-50%)' }),
-        ...(isRight && { right: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(50%)' }),
+        // Position EXACTLY on the border
+        ...(isTop && { top: 0, left: 0, right: 0, height: 20 }),
+        ...(isBottom && { bottom: 0, left: 0, right: 0, height: 20 }),
+        ...(isLeft && { left: 0, top: 0, bottom: 0, width: 20 }),
+        ...(isRight && { right: 0, top: 0, bottom: 0, width: 20 }),
       }}
     >
       <motion.div
         style={{
           position: 'absolute',
           ...(isHoriz 
-            ? { width: 80, height: 10, top: '50%', transform: 'translateY(-50%)' }
-            : { height: 80, width: 10, left: '50%', transform: 'translateX(-50%)' }
+            ? { width: 120, height: 20, top: 0 }
+            : { height: 120, width: 20, left: 0 }
           ),
           background: `linear-gradient(${gradDir}, 
             transparent 0%,
-            rgba(255,106,0,0.15) 20%,
-            rgba(255,106,0,0.45) 45%,
-            rgba(255,106,0,0.75) 70%,
-            rgba(255,210,140,0.95) 90%,
+            rgba(255,50,0,0.3) 20%,
+            rgba(255,100,0,0.6) 45%,
+            rgba(255,150,50,0.85) 70%,
+            rgba(255,220,180,1) 90%,
             #FFFFFF 100%
           )`,
           boxShadow: `
-            0 0 25px 10px rgba(255,106,0,1),
-            0 0 50px 20px rgba(255,106,0,0.65),
-            0 0 80px 35px rgba(255,106,0,0.35)
+            0 0 40px 20px rgba(255,106,0,1),
+            0 0 80px 40px rgba(255,106,0,0.8),
+            0 0 120px 60px rgba(255,106,0,0.5)
           `,
-          borderRadius: 8,
+          borderRadius: 12,
         }}
         initial={{ [isHoriz ? 'left' : 'top']: `${fromPct}%`, opacity: 0 }}
         animate={{ 
