@@ -153,7 +153,6 @@ export const HUDFrame = ({
   animated = true, 
   cardIndex = 0,
   totalCards = 1,
-  onAnimationComplete 
 }) => {
   return (
     <div className={`relative p-6 ${className}`}>
@@ -162,7 +161,6 @@ export const HUDFrame = ({
         <CornerBracketLight 
           cardIndex={cardIndex}
           totalCards={totalCards}
-          onAnimationComplete={onAnimationComplete}
         />
       )}
       
