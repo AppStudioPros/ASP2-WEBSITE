@@ -1,10 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, createContext, useContext, useRef } from 'react';
 
-/**
- * Light trail that travels along card borders
- */
-
+// Context for coordination
 const LightContext = createContext(null);
 
 export const LightCoordinator = ({ children }) => {
@@ -31,66 +28,72 @@ export const LightCoordinator = ({ children }) => {
   );
 };
 
-// The light trail using CSS animation for maximum reliability
+// Light trail component - positioned to draw on the border itself
 const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
-  const isHoriz = edge === 'top' || edge === 'bottom';
-  const goForward = edge === 'top' || edge === 'right';
+  const isTop = edge === 'top';
+  const isRight = edge === 'right';
+  const isBottom = edge === 'bottom';
+  const isLeft = edge === 'left';
+  const isHoriz = isTop || isBottom;
   
-  const grad = edge === 'top' ? 'to right' 
-             : edge === 'right' ? 'to bottom'
-             : edge === 'bottom' ? 'to left' 
-             : 'to top';
+  // Clockwise direction
+  const fromPct = (isTop || isRight) ? -30 : 130;
+  const toPct = (isTop || isRight) ? 130 : -30;
+  
+  // Gradient direction for trail effect
+  const gradDir = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
 
-  // Use CSS animation for reliability
-  const keyframes = isHoriz 
-    ? (goForward 
-        ? { left: ['-30%', '130%'] }
-        : { left: ['130%', '-30%'] })
-    : (goForward
-        ? { top: ['-30%', '130%'] }
-        : { top: ['130%', '-30%'] });
+  // Position along the border
+  const positionStyles = {
+    position: 'absolute' as const,
+    zIndex: 9999,
+    pointerEvents: 'none' as const,
+    ...(isTop && { top: 0, left: 0, right: 0, height: 2, transform: 'translateY(-50%)' }),
+    ...(isBottom && { bottom: 0, left: 0, right: 0, height: 2, transform: 'translateY(50%)' }),
+    ...(isLeft && { left: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(-50%)' }),
+    ...(isRight && { right: 0, top: 0, bottom: 0, width: 2, transform: 'translateX(50%)' }),
+  };
+
+  const trailStyles = {
+    position: 'absolute' as const,
+    ...(isHoriz 
+      ? { width: 80, height: 8, top: '50%', transform: 'translateY(-50%)' }
+      : { height: 80, width: 8, left: '50%', transform: 'translateX(-50%)' }
+    ),
+    background: `linear-gradient(${gradDir}, 
+      transparent 0%,
+      rgba(255,106,0,0.15) 20%,
+      rgba(255,106,0,0.4) 45%,
+      rgba(255,106,0,0.7) 70%,
+      rgba(255,200,120,0.95) 90%,
+      #FFFFFF 100%
+    )`,
+    boxShadow: `
+      0 0 20px 8px rgba(255,106,0,0.95),
+      0 0 40px 15px rgba(255,106,0,0.6),
+      0 0 60px 25px rgba(255,106,0,0.3)
+    `,
+    borderRadius: 6,
+    filter: 'blur(0.5px)',
+  };
 
   return (
-    <motion.div
-      style={{
-        position: 'absolute',
-        // Position INSIDE the border so it's not clipped
-        ...(edge === 'top' && { top: 2, left: 0, right: 0, height: 8 }),
-        ...(edge === 'bottom' && { bottom: 2, left: 0, right: 0, height: 8 }),
-        ...(edge === 'left' && { left: 2, top: 0, bottom: 0, width: 8 }),
-        ...(edge === 'right' && { right: 2, top: 0, bottom: 0, width: 8 }),
-        zIndex: 9999,
-        overflow: 'visible',
-        pointerEvents: 'none',
-      }}
-    >
+    <div style={positionStyles}>
       <motion.div
-        style={{
-          position: 'absolute',
-          ...(isHoriz ? { width: 100, height: 8, top: 0 } : { height: 100, width: 8, left: 0 }),
-          background: `linear-gradient(${grad}, 
-            transparent 0%,
-            rgba(255,106,0,0.3) 25%,
-            rgba(255,106,0,0.6) 50%,
-            rgba(255,180,100,0.9) 80%,
-            #FFFFFF 95%,
-            #FF6A00 100%
-          )`,
-          boxShadow: `
-            0 0 25px 10px rgba(255,106,0,1),
-            0 0 50px 20px rgba(255,106,0,0.7),
-            0 0 80px 40px rgba(255,106,0,0.4)
-          `,
-          borderRadius: 5,
+        style={trailStyles}
+        initial={{ [isHoriz ? 'left' : 'top']: `${fromPct}%`, opacity: 0 }}
+        animate={{ 
+          [isHoriz ? 'left' : 'top']: `${toPct}%`,
+          opacity: [0, 1, 1, 1, 0]
         }}
-        animate={keyframes}
         transition={{
           duration: speed,
           ease: 'linear',
+          opacity: { times: [0, 0.05, 0.5, 0.95, 1] }
         }}
         onAnimationComplete={onDone}
       />
-    </motion.div>
+    </div>
   );
 };
 
@@ -105,14 +108,11 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
 
   const tryStart = () => {
     if (running) return;
-    
     const canStart = ctx?.requestSlot?.(cardIndex) ?? true;
-    console.log(`Card ${cardIndex} tryStart, canStart: ${canStart}`);
     if (canStart) {
       setRunning(true);
       const nextEdge = edges[edgeIdx.current];
       edgeIdx.current = (edgeIdx.current + 1) % 4;
-      console.log(`Card ${cardIndex} starting edge: ${nextEdge}`);
       setEdge(nextEdge);
     } else {
       timerRef.current = setTimeout(tryStart, 400 + Math.random() * 600);
@@ -120,7 +120,6 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   };
 
   const onDone = () => {
-    console.log(`Card ${cardIndex} animation done`);
     setEdge(null);
     setRunning(false);
     ctx?.releaseSlot?.(cardIndex);
@@ -128,8 +127,6 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   };
 
   useEffect(() => {
-    console.log(`CornerBracketLight mounted for card ${cardIndex}`);
-    // Start immediately with staggered delay
     const delay = 100 + cardIndex * 400 + Math.random() * 500;
     timerRef.current = setTimeout(tryStart, delay);
     return () => clearTimeout(timerRef.current);
@@ -138,13 +135,13 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   return (
     <div style={{ 
       position: 'absolute', 
-      inset: 0, 
+      inset: -4, // Extend slightly beyond card bounds
       pointerEvents: 'none',
       zIndex: 100,
       overflow: 'visible'
     }}>
       <AnimatePresence>
-        {edge && <LightTrail key={`${cardIndex}-${edge}-${Date.now()}`} edge={edge} onDone={onDone} speed={1.1} />}
+        {edge && <LightTrail key={`${cardIndex}-${edge}`} edge={edge} onDone={onDone} speed={1.1} />}
       </AnimatePresence>
     </div>
   );
@@ -156,23 +153,25 @@ export const SimpleCornerLight = ({ delay = 0 }) => {
   const edges = ['top', 'right', 'bottom', 'left'];
   const timerRef = useRef(null);
   
-  const start = () => {
-    setEdge(edges[edgeIdx.current % 4]);
-    edgeIdx.current++;
-  };
-  
   useEffect(() => {
+    const start = () => {
+      setEdge(edges[edgeIdx.current % 4]);
+      edgeIdx.current++;
+    };
     timerRef.current = setTimeout(start, delay * 1000);
     return () => clearTimeout(timerRef.current);
   }, [delay]);
   
   const onDone = () => {
     setEdge(null);
-    timerRef.current = setTimeout(start, 1500 + Math.random() * 2000);
+    timerRef.current = setTimeout(() => {
+      setEdge(edges[edgeIdx.current % 4]);
+      edgeIdx.current++;
+    }, 1500 + Math.random() * 2000);
   };
   
   return (
-    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 100, overflow: 'visible' }}>
+    <div style={{ position: 'absolute', inset: -4, pointerEvents: 'none', zIndex: 100, overflow: 'visible' }}>
       <AnimatePresence>
         {edge && <LightTrail key={edge} edge={edge} onDone={onDone} speed={1.1} />}
       </AnimatePresence>
