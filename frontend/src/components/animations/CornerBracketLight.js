@@ -105,10 +105,12 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
     if (running) return;
     
     const canStart = ctx?.requestSlot?.(cardIndex) ?? true;
+    console.log(`Card ${cardIndex} tryStart, canStart: ${canStart}`);
     if (canStart) {
       setRunning(true);
       const nextEdge = edges[edgeIdx.current];
       edgeIdx.current = (edgeIdx.current + 1) % 4;
+      console.log(`Card ${cardIndex} starting edge: ${nextEdge}`);
       setEdge(nextEdge);
     } else {
       timerRef.current = setTimeout(tryStart, 400 + Math.random() * 600);
@@ -116,6 +118,7 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   };
 
   const onDone = () => {
+    console.log(`Card ${cardIndex} animation done`);
     setEdge(null);
     setRunning(false);
     ctx?.releaseSlot?.(cardIndex);
@@ -123,6 +126,7 @@ export const CornerBracketLight = ({ cardIndex = 0 }) => {
   };
 
   useEffect(() => {
+    console.log(`CornerBracketLight mounted for card ${cardIndex}`);
     // Start immediately with staggered delay
     const delay = 100 + cardIndex * 400 + Math.random() * 500;
     timerRef.current = setTimeout(tryStart, delay);
