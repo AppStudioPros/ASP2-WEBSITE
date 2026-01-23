@@ -359,14 +359,14 @@ export const HeroMockup = () => {
               >
                 {/* Phone Frame */}
                 <div 
-                  className="w-[130px] h-[270px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-[20px] border border-slate-700 shadow-2xl overflow-hidden relative"
+                  className="w-[155px] h-[310px] bg-gradient-to-b from-slate-800 to-slate-900 rounded-[24px] border border-slate-700 shadow-2xl overflow-hidden relative"
                   style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
                 >
                   {/* Phone Notch */}
-                  <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-2.5 bg-black rounded-full z-20" />
+                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-black rounded-full z-20" />
                   
                   {/* Phone Screen */}
-                  <div className="absolute inset-1 rounded-[16px] overflow-hidden">
+                  <div className="absolute inset-1.5 rounded-[20px] overflow-hidden">
                     {/* Background */}
                     <div className="absolute inset-0 bg-gradient-to-b from-slate-600 via-slate-500 to-slate-700">
                       <svg className="absolute bottom-0 left-0 right-0 h-16 opacity-30" viewBox="0 0 200 100" preserveAspectRatio="none">
@@ -378,18 +378,18 @@ export const HeroMockup = () => {
                     {/* Chat Interface */}
                     <div className="absolute inset-0 flex flex-col">
                       {/* Header */}
-                      <div className="flex items-center justify-between px-2 pt-4 pb-1">
-                        <div className="flex items-center gap-1">
-                          <div className="w-3.5 h-3.5 bg-white rounded-full flex items-center justify-center">
-                            <Bot className="w-2 h-2 text-slate-800" />
+                      <div className="flex items-center justify-between px-2.5 pt-5 pb-1">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                            <Bot className="w-2.5 h-2.5 text-slate-800" />
                           </div>
-                          <span className="text-white text-[8px] font-medium">Assistant</span>
+                          <span className="text-white text-[9px] font-medium">Assistant</span>
                         </div>
-                        <div className="text-white/60 text-[8px]">•••</div>
+                        <div className="text-white/60 text-[9px]">•••</div>
                       </div>
                       
                       {/* Messages Container */}
-                      <div className="flex-1 px-1.5 py-1 space-y-1 overflow-hidden">
+                      <div className="flex-1 px-2 py-1.5 space-y-1.5 overflow-hidden">
                         
                         {/* Message 1: User */}
                         <AnimatePresence>
