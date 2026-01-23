@@ -215,32 +215,6 @@ const HomePage = () => {
         </motion.div>
       </section>
 
-      {/* Animated Hero Mockup Section */}
-      <section className="relative py-24 overflow-hidden border-t border-[hsl(var(--border))]">
-        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_50%,rgba(0,229,255,0.08),rgba(0,0,0,0)_70%)] pointer-events-none" />
-        
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="text-center mb-12">
-              <TerminalBadge command="watch_us_build" color="#FF6A00" variant="inverted" />
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mt-6 mb-4">
-                See <GlitchText className="text-[#00E5FF]" pattern={1}>Magic</GlitchText> Happen
-              </h2>
-              <p className="text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
-                Watch as we transform ideas into reality. This is what we do, every single day.
-              </p>
-            </div>
-            
-            <HeroMockup />
-          </motion.div>
-        </div>
-      </section>
-
       {/* AI Website Scanner Section */}
       <section 
         className="py-16 sm:py-24 lg:py-32 relative overflow-hidden border-t border-[hsl(var(--border))]"
