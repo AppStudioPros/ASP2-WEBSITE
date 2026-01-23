@@ -54,10 +54,11 @@ const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
     <motion.div
       style={{
         position: 'absolute',
-        ...(edge === 'top' && { top: -2, left: 0, right: 0, height: 4 }),
-        ...(edge === 'bottom' && { bottom: -2, left: 0, right: 0, height: 4 }),
-        ...(edge === 'left' && { left: -2, top: 0, bottom: 0, width: 4 }),
-        ...(edge === 'right' && { right: -2, top: 0, bottom: 0, width: 4 }),
+        // Position INSIDE the border so it's not clipped
+        ...(edge === 'top' && { top: 2, left: 0, right: 0, height: 8 }),
+        ...(edge === 'bottom' && { bottom: 2, left: 0, right: 0, height: 8 }),
+        ...(edge === 'left' && { left: 2, top: 0, bottom: 0, width: 8 }),
+        ...(edge === 'right' && { right: 2, top: 0, bottom: 0, width: 8 }),
         zIndex: 9999,
         overflow: 'visible',
         pointerEvents: 'none',
@@ -66,20 +67,21 @@ const LightTrail = ({ edge, onDone, speed = 1.1 }) => {
       <motion.div
         style={{
           position: 'absolute',
-          ...(isHoriz ? { width: 70, height: 4, top: 0 } : { height: 70, width: 4, left: 0 }),
+          ...(isHoriz ? { width: 100, height: 8, top: 0 } : { height: 100, width: 8, left: 0 }),
           background: `linear-gradient(${grad}, 
             transparent 0%,
-            rgba(255,106,0,0.2) 25%,
-            rgba(255,106,0,0.5) 50%,
-            rgba(255,180,100,0.8) 80%,
+            rgba(255,106,0,0.3) 25%,
+            rgba(255,106,0,0.6) 50%,
+            rgba(255,180,100,0.9) 80%,
             #FFFFFF 95%,
             #FF6A00 100%
           )`,
           boxShadow: `
-            0 0 15px 6px rgba(255,106,0,0.9),
-            0 0 30px 12px rgba(255,106,0,0.5)
+            0 0 25px 10px rgba(255,106,0,1),
+            0 0 50px 20px rgba(255,106,0,0.7),
+            0 0 80px 40px rgba(255,106,0,0.4)
           `,
-          borderRadius: 3,
+          borderRadius: 5,
         }}
         animate={keyframes}
         transition={{
