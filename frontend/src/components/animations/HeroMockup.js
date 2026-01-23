@@ -113,7 +113,7 @@ export const HeroMockup = () => {
   // Typing indicator component
   const TypingIndicator = () => (
     <motion.div 
-      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-700 rounded-xl rounded-bl-sm w-fit shadow-sm"
+      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-600 rounded-xl rounded-bl-sm w-fit shadow-md"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={smoothSpring}
@@ -121,8 +121,8 @@ export const HeroMockup = () => {
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-1.5 h-1.5 bg-slate-400 rounded-full"
-          animate={{ y: [0, -2, 0], opacity: [0.4, 1, 0.4] }}
+          className="w-1.5 h-1.5 bg-white/70 rounded-full"
+          animate={{ y: [0, -2, 0], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
         />
       ))}
