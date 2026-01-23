@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Code2, Users, Rocket, Clock, Star, TrendingUp, CheckCircle } from 'lucide-react';
 import { HUDFrame } from './GlitchText';
 import { LightCoordinator } from './animations/CornerBracketLight';
@@ -32,10 +32,12 @@ const testimonials = [
   },
 ];
 
-const AnimatedCounter = ({ value, suffix = '', duration = 2000 }) => {
+const AnimatedCounter = ({ value, suffix = '', duration = 2000, inView }) => {
   const [count, setCount] = useState(0);
   
   useEffect(() => {
+    if (!inView) return;
+    
     const steps = 60;
     const increment = value / steps;
     let current = 0;
@@ -51,16 +53,55 @@ const AnimatedCounter = ({ value, suffix = '', duration = 2000 }) => {
     }, duration / steps);
     
     return () => clearInterval(timer);
-  }, [value, duration]);
+  }, [value, duration, inView]);
 
   const displayValue = Number.isInteger(value) ? Math.floor(count) : count.toFixed(1);
   
   return <span>{displayValue}{suffix}</span>;
 };
 
-export const ProofSection = ({ className = '' }) => {
+// 3D Rotating Icon Component
+const Rotating3DIcon = ({ icon: Icon, color, isInView, delay = 0 }) => {
   return (
-    <div className={className} data-testid="proof-section" style={{ overflow: 'visible' }}>
+    <div className="relative" style={{ perspective: '600px' }}>
+      <motion.div
+        initial={{ rotateY: 0 }}
+        animate={isInView ? { rotateY: 360 } : { rotateY: 0 }}
+        transition={{ 
+          duration: 8, 
+          repeat: Infinity, 
+          ease: "linear",
+          delay 
+        }}
+        style={{ transformStyle: 'preserve-3d' }}
+        className="relative"
+      >
+        {/* Glow effect */}
+        <motion.div 
+          className="absolute inset-0 blur-xl rounded-full"
+          style={{ backgroundColor: color }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 0.2 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay }}
+        />
+        
+        {/* Icon */}
+        <Icon 
+          className="w-20 h-20 relative z-10" 
+          style={{ color }}
+          strokeWidth={1}
+        />
+      </motion.div>
+    </div>
+  );
+};
+
+export const ProofSection = ({ className = '' }) => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  return (
+    <div className={className} data-testid="proof-section" style={{ overflow: 'visible' }} ref={sectionRef}>
       {/* Stats Grid with Light Coordinator */}
       <LightCoordinator cardCount={stats.length}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12" style={{ overflow: 'visible' }}>
@@ -69,33 +110,50 @@ export const ProofSection = ({ className = '' }) => {
             return (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ 
+                  delay: i * 0.1, 
+                  duration: 0.6,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
                 style={{ overflow: 'visible' }}
               >
                 <HUDFrame 
-                  className="h-full bg-black/20 border border-[hsl(var(--border))] overflow-hidden" 
+                  className="h-full bg-black/40 backdrop-blur-sm border border-[hsl(var(--border))] overflow-hidden" 
                   animated={true}
                   cardIndex={i}
                   totalCards={stats.length}
                 >
-                  {/* Background Icon - Large, faded, positioned in lower right */}
-                  <div className="absolute -bottom-4 -right-4 opacity-10 pointer-events-none">
-                    <Icon 
-                      className="w-24 h-24" 
-                      style={{ color: stat.color }}
-                      strokeWidth={1.5}
+                  {/* 3D Rotating Background Icon */}
+                  <div className="absolute -bottom-2 -right-2 opacity-15 pointer-events-none">
+                    <Rotating3DIcon 
+                      icon={Icon} 
+                      color={stat.color} 
+                      isInView={isInView}
+                      delay={i * 0.2}
                     />
                   </div>
                   
                   {/* Content */}
                   <div className="relative z-10 text-center">
-                    <div className="text-3xl font-bold font-mono" style={{ color: stat.color }}>
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">{stat.label}</div>
+                    <motion.div 
+                      className="text-3xl font-bold font-mono" 
+                      style={{ color: stat.color }}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                      transition={{ delay: i * 0.1 + 0.2, duration: 0.4, type: "spring" }}
+                    >
+                      <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={isInView} />
+                    </motion.div>
+                    <motion.div 
+                      className="text-xs text-[hsl(var(--muted-foreground))] mt-1"
+                      initial={{ opacity: 0 }}
+                      animate={isInView ? { opacity: 1 } : {}}
+                      transition={{ delay: i * 0.1 + 0.3 }}
+                    >
+                      {stat.label}
+                    </motion.div>
                   </div>
                 </HUDFrame>
               </motion.div>
@@ -104,19 +162,31 @@ export const ProofSection = ({ className = '' }) => {
         </div>
       </LightCoordinator>
 
-      {/* Testimonials */}
+      {/* Testimonials with scroll-triggered animations */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {testimonials.map((testimonial, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 + i * 0.1 }}
-            className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] relative"
+            initial={{ opacity: 0, y: 40, rotateX: -10 }}
+            animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+            transition={{ 
+              delay: 0.4 + i * 0.15, 
+              duration: 0.6,
+              ease: [0.25, 0.1, 0.25, 1]
+            }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] relative group cursor-pointer"
+            style={{ perspective: '1000px' }}
           >
-            {/* Quote mark */}
-            <div className="absolute -top-3 left-6 text-4xl text-[#00E5FF]/30 font-serif">"</div>
+            {/* Quote mark with animation */}
+            <motion.div 
+              className="absolute -top-3 left-6 text-4xl text-[#00E5FF]/30 font-serif"
+              initial={{ scale: 0, rotate: -20 }}
+              animate={isInView ? { scale: 1, rotate: 0 } : {}}
+              transition={{ delay: 0.5 + i * 0.15, type: "spring", stiffness: 200 }}
+            >
+              "
+            </motion.div>
             
             <p className="text-sm text-[hsl(var(--foreground))] mb-4 italic">
               "{testimonial.quote}"
@@ -131,33 +201,57 @@ export const ProofSection = ({ className = '' }) => {
                   {testimonial.role}
                 </div>
               </div>
-              <div className="px-2 py-1 rounded bg-[#4CAF50]/20 text-[#4CAF50] text-xs font-bold">
+              <motion.div 
+                className="px-2 py-1 rounded bg-[#4CAF50]/20 text-[#4CAF50] text-xs font-bold"
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ delay: 0.6 + i * 0.15, type: "spring" }}
+              >
                 {testimonial.metric}
-              </div>
+              </motion.div>
             </div>
+            
+            {/* Hover glow effect */}
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              style={{ 
+                background: 'radial-gradient(circle at center, rgba(0,229,255,0.05), transparent 70%)'
+              }}
+            />
           </motion.div>
         ))}
       </div>
 
-      {/* Trust indicators */}
+      {/* Trust indicators with staggered animation */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.8, duration: 0.5 }}
         className="flex flex-wrap items-center justify-center gap-6 mt-10 pt-8 border-t border-[hsl(var(--border))]"
       >
-        <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
-          <Star className="w-4 h-4 text-[#FF6A00]" />
-          <span><strong className="text-[hsl(var(--foreground))]">4.9/5</strong> Average Rating</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
-          <CheckCircle className="w-4 h-4 text-[#4CAF50]" />
-          <span><strong className="text-[hsl(var(--foreground))]">100%</strong> Project Completion</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]">
-          <TrendingUp className="w-4 h-4 text-[#00E5FF]" />
-          <span><strong className="text-[hsl(var(--foreground))]">3.2x</strong> Avg. Client ROI</span>
-        </div>
+        {[
+          { icon: Star, color: '#FF6A00', label: '4.9/5', sublabel: 'Average Rating' },
+          { icon: CheckCircle, color: '#4CAF50', label: '100%', sublabel: 'Project Completion' },
+          { icon: TrendingUp, color: '#00E5FF', label: '3.2x', sublabel: 'Avg. Client ROI' },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))]"
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.9 + i * 0.1 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+            >
+              <item.icon className="w-4 h-4" style={{ color: item.color }} />
+            </motion.div>
+            <span>
+              <strong className="text-[hsl(var(--foreground))]">{item.label}</strong> {item.sublabel}
+            </span>
+          </motion.div>
+        ))}
       </motion.div>
     </div>
   );
