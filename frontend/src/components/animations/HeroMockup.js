@@ -138,10 +138,10 @@ export const HeroMockup = () => {
       transition={{ ...smoothSpring, delay }}
     >
       <div className="flex items-end gap-1">
-        <div className="bg-slate-800/95 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-br-sm max-w-[100px] leading-relaxed shadow-sm">
+        <div className="bg-blue-600 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-br-sm max-w-[100px] leading-relaxed shadow-md">
           {children}
         </div>
-        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-300 to-orange-400 flex-shrink-0 flex items-center justify-center text-[6px] font-bold text-white shadow-sm">U</div>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0 flex items-center justify-center text-[6px] font-bold text-white shadow-sm">U</div>
       </div>
     </motion.div>
   );
@@ -157,7 +157,7 @@ export const HeroMockup = () => {
         <div className="w-4 h-4 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm">
           <Bot className="w-2.5 h-2.5 text-slate-800" />
         </div>
-        <div className="bg-slate-700/95 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-bl-sm max-w-[100px] leading-relaxed shadow-sm">
+        <div className="bg-slate-600 text-white text-[8px] px-2 py-1.5 rounded-xl rounded-bl-sm max-w-[100px] leading-relaxed shadow-md">
           {children}
         </div>
       </div>
