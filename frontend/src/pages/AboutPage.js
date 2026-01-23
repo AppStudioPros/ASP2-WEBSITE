@@ -291,17 +291,34 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 max-w-lg w-full"
+                className="max-w-lg w-full"
               >
-                <div 
-                  className="w-20 h-20 rounded-full mb-6 flex items-center justify-center text-3xl font-bold"
-                  style={{ backgroundColor: `${member.color}20`, color: member.color }}
+                <HUDFrame 
+                  className="bg-black/20 border border-[hsl(var(--border))] overflow-hidden"
+                  animated={true}
+                  singleCard={true}
                 >
-                  {member.name.split(' ').map(n => n[0]).join('')}
-                </div>
-                <h3 className="text-xl font-semibold text-[hsl(var(--foreground))] mb-1">{member.name}</h3>
-                <div className="text-sm font-mono mb-4" style={{ color: member.color }}>{member.role}</div>
-                <p className="text-[hsl(var(--muted-foreground))] text-sm leading-relaxed">{member.bio}</p>
+                  {/* Background Icon */}
+                  <div className="absolute -bottom-6 -right-6 opacity-10 pointer-events-none">
+                    <Users 
+                      className="w-32 h-32" 
+                      style={{ color: member.color }}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div 
+                      className="w-20 h-20 rounded-full mb-6 flex items-center justify-center text-3xl font-bold"
+                      style={{ backgroundColor: `${member.color}20`, color: member.color }}
+                    >
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <h3 className="text-xl font-semibold text-[hsl(var(--foreground))] mb-1">{member.name}</h3>
+                    <div className="text-sm font-mono mb-4" style={{ color: member.color }}>{member.role}</div>
+                    <p className="text-[hsl(var(--muted-foreground))] text-sm leading-relaxed">{member.bio}</p>
+                  </div>
+                </HUDFrame>
               </motion.div>
             ))}
           </div>
