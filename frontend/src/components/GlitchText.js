@@ -155,7 +155,7 @@ export const HUDFrame = ({
   totalCards = 1,
 }) => {
   return (
-    <div className={`relative p-6 ${className}`}>
+    <div className={`relative p-6 ${className}`} style={{ overflow: 'visible' }}>
       {/* Add animated corner bracket light */}
       {animated && (
         <CornerBracketLight 
