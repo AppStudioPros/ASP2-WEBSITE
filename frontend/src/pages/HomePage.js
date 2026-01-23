@@ -29,60 +29,106 @@ const HomePage = () => {
         className="relative min-h-screen flex items-center overflow-hidden pt-16"
         data-testid="hero-section"
       >
-        {/* Futuristic Office Background Scene */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Gradient fade to see grid through */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/60 via-[hsl(var(--background))]/40 to-[hsl(var(--background))]/80" />
+        {/* Android Working on HUD Background Scene */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Gradient overlay to show grid through */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/70 via-[hsl(var(--background))]/50 to-[hsl(var(--background))]/70 z-10" />
           
-          {/* Futuristic office silhouette - androids building apps */}
-          <div className="absolute bottom-0 left-0 right-0 h-[40vh] flex items-end justify-center opacity-20">
-            <svg viewBox="0 0 1200 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              {/* Desk surfaces */}
-              <rect x="100" y="300" width="200" height="8" fill="#00E5FF" opacity="0.3" />
-              <rect x="400" y="280" width="250" height="8" fill="#00E5FF" opacity="0.3" />
-              <rect x="750" y="290" width="220" height="8" fill="#FF6A00" opacity="0.3" />
+          {/* Android/Robot working on futuristic interface */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[60%] h-[80%] opacity-25">
+            <svg viewBox="0 0 800 800" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              {/* Large HUD/Interface Screen */}
+              <rect x="100" y="150" width="500" height="400" fill="none" stroke="#00E5FF" strokeWidth="2" opacity="0.6" />
+              <rect x="110" y="160" width="480" height="380" fill="#00E5FF" opacity="0.05" />
               
-              {/* Android/Robot figures (simplified) */}
-              {/* Android 1 - sitting at desk */}
-              <rect x="150" y="220" width="50" height="80" rx="25" fill="#00E5FF" opacity="0.4" />
-              <circle cx="175" cy="200" r="25" fill="#00E5FF" opacity="0.4" />
-              <rect x="140" y="240" width="15" height="40" fill="#00E5FF" opacity="0.3" />
-              <rect x="195" y="240" width="15" height="40" fill="#00E5FF" opacity="0.3" />
+              {/* Screen sections */}
+              <line x1="100" y1="200" x2="600" y2="200" stroke="#00E5FF" strokeWidth="1" opacity="0.4" />
+              <line x1="350" y1="200" x2="350" y2="550" stroke="#00E5FF" strokeWidth="1" opacity="0.4" />
               
-              {/* Android 2 - at standing desk */}
-              <rect x="500" y="180" width="50" height="100" rx="25" fill="#FF6A00" opacity="0.4" />
-              <circle cx="525" cy="160" r="25" fill="#FF6A00" opacity="0.4" />
+              {/* Code lines on screen */}
+              <line x1="120" y1="220" x2="320" y2="220" stroke="#00E5FF" strokeWidth="2" opacity="0.5" />
+              <line x1="120" y1="250" x2="300" y2="250" stroke="#00E5FF" strokeWidth="2" opacity="0.4" />
+              <line x1="120" y1="280" x2="310" y2="280" stroke="#00E5FF" strokeWidth="2" opacity="0.5" />
+              <line x1="120" y1="310" x2="280" y2="310" stroke="#00E5FF" strokeWidth="2" opacity="0.4" />
+              <line x1="120" y1="340" x2="320" y2="340" stroke="#00E5FF" strokeWidth="2" opacity="0.5" />
               
-              {/* Android 3 - walking */}
-              <rect x="850" y="200" width="50" height="90" rx="25" fill="#00E5FF" opacity="0.4" />
-              <circle cx="875" cy="180" r="25" fill="#00E5FF" opacity="0.4" />
+              {/* Charts/graphs on right side */}
+              <polyline points="380,250 420,230 460,260 500,220 540,240" fill="none" stroke="#FF6A00" strokeWidth="2" opacity="0.5" />
+              <rect x="380" y="300" width="40" height="80" fill="#00E5FF" opacity="0.3" />
+              <rect x="430" y="320" width="40" height="60" fill="#00E5FF" opacity="0.4" />
+              <rect x="480" y="280" width="40" height="100" fill="#00E5FF" opacity="0.3" />
+              <rect x="530" y="310" width="40" height="70" fill="#00E5FF" opacity="0.4" />
               
-              {/* Floating holograms/screens */}
-              <rect x="130" y="180" width="80" height="50" fill="#00E5FF" opacity="0.2" stroke="#00E5FF" strokeWidth="2" />
-              <rect x="480" y="100" width="90" height="60" fill="#FF6A00" opacity="0.2" stroke="#FF6A00" strokeWidth="2" />
-              <rect x="820" y="150" width="70" height="45" fill="#00E5FF" opacity="0.2" stroke="#00E5FF" strokeWidth="2" />
+              {/* Android/Robot figure - simplified humanoid shape */}
+              {/* Head */}
+              <circle cx="700" cy="300" r="40" fill="none" stroke="#00E5FF" strokeWidth="3" opacity="0.6" />
+              <circle cx="690" cy="295" r="5" fill="#00E5FF" opacity="0.8" />
+              <circle cx="710" cy="295" r="5" fill="#00E5FF" opacity="0.8" />
+              <path d="M 685 315 Q 700 320 715 315" fill="none" stroke="#00E5FF" strokeWidth="2" opacity="0.6" />
               
-              {/* Code lines on holograms */}
-              <line x1="140" y1="195" x2="200" y2="195" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
-              <line x1="140" y1="205" x2="195" y2="205" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
-              <line x1="140" y1="215" x2="185" y2="215" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              {/* Body */}
+              <rect x="670" y="340" width="60" height="120" rx="10" fill="none" stroke="#00E5FF" strokeWidth="3" opacity="0.6" />
+              <line x1="700" y1="360" x2="700" y2="440" stroke="#00E5FF" strokeWidth="1" opacity="0.4" />
+              <line x1="675" y1="380" x2="725" y2="380" stroke="#00E5FF" strokeWidth="1" opacity="0.4" />
               
-              <line x1="490" y1="120" x2="560" y2="120" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
-              <line x1="490" y1="130" x2="555" y2="130" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
-              <line x1="490" y1="140" x2="545" y2="140" stroke="#FF6A00" strokeWidth="1" opacity="0.3" />
+              {/* Arms - one extended toward screen */}
+              <line x1="670" y1="360" x2="620" y2="320" stroke="#00E5FF" strokeWidth="4" opacity="0.6" />
+              <circle cx="620" cy="320" r="8" fill="#00E5FF" opacity="0.5" />
+              
+              <line x1="730" y1="360" x2="760" y2="400" stroke="#00E5FF" strokeWidth="4" opacity="0.6" />
+              <circle cx="760" cy="400" r="8" fill="#00E5FF" opacity="0.5" />
+              
+              {/* Legs */}
+              <line x1="680" y1="460" x2="680" y2="550" stroke="#00E5FF" strokeWidth="4" opacity="0.6" />
+              <line x1="720" y1="460" x2="720" y2="550" stroke="#00E5FF" strokeWidth="4" opacity="0.6" />
+              
+              {/* Holographic particles around hand */}
+              <circle cx="615" cy="315" r="3" fill="#FF6A00" opacity="0.8">
+                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="625" cy="310" r="2" fill="#00E5FF" opacity="0.8">
+                <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="610" cy="325" r="2" fill="#FF6A00" opacity="0.8">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite" />
+              </circle>
+              
+              {/* Connection line from hand to screen */}
+              <line x1="620" y1="320" x2="600" y2="280" stroke="#00E5FF" strokeWidth="1" opacity="0.3" strokeDasharray="5,5">
+                <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite" />
+              </line>
+              
+              {/* HUD elements floating around */}
+              <circle cx="200" cy="100" r="20" fill="none" stroke="#FF6A00" strokeWidth="1" opacity="0.4" />
+              <line x1="190" y1="100" x2="210" y2="100" stroke="#FF6A00" strokeWidth="1" opacity="0.4" />
+              <line x1="200" y1="90" x2="200" y2="110" stroke="#FF6A00" strokeWidth="1" opacity="0.4" />
+              
+              <rect x="500" y="80" width="60" height="40" fill="none" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              <line x1="510" y1="95" x2="550" y2="95" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              <line x1="510" y1="105" x2="540" y2="105" stroke="#00E5FF" strokeWidth="1" opacity="0.3" />
+              
+              {/* Glowing tech circles */}
+              <circle cx="150" cy="600" r="15" fill="#00E5FF" opacity="0.1">
+                <animate attributeName="r" values="15;20;15" dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="650" cy="100" r="12" fill="#FF6A00" opacity="0.1">
+                <animate attributeName="r" values="12;18;12" dur="2.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2.5s" repeatCount="indefinite" />
+              </circle>
             </svg>
           </div>
         </div>
         
         {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(0,229,255,0.12),rgba(0,0,0,0)_60%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[conic-gradient(from_200deg_at_70%_30%,rgba(255,106,0,0.08),rgba(0,0,0,0)_40%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_10%,rgba(0,229,255,0.12),rgba(0,0,0,0)_60%)] pointer-events-none z-20" />
+        <div className="absolute inset-0 bg-[conic-gradient(from_200deg_at_70%_30%,rgba(255,106,0,0.08),rgba(0,0,0,0)_40%)] pointer-events-none z-20" />
         
         {/* Particles */}
         <HeroParticles />
         
         {/* 2-COLUMN CONTENT */}
-        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-30">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             
             {/* LEFT COLUMN - Text Content */}

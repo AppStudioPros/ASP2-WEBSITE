@@ -3,7 +3,6 @@ import { Button } from './ui/button';
 import { Toaster } from './ui/sonner';
 import { ScanlineOverlay } from './GlitchText';
 import { BlueprintGrid } from './animations/BlueprintGrid';
-import { CrosshairTargets } from './animations/CrosshairTargets';
 import { FloatingParticles } from './animations/FloatingParticles';
 
 // ASP Logo Component
@@ -28,9 +27,6 @@ export const Layout = ({ children }) => {
     <div className="min-h-screen bg-[hsl(var(--background))] relative" data-testid="app-container">
       {/* Blueprint Grid Background */}
       <BlueprintGrid />
-      
-      {/* Crosshair Targets with Animated Beams */}
-      <CrosshairTargets />
       
       {/* Floating Particles */}
       <FloatingParticles />
