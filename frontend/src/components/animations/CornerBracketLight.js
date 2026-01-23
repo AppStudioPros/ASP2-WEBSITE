@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
  * - Multiple cards: staggered with more downtime
  */
 
-// The actual light trail - thin line with glowing head and fading/tapering tail
+// The actual light trail - smooth glowing line with gradient tail
 const LightBeam = ({ edge, duration, onComplete }) => {
   const isTop = edge === 'top';
   const isRight = edge === 'right';
@@ -17,19 +17,18 @@ const LightBeam = ({ edge, duration, onComplete }) => {
   const isLeft = edge === 'left';
   const horizontal = isTop || isBottom;
   
-  // Clockwise: top→right, right→down, bottom→left, left→up
-  // Stay within card borders (0% to ~95%)
+  // Clockwise movement within card borders
   const startPct = (isTop || isRight) ? 0 : 95;
   const endPct = (isTop || isRight) ? 95 : 0;
   
-  // Gradient direction for tail (tail trails behind movement)
+  // Gradient direction for smooth tail fade
   const gradientAngle = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
   
   return (
     <motion.div
       style={{
         position: 'absolute',
-        // Position exactly on the border line (2px width like brackets)
+        // Position on the border line
         ...(isTop && { top: 0, left: 0, width: '100%', height: 2 }),
         ...(isBottom && { bottom: 0, left: 0, width: '100%', height: 2 }),
         ...(isLeft && { left: 0, top: 0, width: 2, height: '100%' }),
@@ -39,31 +38,29 @@ const LightBeam = ({ edge, duration, onComplete }) => {
         zIndex: 50,
       }}
     >
-      {/* The light beam - thin line with fading tail */}
+      {/* Smooth glowing line with gradient tail */}
       <motion.div
         style={{
           position: 'absolute',
-          // 20px length (short), 2px width matching brackets
+          // Short line segment (25px) with 2px width
           ...(horizontal 
-            ? { height: 2, width: 20, top: 0 }
-            : { width: 2, height: 20, left: 0 }
+            ? { height: 2, width: 25, top: 0 }
+            : { width: 2, height: 25, left: 0 }
           ),
-          // Orange gradient: fading tail → bright head with white tip
+          // Smooth gradient: transparent tail → glowing head
           background: `linear-gradient(${gradientAngle}, 
             transparent 0%,
-            rgba(255,106,0,0.03) 10%,
-            rgba(255,106,0,0.1) 25%,
-            rgba(255,106,0,0.25) 40%,
-            rgba(255,106,0,0.5) 55%,
-            rgba(255,106,0,0.75) 70%,
-            rgba(255,106,0,0.95) 85%,
-            #FF6A00 95%,
-            #FFFFFF 100%
+            rgba(255,106,0,0.1) 30%,
+            rgba(255,106,0,0.4) 50%,
+            rgba(255,106,0,0.7) 70%,
+            rgba(255,106,0,1) 90%,
+            rgba(255,180,100,1) 100%
           )`,
-          // Subtle glow
+          // Smooth glow effect
           boxShadow: `
-            0 0 3px 1px rgba(255,106,0,0.6),
-            0 0 6px 2px rgba(255,106,0,0.25)
+            0 0 4px 1px rgba(255,106,0,0.8),
+            0 0 8px 2px rgba(255,106,0,0.4),
+            0 0 12px 4px rgba(255,106,0,0.2)
           `,
           borderRadius: 1,
         }}
