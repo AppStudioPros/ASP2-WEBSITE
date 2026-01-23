@@ -52,6 +52,9 @@ const milestones = [
 ];
 
 const AboutPage = () => {
+  const storyCardRef = useRef(null);
+  const isStoryCardInView = useInView(storyCardRef, { once: true, margin: "-100px" });
+
   return (
     <>
       {/* Hero Section */}
