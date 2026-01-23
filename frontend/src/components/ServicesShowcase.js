@@ -633,46 +633,60 @@ const CloudVisual = () => {
 const AIVisual = () => {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [currentMsgIndex, setCurrentMsgIndex] = useState(0);
   const mountedRef = useRef(true);
+  const processedRef = useRef(new Set());
   
   const conversation = [
-    { role: 'user', text: 'Can you add automation to handle form submissions?' },
-    { role: 'ai', text: 'I can set up automated email responses, data validation, and CRM integration for your forms.' },
-    { role: 'user', text: 'Great! What about scheduling follow-ups?' },
-    { role: 'ai', text: 'I\'ll implement automated follow-up sequences with customizable timing and personalized messages.' },
+    { id: 1, role: 'user', text: 'Can you add automation to handle form submissions?' },
+    { id: 2, role: 'ai', text: 'I can set up automated email responses, data validation, and CRM integration for your forms.' },
+    { id: 3, role: 'user', text: 'Great! What about scheduling follow-ups?' },
+    { id: 4, role: 'ai', text: 'I\'ll implement automated follow-up sequences with customizable timing and personalized messages.' },
   ];
 
   useEffect(() => {
     mountedRef.current = true;
+    processedRef.current = new Set();
     setMessages([]);
-    setCurrentMsgIndex(0);
+    setIsTyping(false);
+    
+    let timeoutId;
     
     const addNextMessage = (index) => {
       if (!mountedRef.current || index >= conversation.length) return;
       
       const msg = conversation[index];
       
+      // Skip if already processed
+      if (processedRef.current.has(msg.id)) return;
+      processedRef.current.add(msg.id);
+      
       if (msg.role === 'ai') {
         setIsTyping(true);
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           if (!mountedRef.current) return;
           setIsTyping(false);
-          setMessages(prev => [...prev, msg]);
-          setCurrentMsgIndex(index + 1);
-          setTimeout(() => addNextMessage(index + 1), 1500);
+          setMessages(prev => {
+            // Prevent duplicates
+            if (prev.some(m => m.id === msg.id)) return prev;
+            return [...prev, msg];
+          });
+          timeoutId = setTimeout(() => addNextMessage(index + 1), 1500);
         }, 1500);
       } else {
-        setMessages(prev => [...prev, msg]);
-        setCurrentMsgIndex(index + 1);
-        setTimeout(() => addNextMessage(index + 1), 1200);
+        setMessages(prev => {
+          // Prevent duplicates
+          if (prev.some(m => m.id === msg.id)) return prev;
+          return [...prev, msg];
+        });
+        timeoutId = setTimeout(() => addNextMessage(index + 1), 1200);
       }
     };
     
-    setTimeout(() => addNextMessage(0), 800);
+    timeoutId = setTimeout(() => addNextMessage(0), 800);
     
     return () => {
       mountedRef.current = false;
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
 
