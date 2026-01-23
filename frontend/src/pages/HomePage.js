@@ -19,6 +19,7 @@ import { ServicesPreview } from '../components/ServicesPreview';
 import { WorkSection } from '../components/WorkSection';
 import { CompanyAbout } from '../components/CompanyAbout';
 import { TerminalBadge } from '../components/TerminalBadge';
+import { HeroMockup } from '../components/animations/HeroMockup';
 
 const HomePage = () => {
   return (
