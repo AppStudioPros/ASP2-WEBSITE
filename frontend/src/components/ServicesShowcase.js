@@ -122,6 +122,7 @@ const WebDevVisual = () => {
       mountedRef.current = false;
       clearTimeout(timeout);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -688,6 +689,7 @@ const AIVisual = () => {
       mountedRef.current = false;
       if (timeoutId) clearTimeout(timeoutId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
