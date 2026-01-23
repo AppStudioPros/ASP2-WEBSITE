@@ -472,7 +472,7 @@ export const HeroMockup = () => {
         </div>
 
         {/* BOTTOM - Code Editor */}
-        <div className="h-[190px] bg-[#0d1117] p-3 border-t border-slate-800/50 flex flex-col">
+        <div className="h-[180px] bg-[#0d1117] p-3 border-t border-slate-800/50 flex flex-col">
           {/* Editor Header */}
           <div className="flex items-center gap-2 mb-2 pb-2 border-b border-gray-800/50">
             <Terminal className="w-3 h-3 text-[#FF6A00]" />
