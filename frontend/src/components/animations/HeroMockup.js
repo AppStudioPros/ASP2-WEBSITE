@@ -367,9 +367,9 @@ export const HeroMockup = () => {
                   
                   {/* Phone Screen */}
                   <div className="absolute inset-1.5 rounded-[20px] overflow-hidden">
-                    {/* Background */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-600 via-slate-500 to-slate-700">
-                      <svg className="absolute bottom-0 left-0 right-0 h-16 opacity-30" viewBox="0 0 200 100" preserveAspectRatio="none">
+                    {/* Background - darker for better contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800">
+                      <svg className="absolute bottom-0 left-0 right-0 h-14 opacity-20" viewBox="0 0 200 100" preserveAspectRatio="none">
                         <path d="M0,100 L0,60 L30,40 L60,70 L90,30 L120,60 L150,45 L180,65 L200,50 L200,100 Z" fill="#1e293b"/>
                         <path d="M0,100 L0,80 L40,60 L80,85 L120,55 L160,75 L200,65 L200,100 Z" fill="#0f172a"/>
                       </svg>
