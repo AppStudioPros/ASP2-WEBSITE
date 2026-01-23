@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
  * - Multiple cards: staggered with more downtime
  */
 
-// The actual light trail - smooth glowing line with gradient tail
+// The actual light trail - simple orange dash that fades to transparent
 const LightBeam = ({ edge, duration, onComplete }) => {
   const isTop = edge === 'top';
   const isRight = edge === 'right';
@@ -21,7 +21,7 @@ const LightBeam = ({ edge, duration, onComplete }) => {
   const startPct = (isTop || isRight) ? 0 : 95;
   const endPct = (isTop || isRight) ? 95 : 0;
   
-  // Gradient direction for smooth tail fade
+  // Gradient direction for fade (tail fades to transparent)
   const gradientAngle = isTop ? '90deg' : isRight ? '180deg' : isBottom ? '270deg' : '0deg';
   
   return (
@@ -38,31 +38,23 @@ const LightBeam = ({ edge, duration, onComplete }) => {
         zIndex: 50,
       }}
     >
-      {/* Smooth glowing line with gradient tail */}
+      {/* Simple orange dash with fading tail - NO glow */}
       <motion.div
         style={{
           position: 'absolute',
-          // Short line segment (25px) with 2px width
+          // 2px thickness (same as brackets), 25px length
           ...(horizontal 
             ? { height: 2, width: 25, top: 0 }
             : { width: 2, height: 25, left: 0 }
           ),
-          // Smooth gradient: transparent tail → glowing head
+          // Simple gradient: transparent → orange (no glow, just fade)
           background: `linear-gradient(${gradientAngle}, 
             transparent 0%,
-            rgba(255,106,0,0.1) 30%,
-            rgba(255,106,0,0.4) 50%,
+            rgba(255,106,0,0.3) 40%,
             rgba(255,106,0,0.7) 70%,
-            rgba(255,106,0,1) 90%,
-            rgba(255,180,100,1) 100%
+            #FF6A00 100%
           )`,
-          // Smooth glow effect
-          boxShadow: `
-            0 0 4px 1px rgba(255,106,0,0.8),
-            0 0 8px 2px rgba(255,106,0,0.4),
-            0 0 12px 4px rgba(255,106,0,0.2)
-          `,
-          borderRadius: 1,
+          // NO box-shadow - clean line only
         }}
         initial={{ 
           [horizontal ? 'left' : 'top']: `${startPct}%`,
