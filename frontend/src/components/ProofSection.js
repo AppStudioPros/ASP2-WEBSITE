@@ -76,7 +76,7 @@ export const ProofSection = ({ className = '' }) => {
                 style={{ overflow: 'visible' }}
               >
                 <HUDFrame 
-                  className="h-full bg-black/20 border border-[hsl(var(--border))] rounded-lg overflow-hidden" 
+                  className="h-full bg-black/20 border border-[hsl(var(--border))]" 
                   animated={true}
                   cardIndex={i}
                   totalCards={stats.length}
