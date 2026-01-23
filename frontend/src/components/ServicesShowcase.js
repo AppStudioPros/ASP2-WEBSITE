@@ -85,6 +85,7 @@ const WebDevVisual = () => {
   const [codeLines, setCodeLines] = useState([]);
   const [buildProgress, setBuildProgress] = useState(0);
   const mountedRef = useRef(true);
+  const lineIndexRef = useRef(0);
   
   const codeSnippets = [
     { num: 1, code: '<section class="hero">', color: '#FF6A00' },
@@ -98,24 +99,28 @@ const WebDevVisual = () => {
 
   useEffect(() => {
     mountedRef.current = true;
-    let lineIndex = 0;
+    lineIndexRef.current = 0;
+    setCodeLines([]);
+    setBuildProgress(0);
     
     const addLine = () => {
       if (!mountedRef.current) return;
-      if (lineIndex < codeSnippets.length) {
-        setCodeLines(prev => [...prev, codeSnippets[lineIndex]]);
-        setBuildProgress(((lineIndex + 1) / codeSnippets.length) * 100);
-        lineIndex++;
+      
+      const currentIndex = lineIndexRef.current;
+      if (currentIndex < codeSnippets.length) {
+        const snippet = codeSnippets[currentIndex];
+        setCodeLines(prev => [...prev, snippet]);
+        setBuildProgress(((currentIndex + 1) / codeSnippets.length) * 100);
+        lineIndexRef.current = currentIndex + 1;
         setTimeout(addLine, 900);
       }
     };
     
-    setTimeout(addLine, 500);
+    const timeout = setTimeout(addLine, 500);
     
     return () => {
       mountedRef.current = false;
-      setCodeLines([]);
-      setBuildProgress(0);
+      clearTimeout(timeout);
     };
   }, []);
 
