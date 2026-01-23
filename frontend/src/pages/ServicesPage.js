@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { GlitchText } from '../components/GlitchText';
+import { GlitchText, HUDFrame } from '../components/GlitchText';
 import { TerminalBadge } from '../components/TerminalBadge';
 
 const allServices = [
