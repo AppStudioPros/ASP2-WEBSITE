@@ -1,264 +1,268 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useEffect, createContext, useContext, useCallback, useRef } from 'react';
 
 /**
- * Animated light trail that moves along the border edges
- * - Short line shape with tapering trail
+ * Light trail that travels along card borders
+ * - Short line with tapering trail
  * - Clockwise movement only
- * - Appears to come from and disappear into corner brackets
+ * - Appears from and disappears into corner brackets
  */
 
-// Edge definitions with clockwise direction
-const EDGES = {
-  top: { axis: 'x', start: 0, end: 100, y: 0 },      // Left to right
-  right: { axis: 'y', start: 0, end: 100, x: 100 },  // Top to bottom
-  bottom: { axis: 'x', start: 100, end: 0, y: 100 }, // Right to left
-  left: { axis: 'y', start: 100, end: 0, x: 0 },     // Bottom to top
+// Context for coordinating lights across multiple cards
+const LightContext = createContext(null);
+
+// Provider that manages which cards can show lights (max 2 at a time)
+export const LightCoordinator = ({ children, cardCount = 4 }) => {
+  const [activeSlots, setActiveSlots] = useState([]);
+  const [cardAnimating, setCardAnimating] = useState({});
+  const pendingQueue = useRef([]);
+  
+  // Request to animate a card - returns true if allowed
+  const requestAnimation = useCallback((cardId) => {
+    // Check if already animating or if we have 2 active
+    if (cardAnimating[cardId]) return false;
+    if (activeSlots.length >= 2) {
+      // Queue for later
+      if (!pendingQueue.current.includes(cardId)) {
+        pendingQueue.current.push(cardId);
+      }
+      return false;
+    }
+    
+    setActiveSlots(prev => [...prev, cardId]);
+    setCardAnimating(prev => ({ ...prev, [cardId]: true }));
+    return true;
+  }, [activeSlots, cardAnimating]);
+  
+  // Called when a card finishes animating
+  const releaseAnimation = useCallback((cardId) => {
+    setActiveSlots(prev => prev.filter(id => id !== cardId));
+    setCardAnimating(prev => ({ ...prev, [cardId]: false }));
+    
+    // Process queue
+    setTimeout(() => {
+      if (pendingQueue.current.length > 0) {
+        const nextCard = pendingQueue.current.shift();
+        // Trigger will be handled by the card's useEffect
+      }
+    }, 300);
+  }, []);
+  
+  return (
+    <LightContext.Provider value={{ requestAnimation, releaseAnimation, activeSlots }}>
+      {children}
+    </LightContext.Provider>
+  );
 };
 
-const EDGE_ORDER = ['top', 'right', 'bottom', 'left'];
-
-// Light trail component for a single edge
-const EdgeLight = ({ edge, isActive, duration }) => {
-  const config = EDGES[edge];
-  const isHorizontal = config.axis === 'x';
-  const movingForward = config.start < config.end;
+// Edge animation component
+const EdgeTrail = ({ edge, onComplete, duration = 1.1 }) => {
+  const isTop = edge === 'top';
+  const isRight = edge === 'right';
+  const isBottom = edge === 'bottom';
+  const isLeft = edge === 'left';
   
-  // Trail gradient direction based on movement
-  const gradientAngle = isHorizontal 
-    ? (movingForward ? '90deg' : '270deg')  // Left-to-right or right-to-left
-    : (movingForward ? '180deg' : '0deg');   // Top-to-bottom or bottom-to-top
-
-  if (!isActive) return null;
-
+  const isHorizontal = isTop || isBottom;
+  
+  // Determine animation direction (clockwise)
+  // Top: left to right, Right: top to bottom, Bottom: right to left, Left: bottom to top
+  const startPos = isTop ? '-10%' : isRight ? '-10%' : isBottom ? '110%' : isLeft ? '110%' : '0%';
+  const endPos = isTop ? '110%' : isRight ? '110%' : isBottom ? '-10%' : isLeft ? '-10%' : '100%';
+  
+  // Trail gradient direction (tail faces opposite to movement)
+  const gradientDir = isTop ? 'to right' : isRight ? 'to bottom' : isBottom ? 'to left' : 'to top';
+  
   return (
     <motion.div
       className="absolute pointer-events-none"
       style={{
-        // Position on the edge
-        ...(isHorizontal ? {
-          top: config.y === 0 ? -1 : 'auto',
-          bottom: config.y === 100 ? -1 : 'auto',
-          height: 3,
-          width: 40,
-        } : {
-          left: config.x === 0 ? -1 : 'auto',
-          right: config.x === 100 ? -1 : 'auto',
-          width: 3,
-          height: 40,
-        }),
-        // Gradient trail effect - bright at front, fading tail
-        background: `linear-gradient(${gradientAngle}, 
-          transparent 0%, 
-          rgba(255,106,0,0.1) 20%,
-          rgba(255,106,0,0.4) 50%,
-          rgba(255,106,0,0.8) 80%,
-          rgba(255,255,255,1) 95%,
-          rgba(255,106,0,1) 100%
-        )`,
-        boxShadow: '0 0 8px 2px rgba(255,106,0,0.6)',
-        borderRadius: 2,
+        // Position on edge
+        ...(isTop && { top: -1, left: 0, right: 0, height: 3 }),
+        ...(isBottom && { bottom: -1, left: 0, right: 0, height: 3 }),
+        ...(isLeft && { left: -1, top: 0, bottom: 0, width: 3 }),
+        ...(isRight && { right: -1, top: 0, bottom: 0, width: 3 }),
         zIndex: 30,
       }}
-      initial={{
-        [isHorizontal ? 'left' : 'top']: `${config.start}%`,
-        opacity: 0,
-      }}
-      animate={{
-        [isHorizontal ? 'left' : 'top']: [`${config.start}%`, `${config.end}%`],
-        opacity: [0, 1, 1, 1, 0],
-      }}
-      transition={{
-        duration: duration,
-        ease: "linear",
-        opacity: {
-          times: [0, 0.05, 0.5, 0.95, 1],
+    >
+      <motion.div
+        style={{
+          position: 'absolute',
+          ...(isHorizontal ? { 
+            width: 50, 
+            height: '100%',
+            top: 0,
+          } : { 
+            height: 50, 
+            width: '100%',
+            left: 0,
+          }),
+          background: `linear-gradient(${gradientDir}, 
+            transparent 0%,
+            rgba(255,106,0,0.2) 30%,
+            rgba(255,106,0,0.6) 60%,
+            rgba(255,255,255,0.9) 90%,
+            #FF6A00 100%
+          )`,
+          boxShadow: '0 0 12px 4px rgba(255,106,0,0.7), 0 0 20px 8px rgba(255,106,0,0.3)',
+          borderRadius: 2,
+        }}
+        initial={{ 
+          [isHorizontal ? 'left' : 'top']: startPos,
+          opacity: 0 
+        }}
+        animate={{ 
+          [isHorizontal ? 'left' : 'top']: endPos,
+          opacity: [0, 1, 1, 1, 0]
+        }}
+        transition={{
           duration: duration,
-        }
-      }}
-    />
+          ease: 'linear',
+          opacity: { times: [0, 0.1, 0.5, 0.9, 1] }
+        }}
+        onAnimationComplete={onComplete}
+      />
+    </motion.div>
   );
 };
 
+// Main corner bracket light component
 export const CornerBracketLight = ({ 
-  delay = 0, 
-  duration = 1.1,  // 10% slower (was ~1s effective, now 1.1s per edge)
-  cardIndex = 0,   // Used for coordination
-  totalCards = 1,  // Total cards in the group
-  onAnimationComplete,
+  cardIndex = 0,
+  totalCards = 4,
 }) => {
   const [activeEdge, setActiveEdge] = useState(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  // Generate a unique sequence pattern based on card index
-  const getSequencePattern = useCallback(() => {
-    // Different starting edges and patterns per card
-    const patterns = [
-      ['top', 'right'],
-      ['right', 'bottom'],
-      ['bottom', 'left'],
-      ['left', 'top'],
-      ['top', 'bottom'],
-      ['right', 'left'],
-      ['bottom', 'top'],
-      ['left', 'right'],
-    ];
-    return patterns[cardIndex % patterns.length];
-  }, [cardIndex]);
-
-  // Start animation for a specific edge
-  const animateEdge = useCallback((edge) => {
-    setActiveEdge(edge);
-    setIsAnimating(true);
-    
-    // Clear after animation completes
-    setTimeout(() => {
-      setActiveEdge(null);
-      setIsAnimating(false);
-      onAnimationComplete?.(cardIndex);
-    }, duration * 1000);
-  }, [duration, cardIndex, onAnimationComplete]);
-
-  // Expose method to trigger animation externally
+  const [isInView, setIsInView] = useState(false);
+  const context = useContext(LightContext);
+  const componentRef = useRef(null);
+  const animationTimeoutRef = useRef(null);
+  
+  // Generate unique sequence for this card based on index
+  const edges = ['top', 'right', 'bottom', 'left'];
+  const sequenceRef = useRef(
+    // Shuffle edges uniquely per card
+    [...edges].sort(() => {
+      const seed = (cardIndex + 1) * 7919; // Prime number for better distribution
+      return Math.sin(seed) - 0.5;
+    })
+  );
+  const edgeIndexRef = useRef(0);
+  
+  // Check if in viewport
   useEffect(() => {
-    // Store the animate function on the window for coordinator access
-    const key = `animateCard_${cardIndex}`;
-    window[key] = animateEdge;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    
+    if (componentRef.current) {
+      observer.observe(componentRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+  
+  // Schedule animations
+  useEffect(() => {
+    if (!isInView) return;
+    
+    // Random initial delay per card (stagger them)
+    const initialDelay = 500 + (cardIndex * 800) + (Math.random() * 1500);
+    
+    const scheduleNextAnimation = () => {
+      // Try to get animation slot
+      const canAnimate = context?.requestAnimation?.(cardIndex) ?? true;
+      
+      if (canAnimate && !activeEdge) {
+        const edge = sequenceRef.current[edgeIndexRef.current % 4];
+        edgeIndexRef.current++;
+        setActiveEdge(edge);
+      } else {
+        // Retry after delay
+        animationTimeoutRef.current = setTimeout(scheduleNextAnimation, 1000 + Math.random() * 1500);
+      }
+    };
+    
+    animationTimeoutRef.current = setTimeout(scheduleNextAnimation, initialDelay);
     
     return () => {
-      delete window[key];
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
     };
-  }, [animateEdge, cardIndex]);
-
+  }, [isInView, cardIndex, context, activeEdge]);
+  
+  // Handle animation complete
+  const handleComplete = useCallback(() => {
+    setActiveEdge(null);
+    context?.releaseAnimation?.(cardIndex);
+    
+    // Schedule next animation after a pause
+    const nextDelay = 2500 + Math.random() * 3000;
+    animationTimeoutRef.current = setTimeout(() => {
+      if (isInView) {
+        const canAnimate = context?.requestAnimation?.(cardIndex) ?? true;
+        if (canAnimate) {
+          const edge = sequenceRef.current[edgeIndexRef.current % 4];
+          edgeIndexRef.current++;
+          setActiveEdge(edge);
+        }
+      }
+    }, nextDelay);
+  }, [cardIndex, context, isInView]);
+  
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 25 }}>
-      {EDGE_ORDER.map(edge => (
-        <EdgeLight 
-          key={edge}
-          edge={edge}
-          isActive={activeEdge === edge}
-          duration={duration}
+    <div 
+      ref={componentRef}
+      className="absolute inset-0 pointer-events-none overflow-visible"
+      style={{ zIndex: 25 }}
+    >
+      {activeEdge && (
+        <EdgeTrail 
+          edge={activeEdge} 
+          onComplete={handleComplete}
+          duration={1.1}
         />
-      ))}
+      )}
     </div>
   );
 };
 
-/**
- * Coordinator component that manages light animations across multiple cards
- * Ensures only 2 lights are active at any time, spread across different cards
- */
-export const LightCoordinator = ({ children, cardCount = 4 }) => {
-  const [activeAnimations, setActiveAnimations] = useState(new Set());
-  const duration = 1.1; // Match the light duration
+// Simple version without coordinator (for single cards)
+export const SimpleCornerLight = ({ delay = 0 }) => {
+  const [activeEdge, setActiveEdge] = useState(null);
+  const edges = ['top', 'right', 'bottom', 'left'];
+  const edgeIndex = useRef(0);
   
-  // Generate random sequences for each card
-  const [cardSequences] = useState(() => {
-    const edges = ['top', 'right', 'bottom', 'left'];
-    return Array.from({ length: cardCount }, (_, i) => {
-      // Shuffle edges differently for each card
-      const shuffled = [...edges].sort(() => Math.random() - 0.5);
-      // Add random delays between sequences
-      return {
-        edges: shuffled,
-        baseDelay: Math.random() * 2000, // 0-2s initial delay
-        betweenDelay: 1500 + Math.random() * 2000, // 1.5-3.5s between animations
-      };
-    });
-  });
-
-  const [cardEdgeIndex, setCardEdgeIndex] = useState(() => 
-    Array.from({ length: cardCount }, () => 0)
-  );
-
-  // Trigger next animation for a card
-  const triggerAnimation = useCallback((cardIndex) => {
-    if (activeAnimations.size >= 2) return false;
-    if (activeAnimations.has(cardIndex)) return false;
-    
-    const sequence = cardSequences[cardIndex];
-    const edgeIndex = cardEdgeIndex[cardIndex];
-    const edge = sequence.edges[edgeIndex % sequence.edges.length];
-    
-    // Call the card's animate function
-    const animateFn = window[`animateCard_${cardIndex}`];
-    if (animateFn) {
-      setActiveAnimations(prev => new Set([...prev, cardIndex]));
-      animateFn(edge);
-      
-      // Update edge index for next animation
-      setCardEdgeIndex(prev => {
-        const next = [...prev];
-        next[cardIndex] = (edgeIndex + 1) % 4;
-        return next;
-      });
-      
-      return true;
-    }
-    return false;
-  }, [activeAnimations, cardSequences, cardEdgeIndex]);
-
-  // Handle animation completion
-  const handleComplete = useCallback((cardIndex) => {
-    setActiveAnimations(prev => {
-      const next = new Set(prev);
-      next.delete(cardIndex);
-      return next;
-    });
-  }, []);
-
-  // Main animation loop
   useEffect(() => {
-    let timeouts = [];
+    const runAnimation = () => {
+      const edge = edges[edgeIndex.current % 4];
+      edgeIndex.current++;
+      setActiveEdge(edge);
+    };
     
-    const scheduleNextAnimation = () => {
-      // Find cards that aren't currently animating
-      const availableCards = Array.from({ length: cardCount }, (_, i) => i)
-        .filter(i => !activeAnimations.has(i));
-      
-      if (availableCards.length === 0 || activeAnimations.size >= 2) {
-        // Wait and try again
-        const timeout = setTimeout(scheduleNextAnimation, 500);
-        timeouts.push(timeout);
-        return;
-      }
-      
-      // Pick a random available card
-      const randomCard = availableCards[Math.floor(Math.random() * availableCards.length)];
-      triggerAnimation(randomCard);
-      
-      // Schedule next check
-      const delay = 800 + Math.random() * 1200; // Stagger timing
-      const timeout = setTimeout(scheduleNextAnimation, delay);
-      timeouts.push(timeout);
-    };
-
-    // Initial staggered start
-    cardSequences.forEach((seq, i) => {
-      const timeout = setTimeout(() => {
-        if (activeAnimations.size < 2) {
-          triggerAnimation(i);
-        }
-      }, seq.baseDelay);
-      timeouts.push(timeout);
-    });
-
-    // Start the main loop after initial animations
-    const mainTimeout = setTimeout(scheduleNextAnimation, 3000);
-    timeouts.push(mainTimeout);
-
-    return () => {
-      timeouts.forEach(t => clearTimeout(t));
-    };
-  }, [cardCount, triggerAnimation, activeAnimations, cardSequences]);
-
-  // Provide completion handler to children
+    const initialTimeout = setTimeout(runAnimation, delay * 1000);
+    
+    return () => clearTimeout(initialTimeout);
+  }, [delay]);
+  
+  const handleComplete = useCallback(() => {
+    setActiveEdge(null);
+    setTimeout(() => {
+      const edge = edges[edgeIndex.current % 4];
+      edgeIndex.current++;
+      setActiveEdge(edge);
+    }, 2000 + Math.random() * 2000);
+  }, []);
+  
   return (
-    <>
-      {typeof children === 'function' 
-        ? children({ onAnimationComplete: handleComplete })
-        : children
-      }
-    </>
+    <div className="absolute inset-0 pointer-events-none overflow-visible" style={{ zIndex: 25 }}>
+      {activeEdge && (
+        <EdgeTrail 
+          edge={activeEdge} 
+          onComplete={handleComplete}
+          duration={1.1}
+        />
+      )}
+    </div>
   );
 };
