@@ -60,42 +60,6 @@ const AnimatedCounter = ({ value, suffix = '', duration = 2000, inView }) => {
   return <span>{displayValue}{suffix}</span>;
 };
 
-// 3D Rotating Icon Component
-const Rotating3DIcon = ({ icon: Icon, color, isInView, delay = 0 }) => {
-  return (
-    <div className="relative" style={{ perspective: '600px' }}>
-      <motion.div
-        initial={{ rotateY: 0 }}
-        animate={isInView ? { rotateY: 360 } : { rotateY: 0 }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "linear",
-          delay 
-        }}
-        style={{ transformStyle: 'preserve-3d' }}
-        className="relative"
-      >
-        {/* Glow effect */}
-        <motion.div 
-          className="absolute inset-0 blur-xl rounded-full"
-          style={{ backgroundColor: color }}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 0.2 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay }}
-        />
-        
-        {/* Icon */}
-        <Icon 
-          className="w-20 h-20 relative z-10" 
-          style={{ color }}
-          strokeWidth={1}
-        />
-      </motion.div>
-    </div>
-  );
-};
-
 export const ProofSection = ({ className = '' }) => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -125,13 +89,12 @@ export const ProofSection = ({ className = '' }) => {
                   cardIndex={i}
                   totalCards={stats.length}
                 >
-                  {/* 3D Rotating Background Icon */}
-                  <div className="absolute -bottom-2 -right-2 opacity-15 pointer-events-none">
-                    <Rotating3DIcon 
-                      icon={Icon} 
-                      color={stat.color} 
-                      isInView={isInView}
-                      delay={i * 0.2}
+                  {/* Background Icon - Static, NOT rotating */}
+                  <div className="absolute -bottom-2 -right-2 opacity-10 pointer-events-none">
+                    <Icon 
+                      className="w-20 h-20" 
+                      style={{ color: stat.color }}
+                      strokeWidth={1}
                     />
                   </div>
                   
@@ -162,13 +125,13 @@ export const ProofSection = ({ className = '' }) => {
         </div>
       </LightCoordinator>
 
-      {/* Testimonials with scroll-triggered animations */}
+      {/* Testimonials */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {testimonials.map((testimonial, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 40, rotateX: -10 }}
-            animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ 
               delay: 0.4 + i * 0.15, 
               duration: 0.6,
@@ -176,9 +139,8 @@ export const ProofSection = ({ className = '' }) => {
             }}
             whileHover={{ y: -5, scale: 1.02 }}
             className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] relative group cursor-pointer"
-            style={{ perspective: '1000px' }}
           >
-            {/* Quote mark with animation */}
+            {/* Quote mark */}
             <motion.div 
               className="absolute -top-3 left-6 text-4xl text-[#00E5FF]/30 font-serif"
               initial={{ scale: 0, rotate: -20 }}
@@ -210,18 +172,11 @@ export const ProofSection = ({ className = '' }) => {
                 {testimonial.metric}
               </motion.div>
             </div>
-            
-            {/* Hover glow effect */}
-            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-              style={{ 
-                background: 'radial-gradient(circle at center, rgba(0,229,255,0.05), transparent 70%)'
-              }}
-            />
           </motion.div>
         ))}
       </div>
 
-      {/* Trust indicators with staggered animation */}
+      {/* Trust indicators */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -239,14 +194,8 @@ export const ProofSection = ({ className = '' }) => {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.9 + i * 0.1 }}
-            whileHover={{ scale: 1.05 }}
           >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-            >
-              <item.icon className="w-4 h-4" style={{ color: item.color }} />
-            </motion.div>
+            <item.icon className="w-4 h-4" style={{ color: item.color }} />
             <span>
               <strong className="text-[hsl(var(--foreground))]">{item.label}</strong> {item.sublabel}
             </span>
